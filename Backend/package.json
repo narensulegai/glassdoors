@@ -6,7 +6,7 @@
   "scripts": {
     "test": "PORT=5001 mocha  --exit",
     "start": "nodemon --ignore uploads --ignore kafkaServer.js nodeServer.js -V",
-    "kafka": "GROUP=yelp-module nodemon --ignore uploads kafkaServer.js -V"
+    "kafka": "GROUP=glassdoor-module nodemon --ignore uploads kafkaServer.js -V"
   },
   "author": "",
   "license": "ISC",
@@ -25,8 +25,6 @@
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-joi-validation": "^4.0.4-beta.0",
-    "express-session": "^1.17.1",
     "joi": "^17.2.1",
     "jsonwebtoken": "^8.5.1",
     "kafkajs": "^1.14.0",

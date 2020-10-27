@@ -1,6 +1,7 @@
 const { Sequelize } = require('sequelize');
 const models = require('./models');
 
+console.log('Connecting to MySQL using connection string', process.env.MYSQL_CONNECTION);
 const db = new Sequelize(process.env.MYSQL_CONNECTION);
 
 const dbModel = models.reduce((acc, m) => {

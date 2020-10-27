@@ -15,5 +15,6 @@ mongoose.connection.once('open', () => {
 // Import and re-export models here
 
 const Company = require('./schemas/company')(mongoose);
+const Employee = require('./schemas/employee')(mongoose);
 
-module.exports = { Company };
+module.exports = { Company, Employee };

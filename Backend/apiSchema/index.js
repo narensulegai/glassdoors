@@ -20,23 +20,11 @@ const schema = {
     name: reqStr('Company name'),
     email: Joi.string().email().required().label('Company email'),
     password: reqStr('Password'),
-    description: reqStr('Description'),
-    size: reqStr('Size'),
-    type: reqStr('Type'),
-    revenue: reqStr('Revenue'),
-    headquarters: reqStr('Headquarters'),
-    founded: reqStr('Founded'),
-    website: reqStr('Website'),
-    mission: reqStr('Mission'),
   }),
   signupEmployee: Joi.object({
     name: reqStr('Name'),
     email: Joi.string().email().required().label('Email'),
     password: reqStr('Password'),
-    race: reqStr('Description'),
-    gender: reqStr('Size'),
-    disability: optStr('Type'),
-    veteranStatus: optStr('Revenue'),
   }),
 };
 

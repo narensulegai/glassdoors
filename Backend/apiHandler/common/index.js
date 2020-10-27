@@ -36,7 +36,7 @@ module.exports = {
         resp.json({ token, user });
       } catch (e) {
         if (e.code === 11000) {
-          resp.status(400).json(err('Company name is already taken'));
+          resp.status(400).json(err('Company name and/or email is already taken'));
         } else {
           throw (e);
         }
@@ -62,10 +62,11 @@ module.exports = {
   },
   loginCompany: async (req, res) => {
     const scope = req.params.user;
-    const { name, password } = req.body;
-    const user = await Company.findOne({ name });
+    const { email, password } = req.body;
+    const user = await Company.findOne({ email });
+    console.log(user, email);
     if (user === null) {
-      res.status(401).json(err('Company doesn\'t exist'));
+      res.status(401).json(err('Email id doesn\'t exist'));
     } else {
       bcrypt.compare(password, user.password, (e, doseMatch) => {
         if (doseMatch) {
