@@ -19,6 +19,7 @@ class EmployeeMain extends Component {
         <div className="container mt-3">
           <Route path="/employee/companies" exact>
             Search for a company
+            <a href="/#/companyHome/:id/overview">Company page</a>
           </Route>
           <Route path="/employee/jobs" exact>
             Search for a job

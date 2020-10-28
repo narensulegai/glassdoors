@@ -17,6 +17,7 @@ class CompanyMain extends Component {
         <div className="container mt-3">
           <Route path="/company/overview" exact>
             Overview
+            <a href="/#/companyHome/:id/overview" target="_blank">Company page</a>
           </Route>
           <Route path="/company/review" exact>
             Review

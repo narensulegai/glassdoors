@@ -15,6 +15,7 @@ class AdminMain extends Component {
         <div className="container mt-3">
           <Route path="/admin/reviewsAndPictures" exact>
             Reviews and pictures
+            <a href="/#/companyHome/:id/overview" target="_blank">Company page</a>
           </Route>
           <Route path="/admin/companyProfilePage" exact>
             Company profile page
