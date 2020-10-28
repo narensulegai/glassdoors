@@ -3,9 +3,11 @@ import './App.css';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Landing from './components/Landing';
 import Signup from './components/Signup';
-import EmployeeHome from './components/employee/Home';
-import CompanyHome from './components/company/Home';
+import EmployeeMain from './components/EmployeeMain';
+import CompanyMain from './components/CompanyMain';
+import AdminMain from './components/AdminMain';
 import Logout from './components/Logout';
+import CompanyHome from './components/CompanyHome';
 
 function App() {
   return (
@@ -14,19 +16,25 @@ function App() {
         <Route path="/" exact>
           <Landing />
         </Route>
-        <Route path="/company">
+        <Route path="/companyHome/:id">
           <CompanyHome />
         </Route>
-        <Route path="/employee">
-          <EmployeeHome />
+        <Route path="/company">
+          <CompanyMain />
         </Route>
-        <Route path="/companySignup">
+        <Route path="/employee">
+          <EmployeeMain />
+        </Route>
+        <Route path="/admin">
+          <AdminMain />
+        </Route>
+        <Route path="/companySignup" exact>
           <Signup type="company" />
         </Route>
-        <Route path="/employeeSignup">
+        <Route path="/employeeSignup" exact>
           <Signup type="employee" />
         </Route>
-        <Route path="/logout">
+        <Route path="/logout" exact>
           <Logout />
         </Route>
       </Switch>

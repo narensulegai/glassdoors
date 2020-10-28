@@ -2,7 +2,7 @@ import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import { loginUser } from '../util/fetch/api';
 
-const LoginPage = ({ onLogin, type }) => {
+const Login = ({ onLogin, type }) => {
   const email = createRef();
   const password = createRef();
 
@@ -10,10 +10,11 @@ const LoginPage = ({ onLogin, type }) => {
     loginUser(type, {
       email: email.current.value,
       password: password.current.value,
-    }).then(({ token, user }) => {
-      window.localStorage.setItem('token', token);
-      onLogin(user);
-    });
+    })
+      .then(({ token, user }) => {
+        window.localStorage.setItem('token', token);
+        onLogin(user);
+      });
   };
 
   return (
@@ -31,9 +32,9 @@ const LoginPage = ({ onLogin, type }) => {
   );
 };
 
-LoginPage.propTypes = {
+Login.propTypes = {
   onLogin: PropTypes.func,
   type: PropTypes.string,
 };
 
-export default LoginPage;
+export default Login;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
-class Home extends Component {
+class CompanyMain extends Component {
   render() {
     return (
       <>
@@ -15,19 +15,19 @@ class Home extends Component {
           <a className="nav-link" href="#/logout">Logout</a>
         </nav>
         <div className="container mt-3">
-          <Route path="/company/overview">
+          <Route path="/company/overview" exact>
             Overview
           </Route>
-          <Route path="/company/review">
+          <Route path="/company/review" exact>
             Review
           </Route>
-          <Route path="/company/job">
+          <Route path="/company/job" exact>
             Job
           </Route>
-          <Route path="/company/applications">
+          <Route path="/company/applications" exact>
             Applications
           </Route>
-          <Route path="/company/report">
+          <Route path="/company/report" exact>
             Report
           </Route>
         </div>
@@ -36,4 +36,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default CompanyMain;

@@ -61,17 +61,15 @@ module.exports = {
     });
   },
   loginCompany: async (req, res) => {
-    const scope = req.params.user;
     const { email, password } = req.body;
     const user = await Company.findOne({ email });
-    console.log(user, email);
     if (user === null) {
       res.status(401).json(err('Email id doesn\'t exist'));
     } else {
       bcrypt.compare(password, user.password, (e, doseMatch) => {
         if (doseMatch) {
           delete user.password;
-          const payload = { user, scope };
+          const payload = { user, scope: 'company' };
           const token = signPayload(payload);
           res.json({ token, user });
         } else {
@@ -90,11 +88,30 @@ module.exports = {
       bcrypt.compare(password, user.password, (e, doseMatch) => {
         if (doseMatch) {
           delete user.password;
-          const payload = { user, scope };
+          const payload = { user, scope: 'employee' };
           const token = signPayload(payload);
           res.json({ token, user });
         } else {
           res.status(401).json(err('Email password doesn\'t match'));
+        }
+      });
+    }
+  },
+  loginAdmin: async (req, res) => {
+    const adminEmail = 'admin@glassdoor.com';
+    const pwdHash = '$2b$10$XBjuYFTtexW8YsvdkKuOpeuXoJ8nxUXQuaUkPwYfQrzOdTmDi1jH2';
+    const { email, password } = req.body;
+    if (email !== adminEmail) {
+      res.status(401).json(err(`Email doesn't exist, try ${adminEmail}`));
+    } else {
+      bcrypt.compare(password, pwdHash, (e, doseMatch) => {
+        if (doseMatch) {
+          const user = { email: adminEmail, name: 'Admin' };
+          const payload = { user, scope: 'admin' };
+          const token = signPayload(payload);
+          res.json({ token, user });
+        } else {
+          res.status(401).json(err('Email password doesn\'t match, try pwd'));
         }
       });
     }
