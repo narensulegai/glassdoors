@@ -29,6 +29,7 @@
         "react/jsx-closing-bracket-location": "off",
         "react/jsx-closing-tag-location": "off",
         "react/destructuring-assignment": "off",
-        "react/jsx-one-expression-per-line": "off"
+        "react/jsx-one-expression-per-line": "off",
+        "no-shadow": "off"
     }
 }

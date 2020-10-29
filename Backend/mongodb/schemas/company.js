@@ -4,7 +4,7 @@ module.exports = (mongoose) => {
     email: { type: String, required: true, index: { unique: true } },
     password: { type: String, required: true },
     description: { type: String },
-    size: { type: String },
+    size: { type: Number },
     type: { type: String },
     revenue: { type: String },
     headquarters: { type: String },

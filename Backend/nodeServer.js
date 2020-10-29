@@ -37,12 +37,13 @@ app.use(cors({
 const apiVersion = '/apiV1';
 
 [
-  ['get', '/current', handler.common.current, null],
+  ['get', '/currentUser', handler.common.currentUser, null],
   ['post', '/signup/company', handler.common.signupCompany, null, schema.signupCompany],
   ['post', '/signup/employee', handler.common.signupEmployee, null, schema.signupCompany],
   ['put', '/login/company', handler.common.loginCompany, null],
   ['put', '/login/employee', handler.common.loginEmployee, null],
   ['put', '/login/admin', handler.common.loginAdmin, null],
+  ['put', '/company', handler.company.update, 'company', schema.updateCompany],
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {
     const token = req.header('authorization');

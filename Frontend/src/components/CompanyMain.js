@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import Overview from './company/Overview';
 
 class CompanyMain extends Component {
   render() {
     return (
       <>
-        <nav className="navbar navbar-expand-lg navbar-light bg-dark">
+        <nav className="navbar navbar-expand-lg bg-dark">
           <div className="navbar-brand text-light">Glassdoor</div>
           <a className="nav-link text-light" href="#/company/overview">Overview</a>
           <a className="nav-link text-light" href="#/company/review">Reviews</a>
@@ -16,8 +17,7 @@ class CompanyMain extends Component {
         </nav>
         <div className="container mt-3">
           <Route path="/company/overview" exact>
-            Overview
-            <a href="/#/companyHome/:id/overview" target="_blank">Company page</a>
+            <Overview />
           </Route>
           <Route path="/company/review" exact>
             Review

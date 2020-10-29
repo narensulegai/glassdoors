@@ -1,9 +1,9 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { Company, Employee } = require('../../mongodb');
+const { err } = require('../util');
 
 const saltRounds = 10;
-const err = (msg) => ({ err: msg });
 const expiresIn = 1008000;
 
 const signPayload = (payload) => {
@@ -12,14 +12,14 @@ const signPayload = (payload) => {
 };
 
 module.exports = {
-  current: async (req, resp) => {
+  currentUser: async (req, resp) => {
     if (req.session && req.session.scope) {
       let user = {};
       if (req.session.scope === 'company') {
-        user = await Company.findById(req.session.user.id);
+        user = await Company.findById(req.session.user._id);
       }
       if (req.session.scope === 'employee') {
-        user = await Employee.findById(req.session.user.id);
+        user = await Employee.findById(req.session.user._id);
       }
       resp.json({ user, scope: req.session.scope });
     } else {
@@ -68,7 +68,6 @@ module.exports = {
     } else {
       bcrypt.compare(password, user.password, (e, doseMatch) => {
         if (doseMatch) {
-          delete user.password;
           const payload = { user, scope: 'company' };
           const token = signPayload(payload);
           res.json({ token, user });
@@ -79,7 +78,6 @@ module.exports = {
     }
   },
   loginEmployee: async (req, res) => {
-    const scope = req.params.user;
     const { email, password } = req.body;
     const user = await Employee.findOne({ email });
     if (user === null) {
@@ -87,7 +85,6 @@ module.exports = {
     } else {
       bcrypt.compare(password, user.password, (e, doseMatch) => {
         if (doseMatch) {
-          delete user.password;
           const payload = { user, scope: 'employee' };
           const token = signPayload(payload);
           res.json({ token, user });
@@ -99,7 +96,7 @@ module.exports = {
   },
   loginAdmin: async (req, res) => {
     const adminEmail = 'admin@glassdoor.com';
-    const pwdHash = '$2b$10$XBjuYFTtexW8YsvdkKuOpeuXoJ8nxUXQuaUkPwYfQrzOdTmDi1jH2';
+    const pwdHash = '$2b$10$XBjuYFTtexW8YsvdkKuOpeuXoJ8nxUXQuaUkPwYfQrzOdTmDi1jH2'; // pwd
     const { email, password } = req.body;
     if (email !== adminEmail) {
       res.status(401).json(err(`Email doesn't exist, try ${adminEmail}`));
@@ -115,10 +112,5 @@ module.exports = {
         }
       });
     }
-  },
-  updateCompanyProfile: async (req, resp) => {
-    const company = await Company.findById(req.session.user.id);
-    Object.assign(company, req.body);
-    resp.json(await company.save());
   },
 };
