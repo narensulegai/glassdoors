@@ -119,6 +119,12 @@ body {
 }
 
 .inputLabel {
-    color: #5c5c5c;
-    margin: 5px 0 2px 0;
+    color: #6a6a6a;
+    margin: 5px 10px 2px 0;
+}
+
+.divider {
+    margin-left: 10px;
+    margin-right: 10px;
+    border-right: 1px solid var(--gray);
 }

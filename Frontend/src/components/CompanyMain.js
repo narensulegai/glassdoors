@@ -8,7 +8,7 @@ class CompanyMain extends Component {
     return (
       <>
         <nav className="navbar navbar-expand-lg bg-dark">
-          <div className="navbar-brand text-light">Glassdoor</div>
+          <a className="navbar-brand text-light" href="#/">Glassdoor</a>
           <a className="nav-link text-light" href="#/company/overview">Overview</a>
           <a className="nav-link text-light" href="#/company/review">Reviews</a>
           <a className="nav-link text-light" href="#/company/jobPosting">Job posting</a>

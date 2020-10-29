@@ -10,6 +10,8 @@ export const updateCompany = (d) => put('company', d);
 export const addJobPosting = (d) => post('jobPosting', d);
 export const getJobPosting = (d) => get('jobPosting', d);
 export const updateEmployee = (d) => put('employee', d);
+export const searchCompany = (text) => get(`search/company?text=${text}`);
+export const getCompany = (id) => get(`company/${id}`);
 // export const deleteCompany = (id) => destroy(`company/${id}`);
 export const logout = () => put('logout');
 export const fileUrl = (fileId) => {

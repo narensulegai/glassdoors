@@ -50,6 +50,7 @@ const apiVersion = '/apiV1';
   ['get', '/jobPosting', handler.company.getJobPosting, 'company'],
   ['put', '/employee', handler.employee.update, 'employee'],
   ['get', '/search/company', handler.employee.searchCompany, 'employee'],
+  ['get', '/company/:id', handler.employee.getCompany, 'employee'],
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {
     const token = req.header('authorization');

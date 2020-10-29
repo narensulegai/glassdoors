@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Route } from 'react-router-dom';
 
-class AdminMain extends Component {
+class AdminMain extends PureComponent {
   render() {
     return (
       <>
@@ -15,7 +15,6 @@ class AdminMain extends Component {
         <div className="container mt-3">
           <Route path="/admin/reviewsAndPictures" exact>
             Reviews and pictures
-            <a href="/#/companyHome/:id/overview" target="_blank">Company page</a>
           </Route>
           <Route path="/admin/companyProfilePage" exact>
             Company profile page

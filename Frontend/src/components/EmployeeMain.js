@@ -3,16 +3,17 @@ import { Route } from 'react-router-dom';
 import ProfileAndActivity from './employee/ProfileAndActivity';
 import JobPreferences from './employee/JobPreferences';
 import Demographics from './employee/Demographics';
+import CompanySearch from './employee/CompanySearch';
 
 class EmployeeMain extends Component {
   render() {
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light bg-dark">
-          <div className="navbar-brand text-light">Glassdoor</div>
-          <a className="nav-link text-light" href="#/employee/companies">Companies</a>
-          <a className="nav-link text-light" href="#/employee/jobs">Jobs</a>
-          <a className="nav-link text-light" href="#/employee/myJobApplications">My job applications</a>
+          <a className="navbar-brand text-light" href="#/">Glassdoor</a>
+          <a className="nav-link text-light" href="#/employee/companySearch">Company search</a>
+          <a className="nav-link text-light" href="#/employee/jobSearch">Job search</a>
+          <a className="nav-link text-light" href="#/employee/jobApplications">Job applications</a>
           <a className="nav-link text-light" href="#/employee/profileAndActivity">Profile and activity</a>
           <a className="nav-link text-light" href="#/employee/resume">Resume</a>
           <a className="nav-link text-light" href="#/employee/jobPreferences">Job preferences</a>
@@ -20,15 +21,14 @@ class EmployeeMain extends Component {
           <a className="nav-link" href="#/logout">Logout</a>
         </nav>
         <div className="container mt-3">
-          <Route path="/employee/companies" exact>
-            Search for a company
-            <a href="/#/companyHome/:id/overview">Company page</a>
+          <Route path="/employee/companySearch" exact>
+            <CompanySearch />
           </Route>
-          <Route path="/employee/jobs" exact>
+          <Route path="/employee/jobSearch" exact>
             Search for a job
           </Route>
-          <Route path="/employee/myJobApplications" exact>
-            My job applications
+          <Route path="/employee/jobApplications" exact>
+            Job applications
           </Route>
           <Route path="/employee/profileAndActivity" exact>
             <ProfileAndActivity />

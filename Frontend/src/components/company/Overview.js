@@ -31,7 +31,7 @@ const Overview = () => {
       type: typeRef.current.value,
       revenue: revenueRef.current.value,
       headquarters: headquartersRef.current.value,
-      foundedRef: foundedRef.current.value,
+      founded: foundedRef.current.value,
       website: websiteRef.current.value,
       mission: missionRef.current.value,
     };

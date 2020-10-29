@@ -1,25 +1,31 @@
 import React, { PureComponent } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
+import CompanyOverview from './companyHome/CompanyOverview';
 
 class CompanyHome extends PureComponent {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = { companyId: null };
+  }
 
+  componentDidMount() {
+    this.setState({ companyId: this.props.match.params.id });
   }
 
   render() {
     return (
       <>
-        <nav className="navbar navbar-expand-lg navbar-light bg-dark">
-          <div className="navbar-brand text-light">Company name</div>
-          <a className="nav-link text-light" href="#/companyHome/:id/overview">Overview</a>
-          <a className="nav-link text-light" href="#/companyHome/:id/reviews">Reviews</a>
-          <a className="nav-link text-light" href="#/companyHome/:id/jobs">Jobs</a>
-          <a className="nav-link text-light" href="#/companyHome/:id/salaries">Salaries</a>
-          <a className="nav-link text-light" href="#/companyHome/:id/photos">Photos</a>
+        <nav className="navbar navbar-expand-lg bg-dark">
+          <a className="navbar-brand text-light" href="#/">Glassdoor</a>
+          <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/companyOverview`}>Overview</a>
+          <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/reviews`}>Reviews</a>
+          <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/jobs`}>Jobs</a>
+          <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/salaries`}>Salaries</a>
+          <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/photos`}>Photos</a>
         </nav>
         <div className="container mt-3">
-          <Route path="/companyHome/:id/overview" exact>
-            Overview
+          <Route path="/companyHome/:id/companyOverview" exact>
+            <CompanyOverview />
           </Route>
           <Route path="/companyHome/:id/reviews" exact>
             Reviews
@@ -39,4 +45,4 @@ class CompanyHome extends PureComponent {
   }
 }
 
-export default CompanyHome;
+export default withRouter(CompanyHome);

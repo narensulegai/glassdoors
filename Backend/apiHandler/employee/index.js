@@ -9,8 +9,16 @@ module.exports = {
     resp.json(emp);
   },
   searchCompany: async (req, res) => {
+    const { text } = req.query;
+    // TODO Use text index search
     res.json(await Company
-      .find()
-      .sort({ createdAt: -1 }));
+      .find({ name: { $regex: text, $options: 'i' } }));
+  },
+  getCompany: async (req, res) => {
+    const companyId = req.params.id;
+    console.log(companyId);
+    const company = await Company.findById(companyId);
+    console.log(company);
+    res.json(company);
   },
 };
