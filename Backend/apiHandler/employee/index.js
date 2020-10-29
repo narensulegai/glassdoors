@@ -16,9 +16,8 @@ module.exports = {
   },
   getCompany: async (req, res) => {
     const companyId = req.params.id;
-    console.log(companyId);
-    const company = await Company.findById(companyId);
-    console.log(company);
+    const company = await Company.findById(companyId)
+      .populate('jobPostings');
     res.json(company);
   },
 };

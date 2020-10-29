@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import CompanyOverview from './companyHome/CompanyOverview';
+import CompanyJobs from './companyHome/CompanyJobs';
 
 class CompanyHome extends PureComponent {
   constructor(props) {
@@ -19,7 +20,7 @@ class CompanyHome extends PureComponent {
           <a className="navbar-brand text-light" href="#/">Glassdoor</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/companyOverview`}>Overview</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/reviews`}>Reviews</a>
-          <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/jobs`}>Jobs</a>
+          <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/companyJobs`}>Jobs</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/salaries`}>Salaries</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/photos`}>Photos</a>
         </nav>
@@ -30,8 +31,8 @@ class CompanyHome extends PureComponent {
           <Route path="/companyHome/:id/reviews" exact>
             Reviews
           </Route>
-          <Route path="/companyHome/:id/jobs" exact>
-            Jobs
+          <Route path="/companyHome/:id/companyJobs" exact>
+            <CompanyJobs />
           </Route>
           <Route path="/companyHome/:id/salaries" exact>
             Salaries

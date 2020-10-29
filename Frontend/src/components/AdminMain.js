@@ -6,7 +6,7 @@ class AdminMain extends PureComponent {
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light bg-dark">
-          <div className="navbar-brand text-light">Glassdoor Admin</div>
+          <a className="navbar-brand text-light" href="#/">Glassdoor Admin</a>
           <a className="nav-link text-light" href="#/admin/reviewsAndPictures">Reviews and pictures</a>
           <a className="nav-link text-light" href="#/admin/companyProfilePage">Company profile page</a>
           <a className="nav-link text-light" href="#/admin/analyticsDashboard">Analytics dashboard</a>

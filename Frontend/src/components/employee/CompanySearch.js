@@ -41,12 +41,15 @@ const CompanySearch = () => {
                     <span className="divider" />
                     <span className="inputLabel">Website</span><span>{c.website}</span>
                   </div>
-                  
-                  <span className="inputLabel"># Reviews</span><span>-</span>
-                  <span className="divider" />
-                  <span className="inputLabel"># Salary reviews</span><span>-</span>
-                  <span className="divider" />
-                  <span className="inputLabel"># Interview reviews</span><span>-</span>
+
+                  <div>
+                    <span className="inputLabel"># Reviews</span><span>-</span>
+                    <span className="divider" />
+                    <span className="inputLabel"># Salary reviews</span><span>-</span>
+                    <span className="divider" />
+                    <span className="inputLabel"># Interview reviews</span><span>-</span>
+                  </div>
+
                 </div>
               </div>
             );
