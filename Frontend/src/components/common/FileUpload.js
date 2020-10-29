@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { apiUrl } from '../util/fetch';
+import { apiUrl } from '../../util/fetch';
 
 const FileUpload = ({ singleFile, onUpload }) => {
   const handleOnChange = (e) => {
@@ -10,7 +10,11 @@ const FileUpload = ({ singleFile, onUpload }) => {
     for (const file of files) {
       data.append('files', file, file.name);
     }
-    fetch(`${apiUrl}/uploadFile`, {
+
+    const token = localStorage.getItem('token');
+    
+    fetch(`${apiUrl}/file`, {
+      headers: { authorization: token },
       method: 'POST',
       body: data,
     })

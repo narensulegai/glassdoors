@@ -102,5 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
-Frontend/.idea/*
-Backend/.idea/*
+Frontend/.idea
+Backend/.idea
+Backend/uploads

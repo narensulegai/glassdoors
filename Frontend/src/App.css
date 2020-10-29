@@ -54,9 +54,17 @@ body {
 }
 
 .imageTile {
-    height: 100%;
+    height: 100px;
     width: 100px;
+}
+
+.imageTile img {
     border-radius: 5px;
+    display: block;
+    max-width: 100px;
+    max-height: 100px;
+    width: auto;
+    height: auto;
 }
 
 .multiImage, .profileImage {

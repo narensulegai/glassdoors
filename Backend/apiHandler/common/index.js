@@ -1,3 +1,5 @@
+const multer = require('multer');
+const path = require('path');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { Company, Employee } = require('../../mongodb');
@@ -25,6 +27,21 @@ module.exports = {
     } else {
       resp.json({ user: null, scope: null });
     }
+  },
+  uploadFile: async (req, res) => {
+    const upload = multer({ dest: 'uploads/' }).array('files', 5);
+    upload(req, res, (e) => {
+      if (e) {
+        res.status(400).json(err('Error while uploading file'));
+      } else {
+        res.json({ files: req.files.map((f) => f.filename) });
+      }
+    });
+  },
+  getFile: async (req, res) => {
+    const fileId = req.params.id;
+    // TODO: file path injection
+    res.sendFile(path.join(__dirname, '../../uploads', fileId));
   },
   signupCompany: async (req, resp) => {
     bcrypt.hash(req.body.password, saltRounds, async (e, password) => {

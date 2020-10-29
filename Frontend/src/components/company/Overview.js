@@ -1,12 +1,17 @@
 import React, { createRef, useEffect, useState } from 'react';
-import { currentUser, updateCompany } from '../../util/fetch/api';
+import { currentUser, fileUrl, updateCompany } from '../../util/fetch/api';
+import FileUpload from '../common/FileUpload';
 
 const Overview = () => {
   const [company, setCompany] = useState({});
+
+  const reloadProfile = async () => {
+    const { user: company } = await currentUser();
+    setCompany(company);
+  };
   useEffect(() => {
     (async () => {
-      const { user: company } = await currentUser();
-      setCompany(company);
+      await reloadProfile();
     })();
   }, []);
 
@@ -31,14 +36,30 @@ const Overview = () => {
       mission: missionRef.current.value,
     };
     await updateCompany(d);
+    await reloadProfile();
     const { user: company } = await currentUser();
     setCompany(company);
+  };
+
+  const handleOnFileUpload = async ({ files }) => {
+    const fileId = files[0];
+    await updateCompany({ profilePic: fileId });
+    setCompany({ ...company, profilePic: fileId });
   };
 
   return (
     <div className="row">
       <div className="col-12">
         <h4><b>{company.name}</b>&nbsp;({company.email})</h4>
+
+        <div className="imageTile">
+          {company.profilePic
+            ? <img src={fileUrl(company.profilePic)} alt="" />
+            : <div>No pic</div>}
+        </div>
+
+        <FileUpload singleFile onUpload={handleOnFileUpload} />
+
         <div><b>Description</b></div>
         <div><input type="text" ref={descriptionRef} defaultValue={company.description} /></div>
         <div><b>Size</b></div>
@@ -63,8 +84,6 @@ const Overview = () => {
   );
 };
 
-Overview.propTypes = {
-
-};
+Overview.propTypes = {};
 
 export default Overview;

@@ -11,6 +11,7 @@ module.exports = (mongoose) => {
     founded: { type: String },
     website: { type: String },
     mission: { type: String },
+    profilePic: { type: String },
   },
   {
     timestamps: true,
