@@ -43,30 +43,29 @@ const JobPosting = () => {
     <div className="row">
       <div className="col-6">
         <h6>Add job posting</h6>
-        <div><b>Job title</b></div>
-        <div><input type="text" ref={titleRef} /></div>
-        <div><b>Industry</b></div>
-        <div><input type="text" ref={industryRef} /></div>
-        <div><b>Country</b></div>
-        <div><input type="text" ref={countryRef} /></div>
-        <div>
-          <div><b className="mr-3">Work style</b></div>
-          <div>
-            <input type="radio" name="workStyle" defaultChecked />&nbsp;In-person&nbsp;
-            <input type="radio" name="workStyle" ref={remoteRef} />&nbsp;Remote
-          </div>
-        </div>
-        <div><b>Street address</b></div>
-        <div><input type="text" ref={streetAddressRef} /></div>
-        <div><b>City</b></div>
-        <div><input type="text" ref={cityRef} /></div>
-        <div><b>State</b></div>
-        <div><input type="text" ref={stateRef} /></div>
-        <div><b>Zip</b></div>
-        <div><input type="text" ref={zipRef} /></div>
+
+        <div className="inputLabel">Job title</div>
+        <input type="text" ref={titleRef} />
+        <div className="inputLabel">Industry</div>
+        <input type="text" ref={industryRef} />
+        <div className="inputLabel">Country</div>
+        <input type="text" ref={countryRef} />
+        <div className="inputLabel">Work style</div>
+        <input type="radio" name="workStyle" defaultChecked />&nbsp;In-person&nbsp;
+        <input type="radio" name="workStyle" ref={remoteRef} />&nbsp;Remote
+        <div className="inputLabel">Street address</div>
+        <input type="text" ref={streetAddressRef} />
+        <div className="inputLabel">City</div>
+        <input type="text" ref={cityRef} />
+        <div className="inputLabel">State</div>
+        <input type="text" ref={stateRef} />
+        <div className="inputLabel">Zip</div>
+        <input type="text" ref={zipRef} />
+
         <div className="mt-3">
           <button className="btn-primary" onClick={handleOnAdd}>Add</button>
         </div>
+
       </div>
       <div className="col-6">
         <h6>Current job posting</h6>
@@ -75,11 +74,11 @@ const JobPosting = () => {
           return (
             <div key={j._id} className="card mb-3">
               <div className="card-body">
-                <div><b>Title&nbsp;</b>{j.title}</div>
-                <div><b>Industry&nbsp;</b>{j.industry}</div>
-                <div><b>Country&nbsp;</b>{j.country}</div>
-                <div><b>Work style&nbsp;</b>{j.inPerson ? 'In-person' : 'Remote'}</div>
-                <div className="small">Created on {formatDate(j.createdAt)}</div>
+                <div><span className="inputLabel">Title&nbsp;</span>{j.title}</div>
+                <div><span className="inputLabel">Industry&nbsp;</span>{j.industry}</div>
+                <div><span className="inputLabel">Country&nbsp;</span>{j.country}</div>
+                <div><span className="inputLabel">Work style&nbsp;</span>{j.inPerson ? 'In-person' : 'Remote'}</div>
+                <div className="small inputLabel">Created on {formatDate(j.createdAt)}</div>
               </div>
             </div>
           );

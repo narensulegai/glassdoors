@@ -60,21 +60,21 @@ const Overview = () => {
 
         <FileUpload singleFile onUpload={handleOnFileUpload} />
 
-        <div><b>Description</b></div>
+        <div className="inputLabel">Description</div>
         <div><input type="text" ref={descriptionRef} defaultValue={company.description} /></div>
-        <div><b>Size</b></div>
+        <div className="inputLabel">Size</div>
         <div><input type="number" ref={sizeRef} defaultValue={company.size} /></div>
-        <div><b>Type</b></div>
+        <div className="inputLabel">Type</div>
         <div><input type="text" ref={typeRef} defaultValue={company.type} /></div>
-        <div><b>Revenue</b></div>
+        <div className="inputLabel">Revenue</div>
         <div><input type="text" ref={revenueRef} defaultValue={company.revenue} /></div>
-        <div><b>Headquarters</b></div>
+        <div className="inputLabel">Headquarters</div>
         <div><input type="text" ref={headquartersRef} defaultValue={company.headquarters} /></div>
-        <div><b>Founded</b></div>
+        <div className="inputLabel">Founded</div>
         <div><input type="text" ref={foundedRef} defaultValue={company.founded} /></div>
-        <div><b>Website</b></div>
+        <div className="inputLabel">Website</div>
         <div><input type="text" ref={websiteRef} defaultValue={company.website} /></div>
-        <div><b>Mission</b></div>
+        <div className="inputLabel">Mission</div>
         <div><input type="text" ref={missionRef} defaultValue={company.mission} /></div>
         <div className="mt-2">
           <button className="btn-primary" onClick={handleOnSave}>Save</button>

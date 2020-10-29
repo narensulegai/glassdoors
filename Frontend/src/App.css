@@ -117,3 +117,8 @@ body {
 .currMessage {
     background: rgba(0, 136, 0, 0.2);
 }
+
+.inputLabel {
+    color: #5c5c5c;
+    margin: 5px 0 2px 0;
+}
