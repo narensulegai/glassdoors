@@ -16,6 +16,7 @@ const optStr = (label) => Joi.string().allow('').label(label);
 const optFiles = () => Joi.array().items(Joi.string()).label('Files');
 
 // Doc - https://joi.dev/api/?v=17.3.0
+// TODO : complete verify schema for all create and update apis, allowUnknown should be set to false
 const schema = {
   signupCompany: Joi.object({
     name: reqStr('Company name'),
@@ -29,6 +30,9 @@ const schema = {
   }),
   updateCompany: Joi.object({
     website: Joi.string().allow('').domain().label('Website'),
+  }),
+  addJobPosting: Joi.object({
+    title: reqStr('Job title'),
   }),
 };
 

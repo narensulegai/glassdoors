@@ -12,6 +12,7 @@ module.exports = (mongoose) => {
     website: { type: String },
     mission: { type: String },
     profilePic: { type: String },
+    jobPostings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'JobPosting', required: true }],
   },
   {
     timestamps: true,

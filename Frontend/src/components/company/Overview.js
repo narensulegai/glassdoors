@@ -55,7 +55,7 @@ const Overview = () => {
         <div className="imageTile">
           {company.profilePic
             ? <img src={fileUrl(company.profilePic)} alt="" />
-            : <div>No pic</div>}
+            : <div>No pic uploaded</div>}
         </div>
 
         <FileUpload singleFile onUpload={handleOnFileUpload} />

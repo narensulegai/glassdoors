@@ -30,6 +30,7 @@
         "react/jsx-closing-tag-location": "off",
         "react/destructuring-assignment": "off",
         "react/jsx-one-expression-per-line": "off",
+        "no-underscore-dangle": "off",
         "no-shadow": "off"
     }
 }

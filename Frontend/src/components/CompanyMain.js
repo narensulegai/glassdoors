@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Overview from './company/Overview';
+import JobPosting from './company/JobPosting';
 
 class CompanyMain extends Component {
   render() {
@@ -10,7 +11,7 @@ class CompanyMain extends Component {
           <div className="navbar-brand text-light">Glassdoor</div>
           <a className="nav-link text-light" href="#/company/overview">Overview</a>
           <a className="nav-link text-light" href="#/company/review">Reviews</a>
-          <a className="nav-link text-light" href="#/company/job">Job posting</a>
+          <a className="nav-link text-light" href="#/company/jobPosting">Job posting</a>
           <a className="nav-link text-light" href="#/company/applications">Applications</a>
           <a className="nav-link text-light" href="#/company/report">Report</a>
           <a className="nav-link" href="#/logout">Logout</a>
@@ -22,8 +23,8 @@ class CompanyMain extends Component {
           <Route path="/company/review" exact>
             Review
           </Route>
-          <Route path="/company/job" exact>
-            Job
+          <Route path="/company/jobPosting" exact>
+            <JobPosting />
           </Route>
           <Route path="/company/applications" exact>
             Applications
