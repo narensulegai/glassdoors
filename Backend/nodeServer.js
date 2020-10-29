@@ -48,6 +48,8 @@ const apiVersion = '/apiV1';
   ['get', '/file/:id', handler.common.getFile, null],
   ['post', '/jobPosting', handler.company.addJobPosting, 'company', schema.addJobPosting],
   ['get', '/jobPosting', handler.company.getJobPosting, 'company'],
+  ['put', '/employee', handler.employee.update, 'employee'],
+  ['get', '/search/company', handler.employee.searchCompany, 'employee'],
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {
     const token = req.header('authorization');
@@ -86,7 +88,23 @@ const apiVersion = '/apiV1';
       req.requestKafka = callAndWait;
       next();
     }
-  }, r[2]);
+  }, async (req, res, next) => {
+    try {
+      await r[2](req, res, next);
+    } catch (e) {
+      next(e);
+    }
+  });
+});
+
+// Handle errors
+app.use((err, req, res, next) => {
+  if (err) {
+    const { message } = err;
+    res.status(500).json({ err: 'Something went wrong!', message });
+    console.log(err);
+  }
+  next();
 });
 
 app.listen(parseInt(process.env.PORT));

@@ -7,6 +7,7 @@ module.exports = (mongoose) => {
     gender: { type: String },
     disability: { type: String },
     veteranStatus: { type: String },
+    profilePic: { type: String },
   },
   {
     timestamps: true,

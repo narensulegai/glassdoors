@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import ProfileAndActivity from './employee/ProfileAndActivity';
 
 class EmployeeMain extends Component {
   render() {
@@ -10,7 +11,7 @@ class EmployeeMain extends Component {
           <a className="nav-link text-light" href="#/employee/companies">Companies</a>
           <a className="nav-link text-light" href="#/employee/jobs">Jobs</a>
           <a className="nav-link text-light" href="#/employee/myJobApplications">My job applications</a>
-          <a className="nav-link text-light" href="#/employee/profile">Profile</a>
+          <a className="nav-link text-light" href="#/employee/profileAndActivity">Profile and activity</a>
           <a className="nav-link text-light" href="#/employee/resume">Resume</a>
           <a className="nav-link text-light" href="#/employee/jobPreference">Job preference</a>
           <a className="nav-link text-light" href="#/employee/demographics">Demographics</a>
@@ -27,8 +28,8 @@ class EmployeeMain extends Component {
           <Route path="/employee/myJobApplications" exact>
             My job applications
           </Route>
-          <Route path="/employee/profile" exact>
-            My profile
+          <Route path="/employee/profileAndActivity" exact>
+            <ProfileAndActivity />
           </Route>
           <Route path="/employee/resume" exact>
             My resume

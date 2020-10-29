@@ -6,7 +6,7 @@ import { currentUser } from '../util/fetch/api';
 export class Landing extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { currTab: 'company' };
+    this.state = { currTab: 'employee' };
   }
 
   landingPage = (scope) => {
