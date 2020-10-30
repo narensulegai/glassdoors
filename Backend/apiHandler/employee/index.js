@@ -16,6 +16,13 @@ module.exports = {
     res.json(await Company
       .find({ name: { $regex: text, $options: 'i' } }));
   },
+  searchJobPosting: async (req, res) => {
+    const { text } = req.query;
+    // TODO Use text index search
+    res.json(await JobPosting.find({ title: { $regex: text, $options: 'i' } })
+      .populate('company')
+      .sort({ createdAt: -1 }));
+  },
   getCompany: async (req, res) => {
     const companyId = req.params.id;
     const company = await Company.findById(companyId)

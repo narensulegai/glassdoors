@@ -50,6 +50,7 @@ const apiVersion = '/apiV1';
   ['get', '/jobPosting', handler.company.getJobPosting, 'company'],
   ['put', '/employee', handler.employee.update, 'employee'],
   ['get', '/search/company', handler.employee.searchCompany, 'employee'],
+  ['get', '/search/jobPosting', handler.employee.searchJobPosting, 'employee'],
   ['get', '/company/profile/:id', handler.employee.getCompany, 'employee'],
   ['get', '/job/:id', handler.employee.getJob, 'employee'],
   ['put', '/jobApplication/:id', handler.employee.applyJob, 'employee', schema.applyJob],

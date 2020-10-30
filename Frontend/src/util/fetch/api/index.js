@@ -11,6 +11,7 @@ export const addJobPosting = (d) => post('jobPosting', d);
 export const getJobPosting = (d) => get('jobPosting', d);
 export const updateEmployee = (d) => put('employee', d);
 export const searchCompany = (text) => get(`search/company?text=${text}`);
+export const searchJobPosting = (text) => get(`search/jobPosting?text=${text}`);
 export const getCompany = (id) => get(`company/profile/${id}`);
 export const getJob = (id) => get(`job/${id}`);
 export const applyJob = (id, d) => put(`jobApplication/${id}`, d);

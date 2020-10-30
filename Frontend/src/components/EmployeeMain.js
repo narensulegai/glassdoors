@@ -6,6 +6,7 @@ import Demographics from './employee/Demographics';
 import CompanySearch from './employee/CompanySearch';
 import Resume from './employee/Resume';
 import MyJobApplications from './employee/MyJobApplications';
+import JobSearch from './employee/JobSearch';
 
 class EmployeeMain extends Component {
   render() {
@@ -27,7 +28,7 @@ class EmployeeMain extends Component {
             <CompanySearch />
           </Route>
           <Route path="/employee/jobSearch" exact>
-            Search for a job
+            <JobSearch />
           </Route>
           <Route path="/employee/myJobApplications" exact>
             <MyJobApplications />
