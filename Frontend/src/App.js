@@ -8,7 +8,7 @@ import CompanyMain from './components/CompanyMain';
 import AdminMain from './components/AdminMain';
 import Logout from './components/Logout';
 import CompanyHome from './components/CompanyHome';
-import JobMain from "./components/JobMain";
+import JobHome from './components/JobHome';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
           <CompanyHome />
         </Route>
         <Route path="/job/:id">
-          <JobMain />
+          <JobHome />
         </Route>
         <Route path="/company">
           <CompanyMain />

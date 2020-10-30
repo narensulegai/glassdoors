@@ -17,5 +17,8 @@ mongoose.connection.once('open', () => {
 const Company = require('./schemas/company')(mongoose);
 const Employee = require('./schemas/employee')(mongoose);
 const JobPosting = require('./schemas/jobPosting')(mongoose);
+const JobApplication = require('./schemas/jobApplication')(mongoose);
 
-module.exports = { Company, Employee, JobPosting };
+module.exports = {
+  Company, Employee, JobPosting, JobApplication,
+};

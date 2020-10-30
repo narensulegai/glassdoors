@@ -34,7 +34,10 @@ module.exports = {
       if (e) {
         res.status(400).json(err('Error while uploading file'));
       } else {
-        res.json({ files: req.files.map((f) => f.filename) });
+        res.json({
+          files: req.files.map((f) => f.filename),
+          originalFiles: req.files.map((f) => f.originalname),
+        });
       }
     });
   },

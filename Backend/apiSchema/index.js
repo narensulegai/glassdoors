@@ -29,10 +29,14 @@ const schema = {
     password: reqStr('Password'),
   }),
   updateCompany: Joi.object({
-    website: Joi.string().allow('').domain().label('Website'),
+    website: Joi.string().domain().label('Website'),
   }),
   addJobPosting: Joi.object({
     title: reqStr('Job title'),
+  }),
+  applyJob: Joi.object({
+    coverLetter: reqStr('Cover letter'),
+    resume: reqStr('Resume'),
   }),
 };
 

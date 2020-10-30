@@ -10,7 +10,7 @@ const CompanyOverview = () => {
     (async () => {
       setCompany(await getCompany(companyId));
     })();
-  }, []);
+  }, [companyId]);
 
   return (
     <div className="row">

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { apiUrl } from '../../util/fetch';
 
-const FileUpload = ({ singleFile, onUpload }) => {
+const FileUpload = ({ singleFile, onUpload, accept = 'image/*' }) => {
   const handleOnChange = (e) => {
     const { files } = e.target;
     const data = new FormData();
@@ -12,7 +12,7 @@ const FileUpload = ({ singleFile, onUpload }) => {
     }
 
     const token = localStorage.getItem('token');
-    
+
     fetch(`${apiUrl}/file`, {
       headers: { authorization: token },
       method: 'POST',
@@ -23,14 +23,15 @@ const FileUpload = ({ singleFile, onUpload }) => {
   };
   return (
     singleFile
-      ? <input type="file" accept="image/*" onChange={handleOnChange} className="uploadButton" />
-      : <input type="file" accept="image/*" onChange={handleOnChange} className="uploadButton" multiple />
+      ? <input type="file" accept={accept} onChange={handleOnChange} className="uploadButton" />
+      : <input type="file" accept={accept} onChange={handleOnChange} className="uploadButton" multiple />
   );
 };
 
 FileUpload.propTypes = {
   onUpload: PropTypes.func,
   singleFile: PropTypes.bool,
+  accept: PropTypes.string,
 };
 
 export default FileUpload;

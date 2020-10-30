@@ -11,7 +11,7 @@ const CompanyJobs = () => {
       const company = await getCompany(companyId);
       setJobPostings(company.jobPostings);
     })();
-  }, []);
+  }, [companyId]);
 
   return (
     <div className="row">
@@ -21,7 +21,7 @@ const CompanyJobs = () => {
           return (
             <div key={job._id} className="card mb-3">
               <div className="card-body">
-                <h4><a href={`#/job/${job._id}`} target="_blank">{job.title}</a></h4>
+                <h4><a href={`#/job/${job._id}`} target="_blank" rel="noopener noreferrer">{job.title}</a></h4>
                 <div><span className="inputLabel">Work style</span><span>{job.inPerson ? 'In person' : 'Remote'}</span></div>
               </div>
             </div>

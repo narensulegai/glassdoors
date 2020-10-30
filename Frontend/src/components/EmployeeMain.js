@@ -4,6 +4,7 @@ import ProfileAndActivity from './employee/ProfileAndActivity';
 import JobPreferences from './employee/JobPreferences';
 import Demographics from './employee/Demographics';
 import CompanySearch from './employee/CompanySearch';
+import Resume from './employee/Resume';
 
 class EmployeeMain extends Component {
   render() {
@@ -34,7 +35,7 @@ class EmployeeMain extends Component {
             <ProfileAndActivity />
           </Route>
           <Route path="/employee/resume" exact>
-            My resume
+            <Resume />
           </Route>
           <Route path="/employee/jobPreferences" exact>
             <JobPreferences />

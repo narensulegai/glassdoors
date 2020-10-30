@@ -17,6 +17,11 @@ module.exports = (mongoose) => {
     disability: { type: String },
     veteranStatus: { type: String },
     profilePic: { type: String },
+    resumes: [{
+      fileId: { type: String, required: true },
+      fileName: { type: String, required: true },
+    }],
+    primaryResume: { type: String },
   },
   {
     timestamps: true,

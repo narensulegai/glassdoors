@@ -1,4 +1,6 @@
-const { Employee, JobPosting, Company } = require('../../mongodb');
+const {
+  Employee, JobPosting, Company, JobApplication,
+} = require('../../mongodb');
 const { err } = require('../util');
 
 module.exports = {
@@ -19,5 +21,39 @@ module.exports = {
     const company = await Company.findById(companyId)
       .populate('jobPostings');
     res.json(company);
+  },
+  getJob: async (req, res) => {
+    const jobId = req.params.id;
+    const jobPosting = await JobPosting.findById(jobId)
+      .populate('company');
+    res.json(jobPosting);
+  },
+  applyJob: async (req, res) => {
+    const jobId = req.params.id;
+    const employeeId = req.session.user._id;
+    const jobApplication = new JobApplication({
+      ...req.body, job: jobId, employee: employeeId, status: 'submitted',
+    });
+    res.json(await jobApplication.save());
+  },
+  withdrawJob: async (req, res) => {
+    const jobId = req.params.id;
+    res.json(await JobApplication.findByIdAndDelete(jobId));
+  },
+  addResume: async (req, res) => {
+    const fileId = req.params.id;
+    const { fileName } = req.body;
+    const employee = await Employee.findById(req.session.user._id);
+    if (employee.resumes.length === 0) {
+      employee.primaryResume = fileId;
+    }
+    employee.resumes.push({ fileId, fileName });
+    res.json(await employee.save());
+  },
+  setPrimaryResume: async (req, res) => {
+    const fileId = req.params.id;
+    const employee = await Employee.findById(req.session.user._id);
+    employee.primaryResume = fileId;
+    res.json(await employee.save());
   },
 };
