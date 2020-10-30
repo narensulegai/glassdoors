@@ -17,6 +17,8 @@ export const applyJob = (id, d) => put(`jobApplication/${id}`, d);
 export const withdrawJobApplication = (id) => destroy(`jobApplication/${id}`);
 export const addResume = (id, d) => post(`resume/${id}`, d);
 export const setPrimaryResume = (id) => put(`resume/primary/${id}`);
+export const getCompanyJobApplications = () => get('company/jobApplications');
+export const getEmployeeJobApplications = () => get('employee/jobApplications');
 export const logout = () => put('logout');
 export const fileUrl = (fileId) => {
   return `${apiUrl}/file/${fileId}`;

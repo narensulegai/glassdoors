@@ -5,6 +5,7 @@ import JobPreferences from './employee/JobPreferences';
 import Demographics from './employee/Demographics';
 import CompanySearch from './employee/CompanySearch';
 import Resume from './employee/Resume';
+import MyJobApplications from './employee/MyJobApplications';
 
 class EmployeeMain extends Component {
   render() {
@@ -14,7 +15,7 @@ class EmployeeMain extends Component {
           <a className="navbar-brand text-light" href="#/">Glassdoor</a>
           <a className="nav-link text-light" href="#/employee/companySearch">Company search</a>
           <a className="nav-link text-light" href="#/employee/jobSearch">Job search</a>
-          <a className="nav-link text-light" href="#/employee/jobApplications">Job applications</a>
+          <a className="nav-link text-light" href="#/employee/myJobApplications">Job applications</a>
           <a className="nav-link text-light" href="#/employee/profileAndActivity">Profile and activity</a>
           <a className="nav-link text-light" href="#/employee/resume">Resume</a>
           <a className="nav-link text-light" href="#/employee/jobPreferences">Job preferences</a>
@@ -28,8 +29,8 @@ class EmployeeMain extends Component {
           <Route path="/employee/jobSearch" exact>
             Search for a job
           </Route>
-          <Route path="/employee/jobApplications" exact>
-            Job applications
+          <Route path="/employee/myJobApplications" exact>
+            <MyJobApplications />
           </Route>
           <Route path="/employee/profileAndActivity" exact>
             <ProfileAndActivity />

@@ -1,4 +1,4 @@
-import React, { createRef, useState } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 import { searchCompany } from '../../util/fetch/api';
 
 const CompanySearch = () => {
@@ -9,6 +9,12 @@ const CompanySearch = () => {
     const text = searchTextRef.current.value;
     setCompanies(await searchCompany(text));
   };
+
+  useEffect(() => {
+    (async () => {
+      await handleOnSearch();
+    })();
+  }, []);
 
   return (
     <div className="row">

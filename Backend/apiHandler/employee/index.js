@@ -56,4 +56,15 @@ module.exports = {
     employee.primaryResume = fileId;
     res.json(await employee.save());
   },
+  jobApplications: async (req, res) => {
+    const employeeId = req.session.user._id;
+    res.json(await JobApplication
+      .find({ employee: employeeId })
+      .populate({
+        path: 'job',
+        populate: {
+          path: 'company',
+        },
+      }));
+  },
 };

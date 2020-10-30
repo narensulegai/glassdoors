@@ -1,4 +1,4 @@
-const { Company, JobPosting } = require('../../mongodb');
+const { Company, JobPosting, JobApplication } = require('../../mongodb');
 const { err } = require('../util');
 
 module.exports = {
@@ -21,5 +21,13 @@ module.exports = {
     res.json(await JobPosting
       .find({ company: companyId })
       .sort({ createdAt: -1 }));
+  },
+  jobApplications: async (req, res) => {
+    const companyId = req.session.user._id;
+    const jobPostings = await JobPosting
+      .find({ company: companyId });
+    res.json(await JobApplication
+      .find({ job: jobPostings.map((j) => j._id) })
+      .populate('job'));
   },
 };

@@ -56,6 +56,9 @@ const apiVersion = '/apiV1';
   ['delete', '/jobApplication/:id', handler.employee.withdrawJob, 'employee'],
   ['post', '/resume/:id', handler.employee.addResume, 'employee'],
   ['put', '/resume/primary/:id', handler.employee.setPrimaryResume, 'employee'],
+  ['get', '/company/jobApplications', handler.company.jobApplications, 'company'],
+  ['get', '/employee/jobApplications', handler.employee.jobApplications, 'employee'],
+
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {
     const token = req.header('authorization');
