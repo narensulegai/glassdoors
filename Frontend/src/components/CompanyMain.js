@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Overview from './company/Overview';
 import JobPosting from './company/JobPosting';
+import CompanyJobApplications from './company/CompanyJobApplications';
 
 class CompanyMain extends Component {
   render() {
@@ -12,7 +13,7 @@ class CompanyMain extends Component {
           <a className="nav-link text-light" href="#/company/overview">Overview</a>
           <a className="nav-link text-light" href="#/company/review">Reviews</a>
           <a className="nav-link text-light" href="#/company/jobPosting">Job posting</a>
-          <a className="nav-link text-light" href="#/company/applications">Applications</a>
+          <a className="nav-link text-light" href="#/company/companyJobApplications">Applications</a>
           <a className="nav-link text-light" href="#/company/report">Report</a>
           <a className="nav-link" href="#/logout">Logout</a>
         </nav>
@@ -26,8 +27,8 @@ class CompanyMain extends Component {
           <Route path="/company/jobPosting" exact>
             <JobPosting />
           </Route>
-          <Route path="/company/applications" exact>
-            Applications
+          <Route path="/company/companyJobApplications" exact>
+            <CompanyJobApplications />
           </Route>
           <Route path="/company/report" exact>
             Report

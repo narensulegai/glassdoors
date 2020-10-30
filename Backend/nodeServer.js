@@ -50,7 +50,7 @@ const apiVersion = '/apiV1';
   ['get', '/jobPosting', handler.company.getJobPosting, 'company'],
   ['put', '/employee', handler.employee.update, 'employee'],
   ['get', '/search/company', handler.employee.searchCompany, 'employee'],
-  ['get', '/company/:id', handler.employee.getCompany, 'employee'],
+  ['get', '/company/profile/:id', handler.employee.getCompany, 'employee'],
   ['get', '/job/:id', handler.employee.getJob, 'employee'],
   ['put', '/jobApplication/:id', handler.employee.applyJob, 'employee', schema.applyJob],
   ['delete', '/jobApplication/:id', handler.employee.withdrawJob, 'employee'],
@@ -58,9 +58,11 @@ const apiVersion = '/apiV1';
   ['put', '/resume/primary/:id', handler.employee.setPrimaryResume, 'employee'],
   ['get', '/company/jobApplications', handler.company.jobApplications, 'company'],
   ['get', '/employee/jobApplications', handler.employee.jobApplications, 'employee'],
+  ['put', '/company/jobApplication/status/:id', handler.company.setJobApplicationStatus, 'company'],
 
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {
+    console.log(r[0], apiVersion + r[1]);
     const token = req.header('authorization');
     req.session = {};
     if (token) {
@@ -108,10 +110,10 @@ const apiVersion = '/apiV1';
 
 // Handle errors
 app.use((err, req, res, next) => {
+  console.log(err);
   if (err) {
     const { message } = err;
     res.status(500).json({ err: 'Something went wrong!', message });
-    console.log(err);
   }
   next();
 });

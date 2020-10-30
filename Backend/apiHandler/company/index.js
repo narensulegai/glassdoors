@@ -24,10 +24,19 @@ module.exports = {
   },
   jobApplications: async (req, res) => {
     const companyId = req.session.user._id;
-    const jobPostings = await JobPosting
-      .find({ company: companyId });
-    res.json(await JobApplication
-      .find({ job: jobPostings.map((j) => j._id) })
+    res.json(await JobApplication.find({ company: companyId })
       .populate('job'));
+  },
+  setJobApplicationStatus: async (req, res) => {
+    const companyId = req.session.user._id;
+    const jobApplicationId = req.params.id;
+    const jobApp = await JobApplication.findById(jobApplicationId);
+    const { status } = req.body;
+    jobApp.status = status;
+    if (jobApp.company.toString() !== companyId) {
+      res.status(400).json(err('Job application not found'));
+    } else {
+      res.json(await jobApp.save());
+    }
   },
 };

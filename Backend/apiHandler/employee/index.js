@@ -30,9 +30,14 @@ module.exports = {
   },
   applyJob: async (req, res) => {
     const jobId = req.params.id;
+    const jobPosting = await JobPosting.findById(jobId);
     const employeeId = req.session.user._id;
     const jobApplication = new JobApplication({
-      ...req.body, job: jobId, employee: employeeId, status: 'submitted',
+      ...req.body,
+      job: jobId,
+      employee: employeeId,
+      company: jobPosting.company,
+      status: 'submitted',
     });
     res.json(await jobApplication.save());
   },

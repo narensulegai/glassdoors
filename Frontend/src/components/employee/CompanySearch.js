@@ -4,7 +4,7 @@ import { searchCompany } from '../../util/fetch/api';
 const CompanySearch = () => {
   const [companies, setCompanies] = useState([]);
   const searchTextRef = createRef();
-
+  // TODO useCallback
   const handleOnSearch = async () => {
     const text = searchTextRef.current.value;
     setCompanies(await searchCompany(text));
