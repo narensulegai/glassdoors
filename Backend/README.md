@@ -1,10 +1,10 @@
 ## Available Scripts
 
 All configurations are included in the `.env` file. 
-Check if your `mongodb` is running with credentials listed in the file. Feel free to edit the `.env` file, 
-but don't commit it unless you are adding a new env variable. 
+Make sure `mongodb` is running with credentials listed in the `.env` file. Feel free to edit the `.env` file, 
+but don't commit it unless you are adding a new env variable.
 
-In the project directory, you can run:
+From the project directory, you can run:
 
 ### `cd Backend`
 
