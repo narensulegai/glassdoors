@@ -38,7 +38,7 @@ const ProfileAndActivity = () => {
       <div className="col-12">
         {employee && (
         <>
-          <h4><b>{employee.name}</b>&nbsp;({employee.email})</h4>
+          <h6><b>{employee.name}</b>&nbsp;({employee.email})</h6>
 
           <div className="imageTile">
             {employee.profilePic

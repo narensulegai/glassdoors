@@ -60,10 +60,13 @@ const apiVersion = '/apiV1';
   ['get', '/company/jobApplications', handler.company.jobApplications, 'company'],
   ['get', '/employee/jobApplications', handler.employee.jobApplications, 'employee'],
   ['put', '/company/jobApplication/status/:id', handler.company.setJobApplicationStatus, 'company'],
+  ['post', '/employee/salary/:id', handler.employee.addSalary, 'employee'],
+  ['get', '/employee/salary/:id', handler.employee.getSalary, 'employee'],
+  ['get', '/jobPosting/company/:id', handler.employee.getCompanyJobPosting, 'employee'],
 
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {
-    console.log(r[0], apiVersion + r[1]);
+    console.log(req.url, r[2].name);
     const token = req.header('authorization');
     req.session = {};
     if (token) {

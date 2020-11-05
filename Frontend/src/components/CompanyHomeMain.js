@@ -2,8 +2,9 @@ import React, { PureComponent } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import CompanyOverview from './companyHome/CompanyOverview';
 import CompanyJobs from './companyHome/CompanyJobs';
+import CompanySalaries from './companyHome/CompanySalaries';
 
-class CompanyHome extends PureComponent {
+class CompanyHomeMain extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { companyId: null };
@@ -21,7 +22,8 @@ class CompanyHome extends PureComponent {
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/companyOverview`}>Overview</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/reviews`}>Reviews</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/companyJobs`}>Jobs</a>
-          <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/salaries`}>Salaries</a>
+          <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/companySalaries`}>Salaries</a>
+          <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/interviews`}>Interviews</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/photos`}>Photos</a>
         </nav>
         <div className="container mt-3">
@@ -34,8 +36,11 @@ class CompanyHome extends PureComponent {
           <Route path="/companyHome/:id/companyJobs" exact>
             <CompanyJobs />
           </Route>
-          <Route path="/companyHome/:id/salaries" exact>
-            Salaries
+          <Route path="/companyHome/:id/companySalaries" exact>
+            <CompanySalaries />
+          </Route>
+          <Route path="/companyHome/:id/interviews" exact>
+            Interviews
           </Route>
           <Route path="/companyHome/:id/photos" exact>
             Photos
@@ -46,4 +51,4 @@ class CompanyHome extends PureComponent {
   }
 }
 
-export default withRouter(CompanyHome);
+export default withRouter(CompanyHomeMain);

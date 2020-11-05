@@ -8,7 +8,7 @@ export const signupCompany = (d) => post('signup/company', d);
 export const signupEmployee = (d) => post('signup/employee', d);
 export const updateCompany = (d) => put('company', d);
 export const addJobPosting = (d) => post('jobPosting', d);
-export const getJobPosting = (d) => get('jobPosting', d);
+export const getJobPosting = () => get('jobPosting');
 export const updateEmployee = (d) => put('employee', d);
 export const searchCompany = (text) => get(`search/company?text=${text}`);
 export const searchJobPosting = (text) => get(`search/jobPosting?text=${text}`);
@@ -21,6 +21,9 @@ export const setPrimaryResume = (id) => put(`resume/primary/${id}`);
 export const getCompanyJobApplications = () => get('company/jobApplications');
 export const getEmployeeJobApplications = () => get('employee/jobApplications');
 export const setJobApplicationStatus = (id, d) => put(`company/jobApplication/status/${id}`, d);
+export const addSalary = (id, d) => post(`employee/salary/${id}`, d);
+export const getSalary = (id) => get(`employee/salary/${id}`);
+export const getCompanyJobPosting = (id) => get(`jobPosting/company/${id}`);
 export const logout = () => put('logout');
 export const fileUrl = (fileId) => {
   return `${apiUrl}/file/${fileId}`;

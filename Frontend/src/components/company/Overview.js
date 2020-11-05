@@ -50,7 +50,7 @@ const Overview = () => {
   return (
     <div className="row">
       <div className="col-12">
-        <h4><b>{company.name}</b>&nbsp;({company.email})</h4>
+        <h6><span className="inputLabel">{company.name}&nbsp;({company.email})</span></h6>
 
         <div className="imageTile">
           {company.profilePic

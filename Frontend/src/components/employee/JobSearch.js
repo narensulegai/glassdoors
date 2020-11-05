@@ -35,7 +35,7 @@ const JobSearch = () => {
                 <div className="card-body">
 
                   <h5>
-                    <a href={`/#/job/${job._id}`} target="_blank" rel="noopener noreferrer">
+                    <a href={`/#/jobHome/${job._id}`} target="_blank" rel="noopener noreferrer">
                       {job.title}
                     </a>
                   </h5>

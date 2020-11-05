@@ -17,7 +17,7 @@ const CompanyOverview = () => {
       <div className="col-12">
         {company && (
         <>
-          <h4>{company.name}</h4>
+          <h6>{company.name}</h6>
           <div><span className="inputLabel">Website</span><span>{company.website || '-'}</span></div>
           <div><span className="inputLabel">Size</span><span>{company.size || '-'}</span></div>
           <div><span className="inputLabel">Type</span><span>{company.type || '-'}</span></div>

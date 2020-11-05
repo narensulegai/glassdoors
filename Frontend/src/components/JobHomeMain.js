@@ -5,7 +5,7 @@ import {
 } from '../util/fetch/api';
 import FileUpload from './common/FileUpload';
 
-const JobHome = () => {
+const JobHomeMain = () => {
   const { id: jobId } = useParams();
   const [job, setJob] = useState(null);
   const [employee, setEmployee] = useState(null);
@@ -79,4 +79,4 @@ const JobHome = () => {
   );
 };
 
-export default JobHome;
+export default JobHomeMain;

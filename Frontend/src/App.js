@@ -7,8 +7,8 @@ import EmployeeMain from './components/EmployeeMain';
 import CompanyMain from './components/CompanyMain';
 import AdminMain from './components/AdminMain';
 import Logout from './components/Logout';
-import CompanyHome from './components/CompanyHome';
-import JobHome from './components/JobHome';
+import JobHomeMain from './components/JobHomeMain';
+import CompanyHomeMain from "./components/CompanyHomeMain";
 
 function App() {
   return (
@@ -18,10 +18,10 @@ function App() {
           <Landing />
         </Route>
         <Route path="/companyHome/:id">
-          <CompanyHome />
+          <CompanyHomeMain />
         </Route>
-        <Route path="/job/:id">
-          <JobHome />
+        <Route path="/jobHome/:id">
+          <JobHomeMain />
         </Route>
         <Route path="/company">
           <CompanyMain />

@@ -18,7 +18,8 @@ const Company = require('./schemas/company')(mongoose);
 const Employee = require('./schemas/employee')(mongoose);
 const JobPosting = require('./schemas/jobPosting')(mongoose);
 const JobApplication = require('./schemas/jobApplication')(mongoose);
+const CompanySalary = require('./schemas/companySalary')(mongoose);
 
 module.exports = {
-  Company, Employee, JobPosting, JobApplication,
+  Company, Employee, JobPosting, JobApplication, CompanySalary,
 };

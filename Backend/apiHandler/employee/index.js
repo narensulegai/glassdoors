@@ -1,5 +1,6 @@
+const mongoose = require('mongoose');
 const {
-  Employee, JobPosting, Company, JobApplication,
+  Employee, JobPosting, Company, JobApplication, CompanySalary,
 } = require('../../mongodb');
 const { err } = require('../util');
 
@@ -78,5 +79,39 @@ module.exports = {
           path: 'company',
         },
       }));
+  },
+  addSalary: async (req, res) => {
+    const employeeId = req.session.user._id;
+    const { id: jobPostingId } = req.params;
+    const { company } = await JobPosting.findById(jobPostingId);
+    const companySalary = new CompanySalary({
+      ...req.body,
+      company,
+      jobPosting: jobPostingId,
+      employee: employeeId,
+    });
+    res.json(await companySalary.save());
+  },
+  getSalary: async (req, res) => {
+    const { id: companyId } = req.params;
+    const jobs = await CompanySalary.find({ company: companyId });
+    res.json(jobs);
+  },
+  getCompanyJobPosting: async (req, res) => {
+    const companyId = req.params.id;
+    const jobPostings = await JobPosting.find({ company: companyId });
+    const companySalaries = await CompanySalary.aggregate([
+      { $group: { _id: '$jobPosting', minBaseSalary: { $min: '$baseSalary' }, maxBaseSalary: { $max: '$baseSalary' } } },
+    ]);
+
+    const keyByJobPostingId = companySalaries.reduce((m, s) => {
+      m[s._id] = s;
+      return m;
+    }, {});
+
+    res.json(jobPostings.map((j) => {
+      const { minBaseSalary, maxBaseSalary } = keyByJobPostingId[j._id];
+      return { ...j.toJSON(), minBaseSalary, maxBaseSalary };
+    }));
   },
 };

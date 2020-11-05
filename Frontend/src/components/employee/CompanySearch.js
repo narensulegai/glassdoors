@@ -1,4 +1,6 @@
-import React, { createRef, useEffect, useState } from 'react';
+import React, {
+  createRef, useEffect, useState,
+} from 'react';
 import { searchCompany } from '../../util/fetch/api';
 
 const CompanySearch = () => {
@@ -11,9 +13,7 @@ const CompanySearch = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      await handleOnSearch();
-    })();
+    handleOnSearch();
   }, []);
 
   return (
@@ -67,8 +67,6 @@ const CompanySearch = () => {
   );
 };
 
-CompanySearch.propTypes = {
-
-};
+CompanySearch.propTypes = {};
 
 export default CompanySearch;
