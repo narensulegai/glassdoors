@@ -110,7 +110,7 @@ module.exports = {
     }, {});
 
     res.json(jobPostings.map((j) => {
-      const { minBaseSalary, maxBaseSalary } = keyByJobPostingId[j._id];
+      const { minBaseSalary, maxBaseSalary } = keyByJobPostingId[j._id] || { minBaseSalary: null, maxBaseSalary: null };
       return { ...j.toJSON(), minBaseSalary, maxBaseSalary };
     }));
   },
