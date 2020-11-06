@@ -43,7 +43,7 @@ const CompanyPhotos = () => {
 
       <div className="col-12">
         {companyPhotos.length === 0
-          ? <h6 className="mb-3">There are no photos for this company</h6>
+          ? <div className="mt-3 mb-3">There are no photos for this company</div>
           : companyPhotos.map((photo) => {
             return (
               <div key={photo._id} className="card mt-3">
