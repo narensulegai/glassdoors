@@ -22,7 +22,8 @@ export const getCompanyJobApplications = () => get('company/jobApplications');
 export const getEmployeeJobApplications = () => get('employee/jobApplications');
 export const setJobApplicationStatus = (id, d) => put(`company/jobApplication/status/${id}`, d);
 export const addSalary = (id, d) => post(`employee/salary/${id}`, d);
-export const getSalary = (id) => get(`employee/salary/${id}`);
+export const addReview = (id, d) => post(`review/${id}`, d);
+export const getReviews = (id) => get(`review/${id}`);
 export const getCompanyJobPosting = (id) => get(`jobPosting/company/${id}`);
 export const logout = () => put('logout');
 export const fileUrl = (fileId) => {

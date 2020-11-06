@@ -61,8 +61,9 @@ const apiVersion = '/apiV1';
   ['get', '/employee/jobApplications', handler.employee.jobApplications, 'employee'],
   ['put', '/company/jobApplication/status/:id', handler.company.setJobApplicationStatus, 'company'],
   ['post', '/employee/salary/:id', handler.employee.addSalary, 'employee'],
-  ['get', '/employee/salary/:id', handler.employee.getSalary, 'employee'],
   ['get', '/jobPosting/company/:id', handler.employee.getCompanyJobPosting, 'employee'],
+  ['post', '/review/:id', handler.employee.addReview, 'employee'],
+  ['get', '/review/:id', handler.employee.getReviews, 'employee'],
 
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {

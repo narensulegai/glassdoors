@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
 const {
-  Employee, JobPosting, Company, JobApplication, CompanySalary,
+  Employee, JobPosting, Company, JobApplication, CompanySalary, Review,
 } = require('../../mongodb');
 const { err } = require('../util');
 
@@ -92,11 +91,6 @@ module.exports = {
     });
     res.json(await companySalary.save());
   },
-  getSalary: async (req, res) => {
-    const { id: companyId } = req.params;
-    const jobs = await CompanySalary.find({ company: companyId });
-    res.json(jobs);
-  },
   getCompanyJobPosting: async (req, res) => {
     const companyId = req.params.id;
     const jobPostings = await JobPosting.find({ company: companyId });
@@ -110,8 +104,21 @@ module.exports = {
     }, {});
 
     res.json(jobPostings.map((j) => {
-      const { minBaseSalary, maxBaseSalary } = keyByJobPostingId[j._id] || { minBaseSalary: null, maxBaseSalary: null };
+      const { minBaseSalary, maxBaseSalary } = keyByJobPostingId[j._id]
+      || { minBaseSalary: null, maxBaseSalary: null };
       return { ...j.toJSON(), minBaseSalary, maxBaseSalary };
     }));
+  },
+  addReview: async (req, res) => {
+    const { id: companyId } = req.params;
+    const employeeId = req.session.user._id;
+    const review = new Review({ ...req.body, company: companyId, employee: employeeId });
+    res.json(await review.save());
+  },
+  getReviews: async (req, res) => {
+    const { id: companyId } = req.params;
+    res.json(await Review.find({ company: companyId })
+      .populate('employee', '-resumes')
+      .sort({ createdAt: -1 }));
   },
 };
