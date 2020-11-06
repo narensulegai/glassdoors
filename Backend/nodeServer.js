@@ -66,6 +66,8 @@ const apiVersion = '/apiV1';
   ['get', '/review/:id', handler.employee.getReviews, 'employee'],
   ['post', '/companyPhoto/:id', handler.employee.addCompanyPhoto, 'employee'],
   ['get', '/companyPhoto/:id', handler.employee.getCompanyPhotos, 'employee'],
+  ['post', '/interviewExperience/:id', handler.employee.addInterviewExperience, 'employee'],
+  ['get', '/interviewExperience/:id', handler.employee.getInterviewExperience, 'employee'],
 
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {

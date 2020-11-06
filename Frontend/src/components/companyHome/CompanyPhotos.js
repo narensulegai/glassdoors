@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import { addCompanyPhotos, fileUrl, getCompanyPhotos } from '../../util/fetch/api';
 import FileUpload from '../common/FileUpload';
-import {formatDate} from "../../util";
+import { formatDate } from '../../util';
 
 const CompanyPhotos = () => {
   const { id: companyId } = useParams();

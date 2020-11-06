@@ -1,5 +1,5 @@
 const {
-  Employee, JobPosting, Company, JobApplication, CompanySalary, Review, CompanyPhoto,
+  Employee, JobPosting, Company, JobApplication, CompanySalary, Review, CompanyPhoto, InterviewExperience,
 } = require('../../mongodb');
 const { err } = require('../util');
 
@@ -130,6 +130,22 @@ module.exports = {
   getCompanyPhotos: async (req, res) => {
     const { id: companyId } = req.params;
     res.json(await CompanyPhoto.find({ company: companyId })
+      .populate('employee', '-resumes')
+      .sort({ createdAt: -1 }));
+  },
+  addInterviewExperience: async (req, res) => {
+    const employeeId = req.session.user._id;
+    const { id: companyId } = req.params;
+    const interviewExperience = new InterviewExperience({
+      ...req.body,
+      company: companyId,
+      employee: employeeId,
+    });
+    res.json(await interviewExperience.save());
+  },
+  getInterviewExperience: async (req, res) => {
+    const { id: companyId } = req.params;
+    res.json(await InterviewExperience.find({ company: companyId })
       .populate('employee', '-resumes')
       .sort({ createdAt: -1 }));
   },
