@@ -28,6 +28,19 @@ const CompanyPhotos = () => {
     <div className="row">
 
       <div className="col-12">
+        <Modal show={showModal} onHide={toggleModal} animation={false}>
+          <div className="modal-body">
+            <div className="inputLabel">Select photos you want to upload</div>
+            <FileUpload onUpload={handleOnFileUpload} singleFile={false} />
+            <div className="mt-2 d-flex justify-content-between">
+              <button className="btn-link" onClick={toggleModal}>Cancel</button>
+            </div>
+          </div>
+        </Modal>
+        <button className="btn-primary mt-2" onClick={toggleModal}>Add photos</button>
+      </div>
+      
+      <div className="col-12">
         {companyPhotos.length === 0
           ? <h6 className="mb-3">There are no photos for this company</h6>
           : companyPhotos.map((photo) => {
@@ -50,18 +63,6 @@ const CompanyPhotos = () => {
           })}
       </div>
 
-      <div className="col-12">
-        <Modal show={showModal} onHide={toggleModal} animation={false}>
-          <div className="modal-body">
-            <div className="inputLabel">Select photos you want to upload</div>
-            <FileUpload onUpload={handleOnFileUpload} singleFile={false} />
-            <div className="mt-2 d-flex justify-content-between">
-              <button className="btn-link" onClick={toggleModal}>Cancel</button>
-            </div>
-          </div>
-        </Modal>
-        <button className="btn-primary mt-2" onClick={toggleModal}>Add photos</button>
-      </div>
     </div>
   );
 };
