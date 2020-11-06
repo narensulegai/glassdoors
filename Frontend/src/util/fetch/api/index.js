@@ -25,6 +25,8 @@ export const addSalary = (id, d) => post(`employee/salary/${id}`, d);
 export const addReview = (id, d) => post(`review/${id}`, d);
 export const getReviews = (id) => get(`review/${id}`);
 export const getCompanyJobPosting = (id) => get(`jobPosting/company/${id}`);
+export const addCompanyPhotos = (id, d) => post(`companyPhoto/${id}`, d);
+export const getCompanyPhotos = (id) => get(`companyPhoto/${id}`);
 export const logout = () => put('logout');
 export const fileUrl = (fileId) => {
   return `${apiUrl}/file/${fileId}`;

@@ -1,5 +1,5 @@
 const {
-  Employee, JobPosting, Company, JobApplication, CompanySalary, Review,
+  Employee, JobPosting, Company, JobApplication, CompanySalary, Review, CompanyPhoto,
 } = require('../../mongodb');
 const { err } = require('../util');
 
@@ -118,6 +118,18 @@ module.exports = {
   getReviews: async (req, res) => {
     const { id: companyId } = req.params;
     res.json(await Review.find({ company: companyId })
+      .populate('employee', '-resumes')
+      .sort({ createdAt: -1 }));
+  },
+  addCompanyPhoto: async (req, res) => {
+    const { id: companyId } = req.params;
+    const employeeId = req.session.user._id;
+    const review = new CompanyPhoto({ ...req.body, company: companyId, employee: employeeId });
+    res.json(await review.save());
+  },
+  getCompanyPhotos: async (req, res) => {
+    const { id: companyId } = req.params;
+    res.json(await CompanyPhoto.find({ company: companyId })
       .populate('employee', '-resumes')
       .sort({ createdAt: -1 }));
   },

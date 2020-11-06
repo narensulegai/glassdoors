@@ -5,7 +5,7 @@ import {
 } from '../../util/fetch/api';
 import { formatDate } from '../../util';
 
-const AddReview = () => {
+const CompanyReviews = () => {
   const [reviews, setReviews] = useState([]);
   const { id: companyId } = useParams();
 
@@ -114,6 +114,6 @@ const AddReview = () => {
   );
 };
 
-AddReview.propTypes = {};
+CompanyReviews.propTypes = {};
 
-export default AddReview;
+export default CompanyReviews;
