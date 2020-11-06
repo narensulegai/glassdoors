@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import { addCompanyPhotos, fileUrl, getCompanyPhotos } from '../../util/fetch/api';
 import FileUpload from '../common/FileUpload';
+import {formatDate} from "../../util";
 
 const CompanyPhotos = () => {
   const { id: companyId } = useParams();
@@ -39,7 +40,7 @@ const CompanyPhotos = () => {
         </Modal>
         <button className="btn-primary mt-2" onClick={toggleModal}>Add photos</button>
       </div>
-      
+
       <div className="col-12">
         {companyPhotos.length === 0
           ? <h6 className="mb-3">There are no photos for this company</h6>
@@ -57,6 +58,7 @@ const CompanyPhotos = () => {
                     })}
                   </div>
                   <div className="inputLabel">Uploaded by {photo.employee.name}</div>
+                  <div className="inputLabel small">{formatDate(photo.createdAt)}</div>
                 </div>
               </div>
             );
