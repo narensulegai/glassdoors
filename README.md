@@ -1,4 +1,4 @@
-# yelp
+# Glassdoor
 Install kafka on Mac https://medium.com/@Ankitthakur/apache-kafka-installation-on-mac-using-homebrew-a367cdefd273
 
 Install Kafka client https://github.com/edenhill/kafkacat
@@ -11,12 +11,12 @@ All config environment variables are defined at `Backend/.env` and `Frontend/.en
 ### Run Kafka server
 
 ```
-cd backend && KAFKA_BROKERS=localhost:9092 MONGODB_CONNECTION=mongodb://localhost/yelp npm run kafka
+cd backend && KAFKA_BROKERS=localhost:9092 MONGODB_CONNECTION=mongodb://localhost/glassdoor npm run kafka
 ```
 
 ### Run node server
 ```
-cd backend && KAFKA_BROKERS=localhost:9092 MONGODB_CONNECTION=mongodb://localhost/yelp npm start
+cd backend && KAFKA_BROKERS=localhost:9092 MONGODB_CONNECTION=mongodb://localhost/glassdoor npm start
 ```
 
 ### Run frontend server
