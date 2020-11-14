@@ -23,3 +23,9 @@ cd backend && KAFKA_BROKERS=localhost:9092 MONGODB_CONNECTION=mongodb://localhos
 ```
 cd frontend && npm start
 ```
+
+###Frontend
+```
+docker build -t glassdoor-frontend . && docker run -p 3000:80 glassdoor-frontend:latest
+```
+
