@@ -103,5 +103,6 @@ dist
 # TernJS port file
 .tern-port
 Frontend/.idea
+Frontend/build
 Backend/.idea
 Backend/uploads
