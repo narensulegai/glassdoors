@@ -33,4 +33,17 @@ cd Frontend && docker build -t glassdoor-frontend . && docker run -p 3000:80 gla
 ```
 cd Backend && docker build -t glassdoor-backend . && docker run -p 5000:5000 -e MONGODB_CONNECTION=mongodb+srv://<atlas user>:<password>@<cluster>.mongodb.net/glassdoor glassdoor-backend:latest
 ```
+### Deploy commands
+```
+cd Frontend && rm -rf build/ && REACT_APP_API_URL= npm run build && docker build -t narensj/glassdoor-frontend . && docker push narensj/glassdoor-frontend
 
+minikube delete
+minikube start --driver=virtualbox
+minikube addons enable ingress
+minikube dashboard
+kubectl create namespace glassdoor
+kubectl delete all --all -n glassdoor && kubectl delete ingress glassdoor-ingress
+kubectl config set-context --current --namespace=glassdoor
+kubectl apply -f kube/main.yml
+minikube service frontend-service -n glassdoor #minikube service list
+```
