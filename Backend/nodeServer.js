@@ -71,7 +71,7 @@ const apiVersion = '/apiV1';
 
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {
-    console.log(req.url, r[2].name);
+    console.log(req.url, r[2].name, req.body);
     const token = req.header('authorization');
     req.session = {};
     if (token) {
