@@ -11,21 +11,26 @@ All config environment variables are defined at `Backend/.env` and `Frontend/.en
 ### Run Kafka server
 
 ```
-cd backend && KAFKA_BROKERS=localhost:9092 MONGODB_CONNECTION=mongodb://localhost/glassdoor npm run kafka
+cd Backend && KAFKA_BROKERS=localhost:9092 MONGODB_CONNECTION=mongodb://localhost/glassdoor npm run kafka
 ```
 
 ### Run node server
 ```
-cd backend && KAFKA_BROKERS=localhost:9092 MONGODB_CONNECTION=mongodb://localhost/glassdoor npm start
+cd Backend && KAFKA_BROKERS=localhost:9092 MONGODB_CONNECTION=mongodb://localhost/glassdoor npm start
 ```
 
 ### Run frontend server
 ```
-cd frontend && npm start
+cd Frontend && npm start
 ```
 
-###Frontend
+### Frontend build
 ```
-docker build -t glassdoor-frontend . && docker run -p 3000:80 glassdoor-frontend:latest
+cd Frontend && docker build -t glassdoor-frontend . && docker run -p 3000:80 glassdoor-frontend:latest
+```
+
+### Backend build
+```
+cd Backend && docker build -t glassdoor-backend . && docker run -p 5000:5000 -e MONGODB_CONNECTION=mongodb+srv://<atlas user>:<password>@<cluster>.mongodb.net/glassdoor glassdoor-backend:latest
 ```
 
