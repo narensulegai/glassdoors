@@ -36,6 +36,7 @@ cd Backend && docker build -t glassdoor-backend . && docker run -p 5000:5000 -e 
 ### Deploy commands
 ```
 cd Frontend && rm -rf build/ && REACT_APP_API_URL= npm run build && docker build -t narensj/glassdoor-frontend . && docker push narensj/glassdoor-frontend
+cd Backend && docker build -t narensj/glassdoor-backend . && docker push narensj/glassdoor-backend
 
 minikube delete
 minikube start --driver=virtualbox
@@ -46,4 +47,9 @@ kubectl delete all --all -n glassdoor && kubectl delete ingress glassdoor-ingres
 kubectl config set-context --current --namespace=glassdoor
 kubectl apply -f kube/main.yml
 minikube service frontend-service -n glassdoor #minikube service list
+
+kubectl delete all --all -n glassdoor && kubectl delete ingress glassdoor-ingress && kubectl apply -f kube/* && minikube service frontend-service -n glassdoor
+
+apt-get update && apt-get -y install vim && apt-get -y install mongodb-clients && apt-get -y install kafkacat
+kafkacat -L -b kafka-cluster:9092
 ```
