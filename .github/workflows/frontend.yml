@@ -32,6 +32,7 @@ jobs:
         with:
           push: true
           context: ./Frontend
+          file: ./Frontend/Dockerfile
           tags: narensj/glassdoor-frontend:latest
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
