@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: cd Frontend && npm install 
       - name: Build React app
-        run: cd Frontend && REACT_APP_API_URL= npm run build
+        run: cd Frontend && CI=false REACT_APP_API_URL= npm run build
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
