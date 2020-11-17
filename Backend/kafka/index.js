@@ -17,8 +17,8 @@ const allTopics = {
 async function kafka() {
   const k = new Kafka({
     logLevel: logLevel.NOTHING,
-    clientId: 'yelp',
-    brokers: ['localhost:9092'],
+    clientId: "glassdoor",
+    brokers: [process.env.KAFKA_BROKERS.split(",")],
   });
 
   const producer = k.producer();
