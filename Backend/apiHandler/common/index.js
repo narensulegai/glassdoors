@@ -65,8 +65,9 @@ module.exports = {
   },
   signupEmployee: async (req, resp) => {
     bcrypt.hash(req.body.password, saltRounds, async (e, password) => {
+      const employee = new Employee({ ...req.body, password });
       try {
-        const user = await req.requestKafka('signupEmployee', { ...req.body, password });
+        const user = await employee.save();
         const payload = { user, scope: 'employee' };
         const token = signPayload(payload);
         resp.json({ token, user });
