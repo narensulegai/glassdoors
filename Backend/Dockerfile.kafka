@@ -25,4 +25,5 @@ ENV MOCK_KAFKA=false
 
 RUN printenv
 
-CMD [ "node", "kafkaServer.js" ]
+# CMD [ "node", "kafkaServer.js" ]
+CMD [ "npm", "run", "kafka" ]
