@@ -1,5 +1,6 @@
 const {
-  Employee, JobPosting, Company, JobApplication, CompanySalary, Review, CompanyPhoto, InterviewExperience,
+  Employee, JobPosting, Company, JobApplication,
+  CompanySalary, Review, CompanyPhoto, InterviewExperience,
 } = require('../../mongodb');
 const { err } = require('../util');
 

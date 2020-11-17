@@ -30,6 +30,7 @@ spec:
       containers:
         - name: glassdoor-frontend
           image: narensj/glassdoor-frontend:latest
+          imagePullPolicy: Always
           env:
             - name: REACT_APP_API_URL
               value: 
@@ -68,6 +69,12 @@ spec:
       containers:
         - name: glassdoor-backend
           image: narensj/glassdoor-backend:latest
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 200m
+            requests:
+              cpu: 200m
           env:
             - name: KAFKA_BROKERS
               value: kafka-cluster:9092

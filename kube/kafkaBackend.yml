@@ -17,6 +17,12 @@ spec:
       containers:
         - name: kafka-backend
           image: narensj/glassdoor-kafka
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 200m
+            requests:
+              cpu: 200m
           env:
             - name: KAFKA_BROKERS
               value: kafka-cluster:9092
