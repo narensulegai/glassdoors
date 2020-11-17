@@ -18,14 +18,14 @@ const Signup = ({ type, history }) => {
       signupCompany(d)
         .then(({ token }) => {
           window.localStorage.setItem('token', token);
-          history.push('/employee/companySearch');
+          history.push('/company/overview');
         });
     }
     if (type === 'employee') {
       signupEmployee(d)
         .then(({ token }) => {
           window.localStorage.setItem('token', token);
-          history.push('/employee/search');
+          history.push('/employee/companySearch');
         });
     }
   };

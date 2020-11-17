@@ -64,12 +64,13 @@ spec:
       containers:
         - name: kafka-cluster
           image: wurstmeister/kafka:latest
-          imagePullPolicy: IfNotPresent
           env:
+            - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
+              value: "true"
             - name: KAFKA_LISTENERS
-              value: INTERNAL://kafka-cluster:29092,EXTERNAL://kafka-cluster:9092,
+              value: INTERNAL://kafka-cluster:29092,EXTERNAL://kafka-cluster:9092
             - name: KAFKA_ADVERTISED_LISTENERS
-              value: INTERNAL://kafka-cluster:29092,EXTERNAL://kafka-cluster:9092,
+              value: INTERNAL://kafka-cluster:29092,EXTERNAL://kafka-cluster:9092
             - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
               value: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
             - name: KAFKA_INTER_BROKER_LISTENER_NAME

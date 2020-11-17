@@ -1,5 +1,10 @@
 const {
-  Company,
+  Company, Employee,
 } = require('../mongodb');
 
-module.exports = {};
+module.exports = {
+  signupEmployee: async (emp) => {
+    const employee = new Employee(emp);
+    return employee.save();
+  },
+};
