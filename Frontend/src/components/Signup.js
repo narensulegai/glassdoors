@@ -18,7 +18,7 @@ const Signup = ({ type, history }) => {
       signupCompany(d)
         .then(({ token }) => {
           window.localStorage.setItem('token', token);
-          history.push('/company/overview');
+          history.push('/employee/companySearch');
         });
     }
     if (type === 'employee') {
