@@ -18,7 +18,7 @@ spec:
         - name: kafka-backend
           image: narensj/glassdoor-kafka
           env:
-            - name: KAFKA_BROKER
+            - name: KAFKA_BROKERS
               value: kafka-cluster:9092
             - name: MONGODB_CONNECTION
               value: mongodb://glassdoor:glassdoor@mongodb-service.glassdoor.svc.cluster.local/glassdoor?ssl=false&authSource=admin&retryWrites=true&w=majority

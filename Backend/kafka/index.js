@@ -18,7 +18,7 @@ async function kafka() {
   const k = new Kafka({
     logLevel: logLevel.NOTHING,
     clientId: "glassdoor",
-    brokers: [process.env.KAFKA_BROKERS.split(",")],
+    brokers: process.env.KAFKA_BROKERS.split(","),
   });
 
   const producer = k.producer();
