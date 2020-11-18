@@ -9,12 +9,9 @@ module.exports = {
   },
   addJobPosting: async (req, res) => {
     const companyId = req.session.user._id;
-    const jobPosting = new JobPosting({ ...req.body, company: companyId });
-    const newJobPosting = await jobPosting.save();
-    const company = await Company.findById(companyId);
-    company.jobPostings.push(newJobPosting._id);
-    await company.save();
-    res.json(newJobPosting);
+    res.json(req.requestKafka('addJobPosting', companyId, req.body));
+    // Dont wait for Kafka
+    // res.json({ ...req.body, company: companyId });
   },
   getJobPosting: async (req, res) => {
     const companyId = req.session.user._id;

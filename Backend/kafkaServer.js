@@ -1,5 +1,5 @@
 const { kafka, topics } = require('./kafka');
-const modules = require('./modules');
+const modules = require('./kafkaModules');
 
 (async () => {
   const k = await kafka();

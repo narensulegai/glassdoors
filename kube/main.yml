@@ -1,0 +1,97 @@
+#Frontend
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: frontend
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: glassdoor-frontend
+          image: narensj/glassdoor-frontend:latest
+          imagePullPolicy: Always
+          env:
+            - name: REACT_APP_API_URL
+              value: 
+          ports:
+            - containerPort: 80
+#Backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend
+  ports:
+    - port: 5000
+      targetPort: 5000
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: glassdoor-backend
+          image: narensj/glassdoor-backend:latest
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 200m
+            requests:
+              cpu: 200m
+          env:
+            - name: KAFKA_BROKERS
+              value: kafka-cluster:9092
+            - name: MONGODB_CONNECTION
+              value: mongodb://glassdoor:glassdoor@mongodb-service.glassdoor.svc.cluster.local/glassdoor?ssl=false&authSource=admin&retryWrites=true&w=majority
+          ports:
+            - containerPort: 5000
+---
+apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+kind: Ingress
+metadata:
+  name: glassdoor-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            backend:
+              serviceName: frontend-service
+              servicePort: 80

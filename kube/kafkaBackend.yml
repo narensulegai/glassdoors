@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-backend-deployment
+  labels:
+    app: kafka-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-backend
+  template:
+    metadata:
+      labels:
+        app: kafka-backend
+    spec:
+      containers:
+        - name: kafka-backend
+          image: narensj/glassdoor-kafka
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 200m
+            requests:
+              cpu: 200m
+          env:
+            - name: KAFKA_BROKERS
+              value: kafka-cluster:9092
+            - name: MONGODB_CONNECTION
+              value: mongodb://glassdoor:glassdoor@mongodb-service.glassdoor.svc.cluster.local/glassdoor?ssl=false&authSource=admin&retryWrites=true&w=majority

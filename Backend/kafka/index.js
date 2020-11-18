@@ -9,16 +9,16 @@ const allTopics = {
 // Example usage
 // (async () => {
 // const k = await kafka();
-// k.subscribe(allTopics.TOPIC1, console.log);
-// k.send(allTopics.TOPIC1, 'm1');
+// k.subscribe(allTopics.API_CALL, console.log);
+// k.send(allTopics.API_CALL, {message:'m1'});
 // const s = await k.callAndWait('sum', [1, 2]);
 // })();
 
 async function kafka() {
   const k = new Kafka({
     logLevel: logLevel.NOTHING,
-    clientId: 'yelp',
-    brokers: ['localhost:9092'],
+    clientId: 'glassdoor',
+    brokers: process.env.KAFKA_BROKERS.split(','),
   });
 
   const producer = k.producer();
