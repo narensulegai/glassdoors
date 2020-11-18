@@ -96,6 +96,8 @@ module.exports = {
   },
   getCompanyJobPosting: async (req, res) => {
     const companyId = req.params.id;
+    // res.json(await modules.getCompanyJobPosting(companyId)); return;
+    // With  redis
     const key = `companyJobPosting${companyId}`;
     if (await redisGet(key) === null) {
       await redisSet(key, await modules.getCompanyJobPosting(companyId));
@@ -105,8 +107,9 @@ module.exports = {
   addReview: async (req, res) => {
     const { id: companyId } = req.params;
     const employeeId = req.session.user._id;
-    const review = new Review({ ...req.body, company: companyId, employee: employeeId });
-    res.json(await review.save());
+    const newReview = { ...req.body, company: companyId, employee: employeeId };
+    await modules.addReview(newReview);
+    res.json(newReview);
   },
   getReviews: async (req, res) => {
     const { id: companyId } = req.params;

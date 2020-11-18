@@ -1,5 +1,5 @@
 const {
-  Company, JobPosting, CompanySalary,
+  Company, JobPosting, CompanySalary, Review,
 } = require('../mongodb');
 
 module.exports = {
@@ -24,5 +24,9 @@ module.exports = {
       || { minBaseSalary: null, maxBaseSalary: null };
       return { ...j.toJSON(), minBaseSalary, maxBaseSalary };
     });
+  },
+  addReview: async (newReview) => {
+    const review = new Review(newReview);
+    await review.save();
   },
 };
