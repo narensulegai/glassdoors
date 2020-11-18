@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const { kafka } = require('./kafka');
-const kafkaModules = require('./kafkaModules');
+const modules = require('./modules');
 const handler = require('./apiHandler');
 const { schema, validate } = require('./apiSchema');
 
@@ -18,7 +18,7 @@ let callAndWait = () => {
     const k = await kafka();
     callAndWait = k.callAndWait;
   } else {
-    callAndWait = async (fn, ...params) => kafkaModules[fn](...params);
+    callAndWait = async (fn, ...params) => modules[fn](...params);
     console.log('Connected to dev kafka');
   }
 })();

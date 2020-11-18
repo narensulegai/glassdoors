@@ -3,6 +3,8 @@ const {
   CompanySalary, Review, CompanyPhoto, InterviewExperience,
 } = require('../../mongodb');
 const { err } = require('../util');
+const modules = require('../../modules');
+const { redisGet, redisSet } = require('../../redisCli');
 
 module.exports = {
   update: async (req, resp) => {
@@ -94,21 +96,11 @@ module.exports = {
   },
   getCompanyJobPosting: async (req, res) => {
     const companyId = req.params.id;
-    const jobPostings = await JobPosting.find({ company: companyId });
-    const companySalaries = await CompanySalary.aggregate([
-      { $group: { _id: '$jobPosting', minBaseSalary: { $min: '$baseSalary' }, maxBaseSalary: { $max: '$baseSalary' } } },
-    ]);
-
-    const keyByJobPostingId = companySalaries.reduce((m, s) => {
-      m[s._id] = s;
-      return m;
-    }, {});
-
-    res.json(jobPostings.map((j) => {
-      const { minBaseSalary, maxBaseSalary } = keyByJobPostingId[j._id]
-      || { minBaseSalary: null, maxBaseSalary: null };
-      return { ...j.toJSON(), minBaseSalary, maxBaseSalary };
-    }));
+    const key = `companyJobPosting${companyId}`;
+    if (await redisGet(key) === null) {
+      await redisSet(key, await modules.getCompanyJobPosting(companyId));
+    }
+    res.json(await redisGet(key));
   },
   addReview: async (req, res) => {
     const { id: companyId } = req.params;

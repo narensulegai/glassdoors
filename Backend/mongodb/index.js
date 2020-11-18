@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 console.log('Using mongo connection string', process.env.MONGODB_CONNECTION);
 
 mongoose.connect(process.env.MONGODB_CONNECTION,
-  { autoIndex: true, useNewUrlParser: true, useUnifiedTopology: true });
+  { autoIndex: true, useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
 mongoose.connection.on('error', () => {
   console.log('Mongo error');
