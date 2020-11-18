@@ -33,23 +33,28 @@ cd Frontend && docker build -t glassdoor-frontend . && docker run -p 3000:80 gla
 ```
 cd Backend && docker build -t glassdoor-backend . && docker run -p 5000:5000 -e MONGODB_CONNECTION=mongodb+srv://<atlas user>:<password>@<cluster>.mongodb.net/glassdoor glassdoor-backend:latest
 ```
-### Deploy commands
-```
-cd Frontend && rm -rf build/ && REACT_APP_API_URL= npm run build && docker build -t narensj/glassdoor-frontend . && docker push narensj/glassdoor-frontend
-cd Backend && docker build -t narensj/glassdoor-backend . && docker push narensj/glassdoor-backend
+### Kubernetes setup with minikube
 
+Install kubernetes https://kubernetes.io/docs/tasks/tools/install-kubectl/
+
+Install minikube https://minikube.sigs.k8s.io/docs/start/
+
+```
 minikube delete
 minikube start --driver=virtualbox
 minikube addons enable ingress
 minikube dashboard
 kubectl create namespace glassdoor
-kubectl delete all --all -n glassdoor && kubectl delete ingress glassdoor-ingress
 kubectl config set-context --current --namespace=glassdoor
-kubectl apply -f kube/main.yml
-minikube service frontend-service -n glassdoor #minikube service list
+```
 
-kubectl delete all --all -n glassdoor && kubectl delete ingress glassdoor-ingress && kubectl apply -f kube/* && minikube service frontend-service -n glassdoor
+### Kubernetes deply
+```
+kubectl delete all --all -n glassdoor && kubectl delete ingress glassdoor-ingress -n glassdoor && kubectl apply -f kube -n glassdoor && minikube service frontend-service -n glassdoor
+```
 
-apt-get update && apt-get -y install vim && apt-get -y install mongodb-clients && apt-get -y install kafkacat
-kafkacat -L -b kafka-cluster:9092
+### Kafkacat
+```
+kafkacat -L -b kafka-cluster:9092 #list all topics
+kafkacat -b kafka-cluster:9092 -C -t api-req -t api-resp #consumer
 ```
