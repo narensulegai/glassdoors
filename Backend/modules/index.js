@@ -11,7 +11,6 @@ module.exports = {
     return company.save();
   },
   getCompanyJobPosting: async (companyId) => {
-    console.log('getCompanyJobPosting');
     const jobPostings = await JobPosting.find({ company: companyId });
     const companySalaries = await CompanySalary.aggregate([
       { $group: { _id: '$jobPosting', minBaseSalary: { $min: '$baseSalary' }, maxBaseSalary: { $max: '$baseSalary' } } },
