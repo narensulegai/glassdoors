@@ -48,8 +48,12 @@ kubectl config set-context --current --namespace=glassdoor
 kubectl apply -f kube/main.yml
 minikube service frontend-service -n glassdoor #minikube service list
 
-kubectl delete all --all -n glassdoor && kubectl delete ingress glassdoor-ingress && kubectl apply -f kube/* && minikube service frontend-service -n glassdoor
-
 apt-get update && apt-get -y install vim && apt-get -y install mongodb-clients && apt-get -y install kafkacat
 kafkacat -L -b kafka-cluster:9092
+```
+
+### Kubernetes setup
+
+```
+kubectl delete all --all -n glassdoor && kubectl delete ingress glassdoor-ingress -n glassdoor && kubectl apply -f kube -n glassdoor && minikube service frontend-service -n glassdoor
 ```
