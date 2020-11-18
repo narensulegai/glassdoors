@@ -34,6 +34,11 @@ cd Frontend && docker build -t glassdoor-frontend . && docker run -p 3000:80 gla
 cd Backend && docker build -t glassdoor-backend . && docker run -p 5000:5000 -e MONGODB_CONNECTION=mongodb+srv://<atlas user>:<password>@<cluster>.mongodb.net/glassdoor glassdoor-backend:latest
 ```
 ### Kubernetes setup with minikube
+
+Install kubernetes https://kubernetes.io/docs/tasks/tools/install-kubectl/
+
+Install minikube https://minikube.sigs.k8s.io/docs/start/
+
 ```
 minikube delete
 minikube start --driver=virtualbox
