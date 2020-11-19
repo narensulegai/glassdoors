@@ -111,6 +111,34 @@ module.exports = {
     await modules.addReview(newReview);
     res.json(newReview);
   },
+  seedDummyReviews: async (req, res) => {
+    const genReview = () => {
+      const companyId = '5fb52103232cac00201b3dfe';
+      const employeeId = '5fb5219f232cac00201b3dff';
+      const r = {
+        overallRating: '5',
+        ceoApprovalRating: '5',
+        headline: 'Great',
+        description: 'I like this company',
+        pros: 'People',
+        cons: 'Nothing',
+        recommendToFriend: true,
+      };
+      return { ...r, company: companyId, employee: employeeId };
+    };
+    const reviews = [];
+    const n = parseInt(req.params.num);
+    for (let i = 0; i < n; i += 1) {
+      reviews.push(genReview());
+    }
+    await Review.insertMany(reviews, { ordered: false });
+    res.json(true);
+  },
+  getDummyReviews: async (req, res) => {
+    const limit = parseInt(req.params.limit);
+    const companyId = '5fb52103232cac00201b3dfe';
+    res.json(await Review.find({ company: companyId }).limit(limit));
+  },
   getReviews: async (req, res) => {
     const { id: companyId } = req.params;
     res.json(await Review.find({ company: companyId })

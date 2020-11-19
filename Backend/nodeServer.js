@@ -38,6 +38,8 @@ app.use(cors({
 const apiVersion = '/apiV1';
 
 [
+  ['post', '/test/seedDummyReviews/:num', handler.employee.seedDummyReviews, null],
+  ['get', '/test/dummyReviews/:limit', handler.employee.getDummyReviews, null],
   ['get', '/currentUser', handler.common.currentUser, null],
   ['post', '/signup/company', handler.common.signupCompany, null, schema.signupCompany],
   ['post', '/signup/employee', handler.common.signupEmployee, null, schema.signupCompany],
