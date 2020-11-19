@@ -15,15 +15,16 @@ const signPayload = (payload) => {
 
 module.exports = {
   getReviews: async (req, res) => {
-    return res.json(await Review.find());
+    // return res.json(await Review.find());
+    res.json(await req.requestKafka('dummyGetReviews'));
   },
   currentUser: async (req, resp) => {
     if (req.session && req.session.scope) {
       let user = {};
-      if (req.session.scope === "company") {
+      if (req.session.scope === 'company') {
         user = await Company.findById(req.session.user._id);
       }
-      if (req.session.scope === "employee") {
+      if (req.session.scope === 'employee') {
         user = await Employee.findById(req.session.user._id);
       }
       resp.json({ user, scope: req.session.scope });

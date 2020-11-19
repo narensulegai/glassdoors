@@ -16,7 +16,7 @@ const allTopics = {
 
 async function kafka() {
   const k = new Kafka({
-    logLevel: logLevel.NOTHING,
+    logLevel: logLevel.ERROR,
     clientId: 'glassdoor',
     brokers: process.env.KAFKA_BROKERS.split(','),
   });

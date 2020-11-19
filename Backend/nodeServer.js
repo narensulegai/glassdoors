@@ -14,7 +14,7 @@ let callAndWait = () => {
 };
 
 (async () => {
-  if (process.env.MOCK_KAFKA !== 'true') {
+  if (process.env.MOCK_KAFKA !== true) {
     const k = await kafka();
     callAndWait = k.callAndWait;
   } else {
