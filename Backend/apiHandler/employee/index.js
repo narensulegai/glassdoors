@@ -3,7 +3,7 @@ const {
   CompanySalary, Review, CompanyPhoto, InterviewExperience,
 } = require('../../mongodb');
 const { err } = require('../util');
-const modules = require('../../modules');
+const kModules = require('../../modules');
 const { redisGet, redisSet } = require('../../redisCli');
 
 module.exports = {
@@ -100,7 +100,7 @@ module.exports = {
     // With  redis
     const key = `companyJobPosting${companyId}`;
     if (await redisGet(key) === null) {
-      await redisSet(key, await modules.getCompanyJobPosting(companyId));
+      await redisSet(key, await kModules.getCompanyJobPosting(companyId));
     }
     res.json(await redisGet(key));
   },
@@ -108,7 +108,7 @@ module.exports = {
     const { id: companyId } = req.params;
     const employeeId = req.session.user._id;
     const newReview = { ...req.body, company: companyId, employee: employeeId };
-    await modules.addReview(newReview);
+    await kModules.addReview(newReview);
     res.json(newReview);
   },
   seedDummyReviews: async (req, res) => {
@@ -137,7 +137,19 @@ module.exports = {
   getDummyReviews: async (req, res) => {
     const limit = parseInt(req.params.limit);
     const companyId = '5fb52103232cac00201b3dfe';
-    res.json(await Review.find({ company: companyId }).limit(limit));
+
+    // With redis
+    const key = `getDummyReviews${companyId}${limit}`;
+    if (await redisGet(key) === null) {
+      await redisSet(key, await kModules.getDummyReviews(companyId, limit));
+    }
+    res.json(await redisGet(key));
+
+    // With kafka
+    // res.json(await req.requestKafka('getDummyReviews', companyId, limit));
+
+    // Base
+    // res.json(await kModules.getDummyReviews(companyId, limit));
   },
   getReviews: async (req, res) => {
     const { id: companyId } = req.params;
