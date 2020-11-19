@@ -11,7 +11,7 @@ const allTopics = {
 // const k = await kafka();
 // k.subscribe(allTopics.API_CALL, console.log);
 // k.send(allTopics.API_CALL, {message:'m1'});
-// const s = await k.callAndWait('sum', [1, 2]);
+// const s = await k.callAndWait('sum', 1, 2);
 // })();
 
 async function kafka() {
@@ -24,7 +24,7 @@ async function kafka() {
   const producer = k.producer();
   const groupId = process.env.GROUP;
   // App wide consumer group
-  const consumer = k.consumer({ groupId, fromBeginning: true });
+  const consumer = k.consumer({ groupId, fromBeginning: false });
   // Topics need to be defined before staring the server
   const topics = Object.values(allTopics);
   const subscriptions = {};
@@ -56,8 +56,12 @@ async function kafka() {
   console.log(`Connected to kafka, joining consumer group ${groupId}`);
 
   subscribe(allTopics.API_RESP, ({ token, resp, success }) => {
-    awaitCallbacks[token][success ? 0 : 1](resp);
-    delete awaitCallbacks[token];
+    // TODO needs refactor
+    // awaitCallbacks can be lost on restart, or in kafka server mode
+    if (awaitCallbacks.hasOwnProperty(token)) {
+      awaitCallbacks[token][success ? 0 : 1](resp);
+      delete awaitCallbacks[token];
+    }
   });
 
   return {
