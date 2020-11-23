@@ -9,6 +9,7 @@ import AdminMain from './components/AdminMain';
 import Logout from './components/Logout';
 import JobHomeMain from './components/JobHomeMain';
 import CompanyHomeMain from "./components/CompanyHomeMain";
+import AdminCompanyHome from './components/AdminCompanyHome';
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
         </Route>
         <Route path="/companyHome/:id">
           <CompanyHomeMain />
+        </Route>
+        <Route path="/companyHomePage/:id">
+          <AdminCompanyHome />
         </Route>
         <Route path="/jobHome/:id">
           <JobHomeMain />
