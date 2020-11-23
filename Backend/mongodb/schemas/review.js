@@ -10,6 +10,7 @@ module.exports = (mongoose) => {
     pros: { type: String },
     cons: { type: String },
     helpfulVotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee', required: true }],
+    adminApproval: {type: Boolean, default: false}
   },
   {
     timestamps: true,

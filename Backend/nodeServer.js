@@ -71,6 +71,12 @@ const apiVersion = '/apiV1';
   ['get', '/companyPhoto/:id', handler.employee.getCompanyPhotos, 'employee'],
   ['post', '/interviewExperience/:id', handler.employee.addInterviewExperience, 'employee'],
   ['get', '/interviewExperience/:id', handler.employee.getInterviewExperience, 'employee'],
+  ['get', '/admin/reviews/:unApproved', handler.admin.fetchUnApprovedReviews, 'admin'],
+  ['post', '/admin/reviews/approve', handler.admin.approveAReview, 'admin'],
+  ['get', '/admin/companyphotos/:unApproved', handler.admin.fetchUnApprovedCompanyPhotos, 'admin'],
+  ['post', '/admin/companyphotos/approve', handler.admin.approveAnImage, 'admin'],
+
+
 
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {
@@ -86,9 +92,9 @@ const apiVersion = '/apiV1';
       req.session = jwt.decode(token);
     }
 
-    if (r[3] === 'company' || r[3] === 'employee') {
+    if ( r[3] === 'company' || r[3] === 'employee') {
       const { scope } = req.session;
-      if (scope !== r[3]) {
+      if (scope !== r[3] && scope !== 'admin') {
         resp.status(401).json(err('You are not authorized for this action.'));
       }
     }
