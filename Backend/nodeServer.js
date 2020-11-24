@@ -71,6 +71,13 @@ const apiVersion = '/apiV1';
   ['get', '/companyPhoto/:id', handler.employee.getCompanyPhotos, 'employee'],
   ['post', '/interviewExperience/:id', handler.employee.addInterviewExperience, 'employee'],
   ['get', '/interviewExperience/:id', handler.employee.getInterviewExperience, 'employee'],
+<<<<<<< HEAD
+=======
+  ['get', '/admin/reviews', handler.admin.getPrivateReviews, 'admin'],
+  ['get', '/admin/photos', handler.admin.getPrivatePhotos, 'admin'],
+  ['put', '/admin/review/:id', handler.admin.approveReview, 'admin'],
+  ['put', '/admin/photo/:id', handler.admin.approvePhoto, 'admin'],
+>>>>>>> 5ab218d... Admin leftout features and mongo schema change
 
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {
