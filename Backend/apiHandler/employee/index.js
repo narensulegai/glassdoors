@@ -20,21 +20,6 @@ module.exports = {
       .find({ name: { $regex: text, $options: 'i' } }));
   }, 
 
-// // limit , skilp
-//   searchCompany: async (req, res) => {
-//     const { text } = req.query;
-//     const { start } = req.query; // skip
-//     const { size } = req.query; // limit
-  
-//     // db.companies.aggregate([   { "$facet": {     "totalData": [       { "$match": { }},       { "$skip": 0 },       { "$limit": 10 }     ],     "totalCount": [       { "$count": "count" }     ]   }} ])
-
-//     // TODO Use text index search
-//     res.json(await Company
-//       .aggregate([ { "$facet": { "totalData": [{ "$match": { }}, { "$skip": parseInt(start) },{ "$limit": parseInt(size) }],"totalCount": [{ "$count": "count" }]}}]))
-
-//     }
-//   ,
-
 
   searchJobPosting: async (req, res) => {
     const { text } = req.query;

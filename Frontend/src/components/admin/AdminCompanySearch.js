@@ -2,39 +2,50 @@ import React, {
     createRef, useEffect, useState,
   } from 'react';
   import { searchCompany } from '../../util/fetch/api';
-  import Pagination from '../../util/paginate/Pagination'
-  
+  import { Grid, Button } from "@material-ui/core";
+
   const CompanySearch = () => {
     const [companies, setCompanies] = useState([]);
 
-    const [loading, setLoading] = useState(false);
+    const [currentCompanies, setCurrentCompanies] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [companiesPerPage] = useState(2);
-    //const searchTextRef = createRef();
-    //console.log("Companies",companies)
+    const companiesPerPage = 2;
 
     const searchTextRef = createRef();
     // TODO useCallback
     const handleOnSearch = async () => {
       console.log("I am running too in handle")
       const text = searchTextRef.current.value;
-      setCompanies(await searchCompany(text));
+     const companies = await searchCompany(text);
+      setCompanies(companies);
+      const initialIndex = (currentPage - 1) * companiesPerPage;
+      let lastIndex = (currentPage - 1) * companiesPerPage + companiesPerPage;
+      lastIndex = lastIndex > companies.length - 1 ? companies.length : lastIndex;
+      setCurrentCompanies(companies.slice(initialIndex, lastIndex));
     };
-  
+    const setCurrentPagenumber = async (pageNumber) => {
+      await setCurrentPage(pageNumber);
+      const initialIndex = (pageNumber - 1) * companiesPerPage;
+      let lastIndex = (pageNumber - 1) * companiesPerPage + companiesPerPage;
+      lastIndex = lastIndex > companies.length - 1 ? companies.length : lastIndex;
+      setCurrentCompanies(companies.slice(initialIndex, lastIndex));
+    };
     useEffect(() => {
       console.log("I am running in useeffect")
       handleOnSearch();
     }, []);
   
-
-    const indexOfLastCompanies = currentPage * companiesPerPage;
-    const indexOfFirstcompanies = indexOfLastCompanies - companiesPerPage;
-    const currentCompanies = companies.slice(indexOfFirstcompanies, indexOfLastCompanies);
-    console.log("currentCompanies",currentCompanies)
-  
-     // Change page
-     const paginate = pageNumber => setCurrentPage(pageNumber);
-  
+    const showPaginationButtons = () => {
+      const total = companies.length;
+      let totalButtons = Math.floor((total / companiesPerPage) + 1);
+      const buttons = [];
+      for (let i = 0; i < totalButtons; i++) {
+        buttons.push(
+          <Button variant="contained"  onClick={() => setCurrentPagenumber(i + 1)}>{i + 1}</Button>
+        );
+      }
+      return buttons;
+    };
 
     return (
       <div className="row">
@@ -80,14 +91,8 @@ import React, {
                 </div>
               );
             })}
+            {showPaginationButtons()}
           </div>
-  
-
-          <Pagination
-        companiesPerPage={companiesPerPage}
-        totalCompanies={companies.length}
-        paginate={paginate}
-      />
 
         </div>
       </div>
