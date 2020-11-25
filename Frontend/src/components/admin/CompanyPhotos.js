@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Button } from "@material-ui/core";
 import {
-  fetchUnapprovedCompanyPhotos,
+  fetchCompanyPhotos,
   approveAnImage,
   fileUrl,
 } from "../../util/fetch/api";
@@ -18,7 +18,7 @@ export default class CompanyPhotos extends React.Component {
 
   getUnApprovedCompanyPhotos = async () => {
     try {
-      const companyPhotos = await fetchUnapprovedCompanyPhotos(true);
+      const companyPhotos = await fetchCompanyPhotos('private');
       this.setState({ companyPhotos });
     } catch (error) {
       console.log(error);
@@ -27,7 +27,16 @@ export default class CompanyPhotos extends React.Component {
 
   approve = async (companyPhotosId) => {
     try {
-      await approveAnImage(companyPhotosId);
+      await approveAnImage(companyPhotosId, 'approved');
+      this.getUnApprovedCompanyPhotos();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  reject = async (companyPhotosId) => {
+    try {
+      await approveAnImage(companyPhotosId, 'rejected');
       this.getUnApprovedCompanyPhotos();
     } catch (error) {
       console.log(error);
@@ -71,6 +80,12 @@ export default class CompanyPhotos extends React.Component {
                     onClick={() => this.approve(company._id)}
                   >
                     Approve
+                  </Button>
+                  <Button
+                    variant="contained"
+                    onClick={() => this.reject(company._id)}
+                  >
+                    Reject
                   </Button>
                 </div>
               </div>
