@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { searchCompany } from '../../util/fetch/api';
 import Paginate from '../Paginate';
-import {slicePage} from "../../util";
+import { slicePage } from '../../util';
 
 const CompanySearch = () => {
   const [companies, setCompanies] = useState([]);

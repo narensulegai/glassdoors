@@ -1,9 +1,11 @@
 import React, { createRef, useEffect, useState } from 'react';
 import { searchJobPosting } from '../../util/fetch/api';
-import {formatDate} from "../../util";
+import {formatDate, slicePage} from '../../util';
+import Paginate from '../Paginate';
 
 const JobSearch = () => {
   const [jobPosting, setJobPosting] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
   const searchTextRef = createRef();
 
   // TODO useCallback
@@ -29,7 +31,7 @@ const JobSearch = () => {
 
         <div className="mt-3">
           {jobPosting.length === 0 && <div>No job posting to show</div>}
-          {jobPosting.map((job) => {
+          {slicePage(jobPosting, currentPage).map((job) => {
             return (
               <div key={job._id} className="card mb-3">
                 <div className="card-body">
@@ -54,7 +56,9 @@ const JobSearch = () => {
             );
           })}
         </div>
-
+        <div className="mt-3">
+          <Paginate numItems={jobPosting.length} onPageChange={setCurrentPage} currentPage={currentPage} />
+        </div>
       </div>
     </div>
   );
