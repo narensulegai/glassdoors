@@ -2,9 +2,12 @@ import React, {
   createRef, useEffect, useState,
 } from 'react';
 import { searchCompany } from '../../util/fetch/api';
+import Paginate from '../Paginate';
+import {slicePage} from "../../util";
 
 const CompanySearch = () => {
   const [companies, setCompanies] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
   const searchTextRef = createRef();
   // TODO useCallback
   const handleOnSearch = async () => {
@@ -27,7 +30,7 @@ const CompanySearch = () => {
 
         <div className="mt-3">
           {companies.length === 0 && <div>No companies to show</div>}
-          {companies.map((c) => {
+          {slicePage(companies, currentPage).map((c) => {
             return (
               <div key={c._id} className="card mb-3">
                 <div className="card-body">
@@ -61,7 +64,9 @@ const CompanySearch = () => {
             );
           })}
         </div>
-
+        <div className="mt-3">
+          <Paginate numItems={companies.length} onPageChange={setCurrentPage} currentPage={currentPage} />
+        </div>
       </div>
     </div>
   );
