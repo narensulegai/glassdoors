@@ -33,14 +33,14 @@ export const logout = () => put("logout");
 export const fileUrl = (fileId) => {
   return `${apiUrl}/file/${fileId}`;
 };
-export const fetchUnapprovedReviews = (unApproved) =>
+export const fetchReviews = (unApproved) =>
   get(`admin/reviews/${unApproved}`);
 
-export const approveAReview = (reviewId) =>
-  post(`admin/reviews/approve`, { reviewId });
+export const approveAReview = (reviewId, status) =>
+  put(`admin/reviews/${reviewId}`, { status });
 
-  export const fetchUnapprovedCompanyPhotos = (unApproved) =>
+  export const fetchCompanyPhotos = (unApproved) =>
   get(`admin/companyPhotos/${unApproved}`);
 
-export const approveAnImage = (companyPhotosId) =>
-  post(`admin/companyPhotos/approve`, { companyPhotosId });
+export const approveAnImage = (companyPhotosId, status) =>
+  put(`admin/companyPhotos/${companyPhotosId}`, { status });

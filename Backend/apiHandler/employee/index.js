@@ -172,7 +172,12 @@ module.exports = {
   getReviews: async (req, res) => {
     const { id: companyId } = req.params;
     res.json(
-      await Review.find({ company: companyId })
+      await Review.find({
+        $and: [
+          { company: companyId },
+          { $or: [{ employee: req.session.user._id }, { status: 'approved' }]}
+        ],
+      })
         .populate("employee", "-resumes")
         .sort({ createdAt: -1 })
     );
@@ -190,7 +195,12 @@ module.exports = {
   getCompanyPhotos: async (req, res) => {
     const { id: companyId } = req.params;
     res.json(
-      await CompanyPhoto.find({ company: companyId })
+      await CompanyPhoto.find({
+        $and: [
+          { company: companyId },
+          { $or: [{ employee: req.session.user._id }, { status: 'approved' }]}
+        ],
+      })
         .populate("employee", "-resumes")
         .sort({ createdAt: -1 })
     );

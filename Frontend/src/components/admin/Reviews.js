@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Button } from "@material-ui/core";
-import { fetchUnapprovedReviews, approveAReview } from "../../util/fetch/api";
+import { fetchReviews, approveAReview } from "../../util/fetch/api";
 import Rating from "@material-ui/lab/Rating";
 
 export default class Reviews extends React.Component {
@@ -14,7 +14,7 @@ export default class Reviews extends React.Component {
 
   getUnApprovedReviews = async () => {
     try {
-      const reviews = await fetchUnapprovedReviews(true);
+      const reviews = await fetchReviews('private');
       this.setState({ reviews });
     } catch (error) {
       console.log(error);
@@ -23,12 +23,21 @@ export default class Reviews extends React.Component {
 
   approve = async (reviewID) => {
     try {
-      await approveAReview(reviewID);
+      await approveAReview(reviewID, 'approved');
       this.getUnApprovedReviews();
     } catch (error) {
       console.log(error);
     }
   };
+
+  reject = async (reviewID) => {
+    try {
+      await approveAReview(reviewID, 'rejected');
+      this.getUnApprovedReviews();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   render() {
     const reviews = this.state.reviews;
@@ -89,6 +98,9 @@ export default class Reviews extends React.Component {
                 <div style={{ float: "right" }}>
                   <Button variant="contained" onClick={() => this.approve(review._id)}>
                     Approve
+                  </Button>
+                  <Button variant="contained" onClick={() => this.reject(review._id)}>
+                    Reject
                   </Button>
                 </div>
               </div>
