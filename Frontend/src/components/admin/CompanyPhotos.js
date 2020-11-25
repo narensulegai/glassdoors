@@ -5,7 +5,6 @@ import {
   approveAnImage,
   fileUrl,
 } from "../../util/fetch/api";
-import Rating from "@material-ui/lab/Rating";
 
 export default class CompanyPhotos extends React.Component {
   constructor(props) {

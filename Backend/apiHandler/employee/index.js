@@ -1,10 +1,16 @@
 const {
-  Employee, JobPosting, Company, JobApplication,
-  CompanySalary, Review, CompanyPhoto, InterviewExperience,
-} = require('../../mongodb');
-const { err } = require('../util');
-const kModules = require('../../modules');
-const { redisGet, redisSet } = require('../../redisCli');
+  Employee,
+  JobPosting,
+  Company,
+  JobApplication,
+  CompanySalary,
+  Review,
+  CompanyPhoto,
+  InterviewExperience,
+} = require("../../mongodb");
+const { err } = require("../util");
+const kModules = require("../../modules");
+const { redisGet, redisSet } = require("../../redisCli");
 
 module.exports = {
   update: async (req, resp) => {
@@ -16,26 +22,38 @@ module.exports = {
   searchCompany: async (req, res) => {
     const { text } = req.query;
     // TODO Use text index search
-    res.json(await Company
-      .find({ name: { $regex: text, $options: 'i' } }));
+    res.json(await Company.find({ name: { $regex: text, $options: "i" } }));
   },
   searchJobPosting: async (req, res) => {
     const { text } = req.query;
     // TODO Use text index search
-    res.json(await JobPosting.find({ title: { $regex: text, $options: 'i' } })
-      .populate('company')
-      .sort({ createdAt: -1 }));
+    res.json(
+      await JobPosting.find({ title: { $regex: text, $options: "i" } })
+        .populate("company")
+        .sort({ createdAt: -1 })
+    );
   },
   getCompany: async (req, res) => {
     const companyId = req.params.id;
-    const company = await Company.findById(companyId)
-      .populate('jobPostings');
-    res.json(company);
+    const company = await Company.findById(companyId).populate("jobPostings");
+    let reviews = await Review.find({ company: companyId }).populate('employee', 'name');
+    const reviewData = {averageRating: 0 , positiveReview: null, negativeReview: null};
+    for(const review in reviews) {
+      const currentReview = reviews[review];
+      reviewData.averageRating = (reviewData.averageRating + currentReview.overallRating)/(parseInt(review) + 1);
+      if(!reviewData.positiveReview && currentReview.recommendToFriend ) {
+        reviewData.positiveReview = currentReview;
+      }
+      if(!reviewData.negativeReview && !currentReview.recommendToFriend ) {
+        reviewData.negativeReview = currentReview;
+      }
+    }
+    const dataToBeReturned = {...company.toJSON(), reviewData };
+    res.json(dataToBeReturned);
   },
   getJob: async (req, res) => {
     const jobId = req.params.id;
-    const jobPosting = await JobPosting.findById(jobId)
-      .populate('company');
+    const jobPosting = await JobPosting.findById(jobId).populate("company");
     res.json(jobPosting);
   },
   applyJob: async (req, res) => {
@@ -47,7 +65,7 @@ module.exports = {
       job: jobId,
       employee: employeeId,
       company: jobPosting.company,
-      status: 'submitted',
+      status: "submitted",
     });
     res.json(await jobApplication.save());
   },
@@ -73,14 +91,14 @@ module.exports = {
   },
   jobApplications: async (req, res) => {
     const employeeId = req.session.user._id;
-    res.json(await JobApplication
-      .find({ employee: employeeId })
-      .populate({
-        path: 'job',
+    res.json(
+      await JobApplication.find({ employee: employeeId }).populate({
+        path: "job",
         populate: {
-          path: 'company',
+          path: "company",
         },
-      }));
+      })
+    );
   },
   addSalary: async (req, res) => {
     const employeeId = req.session.user._id;
@@ -99,7 +117,7 @@ module.exports = {
     // res.json(await modules.getCompanyJobPosting(companyId)); return;
     // With  redis
     const key = `companyJobPosting${companyId}`;
-    if (await redisGet(key) === null) {
+    if ((await redisGet(key)) === null) {
       await redisSet(key, await kModules.getCompanyJobPosting(companyId));
     }
     res.json(await redisGet(key));
@@ -113,15 +131,15 @@ module.exports = {
   },
   seedDummyReviews: async (req, res) => {
     const genReview = () => {
-      const companyId = '5fb52103232cac00201b3dfe';
-      const employeeId = '5fb5219f232cac00201b3dff';
+      const companyId = "5fb52103232cac00201b3dfe";
+      const employeeId = "5fb5219f232cac00201b3dff";
       const r = {
-        overallRating: '5',
-        ceoApprovalRating: '5',
-        headline: 'Great',
-        description: 'I like this company',
-        pros: 'People',
-        cons: 'Nothing',
+        overallRating: "5",
+        ceoApprovalRating: "5",
+        headline: "Great",
+        description: "I like this company",
+        pros: "People",
+        cons: "Nothing",
         recommendToFriend: true,
       };
       return { ...r, company: companyId, employee: employeeId };
@@ -136,11 +154,11 @@ module.exports = {
   },
   getDummyReviews: async (req, res) => {
     const limit = parseInt(req.params.limit);
-    const companyId = '5fb52103232cac00201b3dfe';
+    const companyId = "5fb52103232cac00201b3dfe";
 
     // With redis
     const key = `getDummyReviews${companyId}${limit}`;
-    if (await redisGet(key) === null) {
+    if ((await redisGet(key)) === null) {
       await redisSet(key, await kModules.getDummyReviews(companyId, limit));
     }
     res.json(await redisGet(key));
@@ -153,21 +171,29 @@ module.exports = {
   },
   getReviews: async (req, res) => {
     const { id: companyId } = req.params;
-    res.json(await Review.find({ company: companyId })
-      .populate('employee', '-resumes')
-      .sort({ createdAt: -1 }));
+    res.json(
+      await Review.find({ company: companyId })
+        .populate("employee", "-resumes")
+        .sort({ createdAt: -1 })
+    );
   },
   addCompanyPhoto: async (req, res) => {
     const { id: companyId } = req.params;
     const employeeId = req.session.user._id;
-    const review = new CompanyPhoto({ ...req.body, company: companyId, employee: employeeId });
+    const review = new CompanyPhoto({
+      ...req.body,
+      company: companyId,
+      employee: employeeId,
+    });
     res.json(await review.save());
   },
   getCompanyPhotos: async (req, res) => {
     const { id: companyId } = req.params;
-    res.json(await CompanyPhoto.find({ company: companyId })
-      .populate('employee', '-resumes')
-      .sort({ createdAt: -1 }));
+    res.json(
+      await CompanyPhoto.find({ company: companyId })
+        .populate("employee", "-resumes")
+        .sort({ createdAt: -1 })
+    );
   },
   addInterviewExperience: async (req, res) => {
     const employeeId = req.session.user._id;
@@ -181,8 +207,10 @@ module.exports = {
   },
   getInterviewExperience: async (req, res) => {
     const { id: companyId } = req.params;
-    res.json(await InterviewExperience.find({ company: companyId })
-      .populate('employee', '-resumes')
-      .sort({ createdAt: -1 }));
+    res.json(
+      await InterviewExperience.find({ company: companyId })
+        .populate("employee", "-resumes")
+        .sort({ createdAt: -1 })
+    );
   },
 };
