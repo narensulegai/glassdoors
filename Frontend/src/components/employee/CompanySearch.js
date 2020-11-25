@@ -6,12 +6,11 @@ import Pagination from '../../util/paginate/Pagination'
 
 const CompanySearch = () => {
   const [companies, setCompanies] = useState([]);
-
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [companiesPerPage] = useState(2);
-
   const searchTextRef = createRef();
+  //console.log("Companies",companies)
   // TODO useCallback
   const handleOnSearch = async () => {
     console.log("I am running too in handle")
@@ -31,6 +30,7 @@ const CompanySearch = () => {
 
    // Change page
    const paginate = pageNumber => setCurrentPage(pageNumber);
+
 
 
   return (
@@ -78,7 +78,7 @@ const CompanySearch = () => {
             );
           })}
         </div>
-
+        
 
         <Pagination
         companiesPerPage={companiesPerPage}

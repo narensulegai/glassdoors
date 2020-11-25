@@ -8,6 +8,7 @@ export const updateCompany = (d) => put("company", d);
 export const addJobPosting = (d) => post("jobPosting", d);
 export const getJobPosting = () => get("jobPosting");
 export const updateEmployee = (d) => put("employee", d);
+//export const searchCompany = (text, size, start) => get(`search/company?text=${text}&size=${size}&start=${start}`);
 export const searchCompany = (text) => get(`search/company?text=${text}`);
 export const searchJobPosting = (text) => get(`search/jobPosting?text=${text}`);
 export const getCompany = (id) => get(`company/profile/${id}`);
