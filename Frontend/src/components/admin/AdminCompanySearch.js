@@ -1,7 +1,7 @@
-import React, { createRef, useEffect, useState } from "react";
-import { searchCompany } from "../../util/fetch/api";
-import Paginate from "../Paginate";
-import { slicePage } from "../../util";
+import React, { createRef, useEffect, useState } from 'react';
+import { searchCompany } from '../../util/fetch/api';
+import Paginate from '../Paginate';
+import { slicePage } from '../../util';
 
 const AdminCompanySearch = () => {
   const [companies, setCompanies] = useState([]);
@@ -55,7 +55,7 @@ const AdminCompanySearch = () => {
 
                   <div>
                     <span className="inputLabel">Location</span>
-                    <span>{[c.city, c.state].join(", ")}</span>
+                    <span>{[c.city, c.state].join(', ')}</span>
                     <span className="divider" />
                     <span className="inputLabel">Website</span>
                     <span>{c.website}</span>
