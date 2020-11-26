@@ -19,7 +19,7 @@ module.exports = {
     const emp = await employee.save();
     resp.json(emp);
   },
-  searchCompany: async (req, res) => {
+   searchCompany: async (req, res) => {
     const { text } = req.query;
     // TODO Use text index search
     res.json(await Company.find({ name: { $regex: text, $options: "i" } }));
