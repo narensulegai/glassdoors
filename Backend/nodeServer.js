@@ -76,7 +76,6 @@ const apiVersion = '/apiV1';
   ['put', '/admin/reviews/:id', handler.admin.approveReview, 'admin'],
   ['put', '/admin/companyPhotos/:id', handler.admin.approvePhoto, 'admin'],
 
-
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {
     console.log(req.url, r[2].name, req.body);
@@ -91,7 +90,7 @@ const apiVersion = '/apiV1';
       req.session = jwt.decode(token);
     }
 
-    if ( r[3] === 'company' || r[3] === 'employee') {
+    if (r[3] === 'company' || r[3] === 'employee') {
       const { scope } = req.session;
       if (scope !== r[3] && scope !== 'admin') {
         resp.status(401).json(err('You are not authorized for this action.'));

@@ -1,5 +1,5 @@
-const { Review, CompanyPhoto } = require("../../mongodb");
-const { err } = require("../util");
+const { Review, CompanyPhoto } = require('../../mongodb');
+const { err } = require('../util');
 
 module.exports = {
   getReviews: async (req, res) => {
