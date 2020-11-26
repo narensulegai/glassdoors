@@ -4,7 +4,7 @@ import React, {
   import { searchCompany } from '../../util/fetch/api';
   import { Grid, Button } from "@material-ui/core";
 
-  const CompanySearch = () => {
+  const AdminCompanySearch = () => {
     const [companies, setCompanies] = useState([]);
 
     const [currentCompanies, setCurrentCompanies] = useState([]);
@@ -14,7 +14,6 @@ import React, {
     const searchTextRef = createRef();
     // TODO useCallback
     const handleOnSearch = async () => {
-      console.log("I am running too in handle")
       const text = searchTextRef.current.value;
      const companies = await searchCompany(text);
       setCompanies(companies);
@@ -99,7 +98,7 @@ import React, {
     );
   };
   
-  CompanySearch.propTypes = {};
+  AdminCompanySearch.propTypes = {};
   
-  export default CompanySearch;
+  export default AdminCompanySearch;
   
