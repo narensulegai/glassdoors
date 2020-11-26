@@ -1,104 +1,77 @@
-import React, { createRef, useEffect, useState } from "react";
-import { searchCompany } from "../../util/fetch/api";
-import { Grid, Button } from "@material-ui/core";
+import React, {
+  createRef, useEffect, useState,
+} from 'react';
+import { searchCompany } from '../../util/fetch/api';
+import Paginate from '../Paginate';
+import { slicePage } from '../../util';
+
 const CompanySearch = () => {
   const [companies, setCompanies] = useState([]);
-  const [currentCompanies, setCurrentCompanies] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const companiesPerPage = 2;
+  const [currentPage, setCurrentPage] = useState(0);
   const searchTextRef = createRef();
   // TODO useCallback
   const handleOnSearch = async () => {
     const text = searchTextRef.current.value;
-    const companies = await searchCompany(text);
-    setCompanies(companies);
-    const initialIndex = (currentPage - 1) * companiesPerPage;
-    let lastIndex = (currentPage - 1) * companiesPerPage + companiesPerPage;
-    lastIndex = lastIndex > companies.length - 1 ? companies.length : lastIndex;
-    setCurrentCompanies(companies.slice(initialIndex, lastIndex));
+    setCompanies(await searchCompany(text));
   };
-  const setCurrentPagenumber = async (pageNumber) => {
-    await setCurrentPage(pageNumber);
-    const initialIndex = (pageNumber - 1) * companiesPerPage;
-    let lastIndex = (pageNumber - 1) * companiesPerPage + companiesPerPage;
-    lastIndex = lastIndex > companies.length - 1 ? companies.length : lastIndex;
-    setCurrentCompanies(companies.slice(initialIndex, lastIndex));
-  };
+
   useEffect(() => {
     handleOnSearch();
   }, []);
-  const showPaginationButtons = () => {
-    const total = companies.length;
-    let totalButtons = Math.floor((total / companiesPerPage) + 1);
-    const buttons = [];
-    for (let i = 0; i < totalButtons; i++) {
-      buttons.push(
-        <Button variant="contained"  onClick={() => setCurrentPagenumber(i + 1)}>{i + 1}</Button>
-      );
-    }
-    return buttons;
-  };
+
   return (
     <div className="row">
       <div className="col-12">
+
         <div className="d-flex">
-          <input
-            type="text"
-            className="w-100"
-            placeholder="Search for company by name"
-            ref={searchTextRef}
-          />
-          <button className="btn-primary" onClick={handleOnSearch}>
-            Search
-          </button>
+          <input type="text" className="w-100" placeholder="Search for company by name" ref={searchTextRef} />
+          <button className="btn-primary" onClick={handleOnSearch}>Search</button>
         </div>
+
         <div className="mt-3">
-          {currentCompanies.length === 0 && <div>No companies to show</div>}
-          <div>               
-          {currentCompanies.map((c) => {
+          {companies.length === 0 && <div>No companies to show</div>}
+          {slicePage(companies, currentPage).map((c) => {
             return (
               <div key={c._id} className="card mb-3">
                 <div className="card-body">
+
                   <h5>
-                    <a
-                      href={`/#/companyHome/${c._id}/companyOverview`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <a href={`/#/companyHome/${c._id}/companyOverview`} target="_blank" rel="noopener noreferrer">
                       {c.name}
                     </a>
                   </h5>
+
                   <div>
-                    <span className="inputLabel">Average rating</span>
-                    <span>-</span>
+                    <span className="inputLabel">Average rating</span><span>-</span>
                   </div>
+
                   <div>
-                    <span className="inputLabel">Location</span>
-                    <span>{[c.city, c.state].join(", ")}</span>
+                    <span className="inputLabel">Location</span><span>{[c.city, c.state].join(', ')}</span>
                     <span className="divider" />
-                    <span className="inputLabel">Website</span>
-                    <span>{c.website}</span>
+                    <span className="inputLabel">Website</span><span>{c.website}</span>
                   </div>
+
                   <div>
-                    <span className="inputLabel"># Reviews</span>
-                    <span>-</span>
+                    <span className="inputLabel"># Reviews</span><span>-</span>
                     <span className="divider" />
-                    <span className="inputLabel"># Salary reviews</span>
-                    <span>-</span>
+                    <span className="inputLabel"># Salary reviews</span><span>-</span>
                     <span className="divider" />
-                    <span className="inputLabel"># Interview reviews</span>
-                    <span>-</span>
+                    <span className="inputLabel"># Interview reviews</span><span>-</span>
                   </div>
+
                 </div>
               </div>
             );
           })}
-           {showPaginationButtons()}
-</div>
+        </div>
+        <div className="mt-3">
+          <Paginate numItems={companies.length} onPageChange={setCurrentPage} currentPage={currentPage} />
         </div>
       </div>
     </div>
   );
 };
+
 CompanySearch.propTypes = {};
+
 export default CompanySearch;

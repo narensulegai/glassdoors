@@ -23,3 +23,9 @@ export const formatTime = (timestamp) => {
   minutes = minutes < 10 ? `0${minutes}` : minutes;
   return `${hours}:${minutes} ${ampm}`;
 };
+
+export const PAGE_SIZE = 2;
+export const slicePage = (arr, currentPage) => {
+  const offset = currentPage * PAGE_SIZE;
+  return arr.slice(offset, offset + PAGE_SIZE);
+};
