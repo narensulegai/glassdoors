@@ -1,9 +1,8 @@
-import React, { PureComponent } from "react";
-import { Route } from "react-router-dom";
-import Reviews from "./admin/Reviews";
-import CompanyPhotos from "./admin/CompanyPhotos";
-import AdminCompanySearch from "./admin/AdminCompanySearch";
-
+import React, { PureComponent } from 'react';
+import { Route } from 'react-router-dom';
+import Reviews from './admin/Reviews';
+import CompanyPhotos from './admin/CompanyPhotos';
+import AdminCompanySearch from './admin/AdminCompanySearch';
 
 class AdminMain extends PureComponent {
   render() {

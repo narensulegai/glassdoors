@@ -4,7 +4,6 @@ import CompanyOverview from './companyHome/CompanyOverview';
 import CompanyReviews from './companyHome/CompanyReviews';
 import CompanyPhotos from './companyHome/CompanyPhotos';
 
-
 class CompanyHomeMain extends PureComponent {
   constructor(props) {
     super(props);

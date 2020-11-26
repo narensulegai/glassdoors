@@ -8,7 +8,7 @@ import CompanyMain from './components/CompanyMain';
 import AdminMain from './components/AdminMain';
 import Logout from './components/Logout';
 import JobHomeMain from './components/JobHomeMain';
-import CompanyHomeMain from "./components/CompanyHomeMain";
+import CompanyHomeMain from './components/CompanyHomeMain';
 import AdminCompanyHome from './components/AdminCompanyHome';
 
 function App() {

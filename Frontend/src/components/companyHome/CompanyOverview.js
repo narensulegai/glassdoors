@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getCompany, fileUrl } from "../../util/fetch/api";
-import { Grid } from "@material-ui/core";
-import Rating from "@material-ui/lab/Rating";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Grid } from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
+import { getCompany, fileUrl } from '../../util/fetch/api';
 
 const CompanyOverview = () => {
   const { id: companyId } = useParams();
@@ -25,45 +25,45 @@ const CompanyOverview = () => {
             <h6>{company.name}</h6>
             <div>
               <span className="inputLabel">Website - </span>
-              <span>{company.website || "-"}</span>
+              <span>{company.website || '-'}</span>
             </div>
             <div>
               <span className="inputLabel">Size - </span>
-              <span>{company.size || "-"}</span>
+              <span>{company.size || '-'}</span>
             </div>
             <div>
               <span className="inputLabel">Type - </span>
-              <span>{company.type || "-"}</span>
+              <span>{company.type || '-'}</span>
             </div>
             <div>
               <span className="inputLabel">Revenue - </span>
-              <span>{company.revenue || "-"}</span>
+              <span>{company.revenue || '-'}</span>
             </div>
             <div>
               <span className="inputLabel">Headquarters - </span>
-              <span>{company.headquarters || "-"}</span>
+              <span>{company.headquarters || '-'}</span>
             </div>
             <div>
               <span className="inputLabel">Founded - </span>
-              <span>{company.founded || "-"}</span>
+              <span>{company.founded || '-'}</span>
             </div>
             <div>
               <span className="inputLabel">Description - </span>
-              <span>{company.description || "-"}</span>
+              <span>{company.description || '-'}</span>
             </div>
             <div>
               <span className="inputLabel">Mission - </span>
-              <span>{company.mission || "-"}</span>
+              <span>{company.mission || '-'}</span>
             </div>
             <div>
               <span className="inputLabel">Average rating - </span>
               <span>
-                {" "}
+                {' '}
                 <Rating
                   name="hover-feedback"
                   value={company.reviewData.averageRating || 0}
                   precision={0.1}
-                  size={"small"}
+                  size="small"
                   color="red"
                   readOnly
                 />
@@ -76,22 +76,22 @@ const CompanyOverview = () => {
                   <Grid
                     container
                     style={{
-                      backgroundColor: "#fff",
-                      margin: "20px",
-                      border: "1px solid black",
-                      padding: "10px",
+                      backgroundColor: '#fff',
+                      margin: '20px',
+                      border: '1px solid black',
+                      padding: '10px',
                     }}
                   >
-                    <Grid item xs={12} style={{ marginBottom: "20px" }}>
+                    <Grid item xs={12} style={{ marginBottom: '20px' }}>
                       <span className="inputLabel">Reviewed By - </span>
                       {company.reviewData.positiveReview.employee.name}
                     </Grid>
-                    <Grid item xs={12} style={{ marginBottom: "20px" }}>
+                    <Grid item xs={12} style={{ marginBottom: '20px' }}>
                       <span className="inputLabel">Headline - </span>
 
                       {company.reviewData.positiveReview.headline}
                     </Grid>
-                    <Grid item xs={12} style={{ marginBottom: "20px" }}>
+                    <Grid item xs={12} style={{ marginBottom: '20px' }}>
                       <span className="inputLabel">Description -</span>
                       {company.reviewData.positiveReview.description}
                     </Grid>
@@ -100,7 +100,7 @@ const CompanyOverview = () => {
                       name="hover-feedback"
                       value={company.reviewData.positiveReview.overallRating}
                       precision={0.1}
-                      size={"small"}
+                      size="small"
                       color="red"
                       readOnly
                     />
@@ -108,14 +108,14 @@ const CompanyOverview = () => {
                       <Grid
                         item
                         xs={12}
-                        style={{ marginBottom: "20px", marginTop: "20px" }}
+                        style={{ marginBottom: '20px', marginTop: '20px' }}
                       >
-                        <span className="inputLabel">Pros -</span>{" "}
+                        <span className="inputLabel">Pros -</span>{' '}
                         {company.reviewData.positiveReview.pros}
                       </Grid>
                     ) : null}
                     {company.reviewData.positiveReview.cons ? (
-                      <Grid item xs={12} style={{ marginBottom: "20px" }}>
+                      <Grid item xs={12} style={{ marginBottom: '20px' }}>
                         <span className="inputLabel">Cons -</span>
                         {company.reviewData.positiveReview.cons}
                       </Grid>
@@ -131,21 +131,21 @@ const CompanyOverview = () => {
                   <Grid
                     container
                     style={{
-                      backgroundColor: "#fff",
-                      margin: "20px",
-                      border: "1px solid black",
-                      padding: "10px",
+                      backgroundColor: '#fff',
+                      margin: '20px',
+                      border: '1px solid black',
+                      padding: '10px',
                     }}
                   >
-                    <Grid item xs={12} style={{ marginBottom: "20px" }}>
+                    <Grid item xs={12} style={{ marginBottom: '20px' }}>
                       <span className="inputLabel">Reviewed By -</span>
                       {company.reviewData.negativeReview.employee.name}
                     </Grid>
-                    <Grid item xs={12} style={{ marginBottom: "20px" }}>
-                      <span className="inputLabel">Headline -</span>{" "}
+                    <Grid item xs={12} style={{ marginBottom: '20px' }}>
+                      <span className="inputLabel">Headline -</span>{' '}
                       {company.reviewData.negativeReview.headline}
                     </Grid>
-                    <Grid item xs={12} style={{ marginBottom: "20px" }}>
+                    <Grid item xs={12} style={{ marginBottom: '20px' }}>
                       <span className="inputLabel">Description -</span>
                       {company.reviewData.negativeReview.description}
                     </Grid>
@@ -154,7 +154,7 @@ const CompanyOverview = () => {
                       name="hover-feedback"
                       value={company.reviewData.negativeReview.overallRating}
                       precision={0.1}
-                      size={"small"}
+                      size="small"
                       color="red"
                       readOnly
                     />
@@ -162,15 +162,15 @@ const CompanyOverview = () => {
                       <Grid
                         item
                         xs={12}
-                        style={{ marginBottom: "20px", marginTop: "20px" }}
+                        style={{ marginBottom: '20px', marginTop: '20px' }}
                       >
-                        <span className="inputLabel">Pros -</span>{" "}
+                        <span className="inputLabel">Pros -</span>{' '}
                         {company.reviewData.negativeReview.pros}
                       </Grid>
                     ) : null}
                     {company.reviewData.negativeReview.cons ? (
-                      <Grid item xs={12} style={{ marginBottom: "20px" }}>
-                        <span className="inputLabel">Cons -</span>{" "}
+                      <Grid item xs={12} style={{ marginBottom: '20px' }}>
+                        <span className="inputLabel">Cons -</span>{' '}
                         {company.reviewData.negativeReview.cons}
                       </Grid>
                     ) : null}
@@ -178,7 +178,7 @@ const CompanyOverview = () => {
                 </div>
               </div>
             ) : null}
-            <div></div>
+            <div />
           </>
         )}
       </div>

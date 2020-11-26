@@ -1,6 +1,6 @@
 import React, { createRef, useEffect, useState } from 'react';
 import { searchJobPosting } from '../../util/fetch/api';
-import {formatDate, slicePage} from '../../util';
+import { formatDate, slicePage } from '../../util';
 import Paginate from '../Paginate';
 
 const JobSearch = () => {

@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import Modal from "react-bootstrap/Modal";
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Modal from 'react-bootstrap/Modal';
+import { Chart } from 'react-google-charts';
 import {
   addInterviewExperience,
   getCompanyJobPosting,
   getInterviewExperiences,
-} from "../../util/fetch/api";
-import { formatDate } from "../../util";
-import { Chart } from "react-google-charts";
+} from '../../util/fetch/api';
+import { formatDate } from '../../util';
 
 const CompanyInterviews = () => {
   const { id: companyId } = useParams();
@@ -31,11 +31,9 @@ const CompanyInterviews = () => {
       setJobPostings(await getCompanyJobPosting(companyId));
       const interviews = await getInterviewExperiences(companyId);
       setInterviewExperiences(interviews);
-     setPositiveExperiences(interviews.filter((interview) => interview.overallExperience === "positive").length);
-     setNegativeExperiences(interviews.filter((interview) => interview.overallExperience === "negative").length);
-     setNeutralExperiences(interviews.filter((interview) => interview.overallExperience === "neutral").length)
-
-
+      setPositiveExperiences(interviews.filter((interview) => interview.overallExperience === 'positive').length);
+      setNegativeExperiences(interviews.filter((interview) => interview.overallExperience === 'negative').length);
+      setNeutralExperiences(interviews.filter((interview) => interview.overallExperience === 'neutral').length);
     })();
   }, [companyId]);
 
@@ -56,9 +54,9 @@ const CompanyInterviews = () => {
     toggleModal();
     const interviews = await getInterviewExperiences(companyId);
     setInterviewExperiences(interviews);
-    setPositiveExperiences(interviews.filter((interview) => interview.overallExperience === "positive").length);
-    setNegativeExperiences(interviews.filter((interview) => interview.overallExperience === "negative").length);
-    setNeutralExperiences(interviews.filter((interview) => interview.overallExperience === "neutral").length)
+    setPositiveExperiences(interviews.filter((interview) => interview.overallExperience === 'positive').length);
+    setNegativeExperiences(interviews.filter((interview) => interview.overallExperience === 'negative').length);
+    setNeutralExperiences(interviews.filter((interview) => interview.overallExperience === 'neutral').length);
   };
 
   return (
@@ -128,30 +126,32 @@ const CompanyInterviews = () => {
           </>
         )}
       </div>
-      <div style={{height: "300px", width: "500px", marginTop: "20px", marginBottom: "20px"}}><Chart
-  width={'500px'}
-  height={'300px'}
-  chartType="PieChart"
-  loader={<div>Loading Chart</div>}
-  data={[
-    ['experiences', 'percentage'],
-    ['Positive', positiveExperiences],
-    ['Negative', negativeExperiences],
-    ['Neutral', neutralExperiences],
-  ]}
+      <div style={{
+        height: '300px', width: '500px', marginTop: '20px', marginBottom: '20px',
+      }}><Chart
+        width="500px"
+        height="300px"
+        chartType="PieChart"
+        loader={<div>Loading Chart</div>}
+        data={[
+          ['experiences', 'percentage'],
+          ['Positive', positiveExperiences],
+          ['Negative', negativeExperiences],
+          ['Neutral', neutralExperiences],
+        ]}
 
-  options={{
-    title: 'Interview Experience',
-    is3D: true,
-    slices: {
-      0: { color: '#33ff33' },
-      1: { color: '#009900' },
-      2: { color: '#3333ff' },
+        options={{
+          title: 'Interview Experience',
+          is3D: true,
+          slices: {
+            0: { color: '#33ff33' },
+            1: { color: '#009900' },
+            2: { color: '#3333ff' },
 
-    },
-  }}
+          },
+        }}
 /></div>
-      
+
       <div className="col-12 mt-2">
         <span><h3>Interview Experiences</h3></span>
         {interviewExperiences.length === 0 && (
