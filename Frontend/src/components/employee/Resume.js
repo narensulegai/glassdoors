@@ -39,7 +39,7 @@ const Resume = () => {
           {employee.resumes.map((f) => {
             return (
               <div key={f.fileId} className="card mb-3">
-                <div className="card-body d-flex justify-content-between">
+                <div className="card-body d-flex justify-content-between align-items-center">
                   <a href={fileUrl(f.fileId)}>{f.fileName}</a>
                   {employee.primaryResume === f.fileId
                     ? <button className="btn-primary">Primary resume</button>

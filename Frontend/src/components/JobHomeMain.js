@@ -22,6 +22,7 @@ const JobHomeMain = () => {
 
   const handleOnApply = async () => {
     await applyJob(jobId, { coverLetter: coverLetterFileId, resume: resumeRef.current.value });
+    window.alert('Job application sent');
   };
 
   const handleOnCoverLetterUpload = async ({ files }) => {
