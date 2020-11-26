@@ -41,8 +41,12 @@ export default class Reviews extends React.Component {
 
   render() {
     const reviews = this.state.reviews;
+    if(reviews.length === 0 ) {
+      return <h5>No pending reviews for you to approve at this point of time</h5>;
+    }
     return (
       <div>
+                <span>You have {reviews.length} reviews to approve</span>
         {reviews.map((review) => {
           return (
             <Grid
@@ -65,10 +69,10 @@ export default class Reviews extends React.Component {
                 xs={12}
                 style={{ marginBottom: "20px", marginTop: "20px" }}
               >
-                {review.headline}
+                Headline - {review.headline}
               </Grid>
-              <Grid item xs={12}>
-                {review.description}
+              <Grid item xs={12}  style={{ marginBottom: "20px"}}>
+                Description - {review.description}
               </Grid>
 
               <Rating

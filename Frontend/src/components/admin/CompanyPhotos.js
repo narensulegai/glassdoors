@@ -45,8 +45,13 @@ export default class CompanyPhotos extends React.Component {
 
   render() {
     const companyPhotos = this.state.companyPhotos;
+
+    if(companyPhotos.length === 0 ) {
+      return <h5>No pending photos for you to approve at this point of time</h5>;
+    }
     return (
       <div>
+        <span>You have {companyPhotos.length} photos to approve</span>
         {companyPhotos.map((company) => {
           return (
             <Grid
@@ -62,7 +67,7 @@ export default class CompanyPhotos extends React.Component {
                 Company Name - {company.company.name}
               </Grid>
               <Grid item xs={4}>
-                Reviewed By - {company.employee.email}
+                Uploaded By - {company.employee.email}
               </Grid>
               <div className="d-flex">
                 {company.photos.map((p) => {
