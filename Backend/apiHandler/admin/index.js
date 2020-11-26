@@ -2,26 +2,36 @@ const { Review, CompanyPhoto } = require("../../mongodb");
 const { err } = require("../util");
 
 module.exports = {
-  fetchUnApprovedReviews: async (req, resp) => {
-    const unApprovedReviews = await Review.find({ adminApproval: false })
-      .populate("employee", "email")
-      .populate("company", "name");
-    return resp.json(unApprovedReviews);
+  getReviews: async (req, res) => {
+    const reviews = await Review.find(
+      {
+        status: req.params.status,
+      },
+    )
+      .populate('company', 'name')
+      .populate('employee', 'email');
+    res.json(reviews);
   },
-
-  approveAReview: async (req, resp) => {
-    const reviewId = req.body.reviewId;
-    resp.json(await Review.update({ _id: reviewId }, { adminApproval: true }));
+  getPrivatePhotos: async (req, res) => {
+    const images = await CompanyPhoto.find(
+      {
+        status: req.params.status,
+      },
+    )
+      .populate('company', 'name')
+      .populate('employee', 'email');
+    res.json(images);
   },
-  fetchUnApprovedCompanyPhotos: async (req, resp) => {
-    const unApprovedPhotos = await CompanyPhoto.find({ adminApproval: false })
-      .populate("employee", "email")
-      .populate("company", "name");
-    return resp.json(unApprovedPhotos);
+  approveReview: async (req, res) => {
+    const review = await Review.findById(req.params.id);
+    if (req.body.status === 'approved') review.status = 'approved';
+    else review.status = 'rejected';
+    res.json(await review.save());
   },
-
-  approveAnImage: async (req, resp) => {
-    const companyPhotosId = req.body.companyPhotosId;
-    resp.json(await CompanyPhoto.update({ _id: companyPhotosId }, { adminApproval: true }));
+  approvePhoto: async (req, res) => {
+    const photo = await CompanyPhoto.findById(req.params.id);
+    if (req.body.status === 'approved') photo.status = 'approved';
+    else photo.status = 'rejected';
+    res.json(await photo.save());
   },
 };

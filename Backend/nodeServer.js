@@ -71,11 +71,10 @@ const apiVersion = '/apiV1';
   ['get', '/companyPhoto/:id', handler.employee.getCompanyPhotos, 'employee'],
   ['post', '/interviewExperience/:id', handler.employee.addInterviewExperience, 'employee'],
   ['get', '/interviewExperience/:id', handler.employee.getInterviewExperience, 'employee'],
-  ['get', '/admin/reviews/:unApproved', handler.admin.fetchUnApprovedReviews, 'admin'],
-  ['post', '/admin/reviews/approve', handler.admin.approveAReview, 'admin'],
-  ['get', '/admin/companyphotos/:unApproved', handler.admin.fetchUnApprovedCompanyPhotos, 'admin'],
-  ['post', '/admin/companyphotos/approve', handler.admin.approveAnImage, 'admin'],
-
+  ['get', '/admin/reviews/:status', handler.admin.getReviews, 'admin'],
+  ['get', '/admin/companyPhotos/:status', handler.admin.getPrivatePhotos, 'admin'],
+  ['put', '/admin/reviews/:id', handler.admin.approveReview, 'admin'],
+  ['put', '/admin/companyPhotos/:id', handler.admin.approvePhoto, 'admin'],
 
 
 ].forEach((r) => {

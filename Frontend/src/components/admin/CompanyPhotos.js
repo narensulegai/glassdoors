@@ -1,11 +1,10 @@
 import React from "react";
 import { Grid, Button } from "@material-ui/core";
 import {
-  fetchUnapprovedCompanyPhotos,
+  fetchCompanyPhotos,
   approveAnImage,
   fileUrl,
 } from "../../util/fetch/api";
-import Rating from "@material-ui/lab/Rating";
 
 export default class CompanyPhotos extends React.Component {
   constructor(props) {
@@ -19,7 +18,7 @@ export default class CompanyPhotos extends React.Component {
 
   getUnApprovedCompanyPhotos = async () => {
     try {
-      const companyPhotos = await fetchUnapprovedCompanyPhotos(true);
+      const companyPhotos = await fetchCompanyPhotos('private');
       this.setState({ companyPhotos });
     } catch (error) {
       console.log(error);
@@ -28,7 +27,16 @@ export default class CompanyPhotos extends React.Component {
 
   approve = async (companyPhotosId) => {
     try {
-      await approveAnImage(companyPhotosId);
+      await approveAnImage(companyPhotosId, 'approved');
+      this.getUnApprovedCompanyPhotos();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  reject = async (companyPhotosId) => {
+    try {
+      await approveAnImage(companyPhotosId, 'rejected');
       this.getUnApprovedCompanyPhotos();
     } catch (error) {
       console.log(error);
@@ -37,8 +45,13 @@ export default class CompanyPhotos extends React.Component {
 
   render() {
     const companyPhotos = this.state.companyPhotos;
+
+    if(companyPhotos.length === 0 ) {
+      return <h5>No pending photos for you to approve at this point of time</h5>;
+    }
     return (
       <div>
+        <span>You have {companyPhotos.length} photos to approve</span>
         {companyPhotos.map((company) => {
           return (
             <Grid
@@ -54,7 +67,7 @@ export default class CompanyPhotos extends React.Component {
                 Company Name - {company.company.name}
               </Grid>
               <Grid item xs={4}>
-                Reviewed By - {company.employee.email}
+                Uploaded By - {company.employee.email}
               </Grid>
               <div className="d-flex">
                 {company.photos.map((p) => {
@@ -72,6 +85,12 @@ export default class CompanyPhotos extends React.Component {
                     onClick={() => this.approve(company._id)}
                   >
                     Approve
+                  </Button>
+                  <Button
+                    variant="contained"
+                    onClick={() => this.reject(company._id)}
+                  >
+                    Reject
                   </Button>
                 </div>
               </div>
