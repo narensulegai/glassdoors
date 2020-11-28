@@ -32,6 +32,8 @@ const JobPreferences = () => {
     };
     await updateEmployee(d);
     await reloadJobPreferences();
+
+    window.alert("preferences have been saved successfully")
   };
 
   return (
@@ -52,11 +54,7 @@ const JobPreferences = () => {
           <div className="inputLabel">Open to relocation</div>
           Yes&nbsp;<input type="checkbox" ref={openToRelocationRef} defaultChecked={employee.openToRelocation} /> &nbsp;
           
-{/*          
 
-          <div className="inputLabel">Open to relocation</div>
-          <input type="radio" name="Yes" defaultChecked={employee.openToRelocation} ref={openToRelocationRef} />&nbsp;Yes&nbsp;
-          <input type="radio" name="No" defaultChecked={!employee.openToRelocation} />&nbsp;No */}
           <div className="inputLabel">Type of industry</div>
           <input type="text" ref={typeOfIndustryRef} defaultValue={employee.typeOfIndustry} />
 

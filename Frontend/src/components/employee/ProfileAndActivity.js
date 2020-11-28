@@ -25,6 +25,7 @@ const ProfileAndActivity = () => {
     };
     await updateEmployee(d);
     await reloadProfileAndActivity();
+    window.alert("Profile updated successfully")
   };
 
   const handleOnFileUpload = async ({ files }) => {
