@@ -21,12 +21,12 @@ const schema = {
   signupCompany: Joi.object({
     name: reqStr('Company name'),
     email: Joi.string().email().required().label('Company email'),
-    password: reqStr('Password'),
+    password: Joi.string().min(3).required(),
   }),
   signupEmployee: Joi.object({
     name: reqStr('Name'),
     email: Joi.string().email().required().label('Email'),
-    password: reqStr('Password'),
+    password: Joi.string().min(3).required(),
   }),
   updateCompany: Joi.object({
     website: Joi.string().domain().label('Website'),
@@ -37,6 +37,23 @@ const schema = {
   applyJob: Joi.object({
     coverLetter: reqStr('Cover letter'),
     resume: reqStr('Resume'),
+  }),
+  loginEmployee: Joi.object({
+    email:Joi.string().email().required().label('Email'),
+    password: Joi.string().required()
+  }),
+  loginCompany: Joi.object({
+    email:Joi.string().email().required().label('Email'),
+    password: Joi.string().required()
+  }),
+  loginAdmin: Joi.object({
+    email:Joi.string().email().required(),
+    password: Joi.string().required()
+  }),
+
+  update: Joi.object({
+    name:Joi.string().allow('').optional(),
+   
   }),
 };
 
