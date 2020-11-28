@@ -55,6 +55,7 @@ const apiVersion = '/apiV1';
   ['get', '/search/company', handler.employee.searchCompany, 'employee'],
   ['get', '/search/jobPosting', handler.employee.searchJobPosting, 'employee'],
   ['get', '/company/profile/:id', handler.employee.getCompany, 'employee'],
+  ['get', '/employee/profile/:id', handler.company.getEmployee, 'company'],
   ['get', '/job/:id', handler.employee.getJob, 'employee'],
   ['put', '/jobApplication/:id', handler.employee.applyJob, 'employee', schema.applyJob],
   ['delete', '/jobApplication/:id', handler.employee.withdrawJob, 'employee'],
@@ -71,6 +72,7 @@ const apiVersion = '/apiV1';
   ['get', '/companyPhoto/:id', handler.employee.getCompanyPhotos, 'employee'],
   ['post', '/interviewExperience/:id', handler.employee.addInterviewExperience, 'employee'],
   ['get', '/interviewExperience/:id', handler.employee.getInterviewExperience, 'employee'],
+  ['get', '/company/report', handler.company.getCompanyReport, 'company'],
 
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {
