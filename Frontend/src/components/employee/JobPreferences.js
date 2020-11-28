@@ -50,7 +50,13 @@ const JobPreferences = () => {
           <div className="inputLabel">Target salary</div>
           <input type="text" ref={targetSalaryRef} defaultValue={employee.targetSalary} />
           <div className="inputLabel">Open to relocation</div>
-          Yes/No&nbsp;<input type="checkbox" ref={openToRelocationRef} defaultChecked={employee.openToRelocation} />
+          Yes&nbsp;<input type="checkbox" ref={openToRelocationRef} defaultChecked={employee.openToRelocation} /> &nbsp;
+          
+{/*          
+
+          <div className="inputLabel">Open to relocation</div>
+          <input type="radio" name="Yes" defaultChecked={employee.openToRelocation} ref={openToRelocationRef} />&nbsp;Yes&nbsp;
+          <input type="radio" name="No" defaultChecked={!employee.openToRelocation} />&nbsp;No */}
           <div className="inputLabel">Type of industry</div>
           <input type="text" ref={typeOfIndustryRef} defaultValue={employee.typeOfIndustry} />
 

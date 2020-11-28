@@ -29,7 +29,9 @@ const Demographics = () => {
       veteranStatus: veteranStatusRef.current.value,
     };
     await updateEmployee(d);
+    alert("saved the details")
     await reloadDemographics();
+
   };
 
   return (

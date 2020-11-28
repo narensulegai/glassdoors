@@ -39,6 +39,8 @@ const Overview = () => {
     await reloadProfile();
     const { user: company } = await currentUser();
     setCompany(company);
+    alert("profile update succefully")
+
   };
 
   const handleOnFileUpload = async ({ files }) => {
