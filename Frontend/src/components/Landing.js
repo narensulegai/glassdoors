@@ -48,7 +48,7 @@ export class Landing extends PureComponent {
         <div className="row">
           <div className="col-3" />
           <div className="col-6">
-            <div className="h3 text-center mt-3">Glassdoor</div>
+            <div className="h3 text-center mt-3">Glassdoor test</div>
             <div className="text-center">{`Sign in as a ${currTab}`}</div>
             <Login onLogin={this.handleOnLogin} type={currTab} />
 
