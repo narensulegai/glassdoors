@@ -53,6 +53,14 @@ const schema = {
 
   update: Joi.object({
     name:Joi.string().allow('').optional(),
+    race:optStr('race'),
+    disability:optStr('disability'),
+    veteranStatus:optStr('veteranStatus'),
+    jobTitleLookingFor:optStr('jobTitleLookingFor'),
+    typeOfIndustry:optStr('typeOfIndustry'),
+    targetSalary:optNum('Salary'),
+   
+
    
   }),
 };
