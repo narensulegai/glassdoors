@@ -27,7 +27,7 @@ class AdminCompanyHome extends PureComponent {
           <Route path="/companyHomePage/:id/companyOverview" exact>
             <CompanyOverview />
           </Route>
-          <Route path="/companyHomePage/:id/reviews" exact component={AdminCompanyReviews}/>
+          <Route path="/companyHomePage/:id/reviews" exact component={AdminCompanyReviews} />
           <Route path="/companyHomePage/:id/companyPhotos" exact>
             <CompanyPhotos />
           </Route>

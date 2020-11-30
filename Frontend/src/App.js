@@ -21,8 +21,8 @@ function App() {
         <Route path="/companyHome/:id">
           <CompanyHomeMain />
         </Route>
-        <Route path="/companyHomePage/:id" component={AdminCompanyHome}/>
-          <Route path="/jobHome/:id">
+        <Route path="/companyHomePage/:id" component={AdminCompanyHome} />
+        <Route path="/jobHome/:id">
           <JobHomeMain />
         </Route>
         <Route path="/company">

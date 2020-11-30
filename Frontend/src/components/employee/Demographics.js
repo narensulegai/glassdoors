@@ -1,5 +1,5 @@
-import React, { createRef, useEffect, useState } from "react";
-import { currentUser, updateEmployee } from "../../util/fetch/api";
+import React, { createRef, useEffect, useState } from 'react';
+import { currentUser, updateEmployee } from '../../util/fetch/api';
 
 const Demographics = () => {
   const [employee, setEmployee] = useState(null);
@@ -68,31 +68,32 @@ const Demographics = () => {
                 Save
               </button>
             </div>
-          
+
           </>
         )}
 
-        
       </div>
-      { employee && <div className="col-6">
-          <h6></h6>
+      { employee && (
+      <div className="col-6">
+        <h6 />
 
-          <div className="card mb-3">
-            <div className="card-header">
-              <div className="small inputLabel">Your Saved Information</div>
-            </div>
-            <div className="card-body">
-              <div className="inputLabel">Race/Ethnicity</div>
-              <div>{employee.race}</div>
-              <div className="inputLabel">Gender</div>
-              <div>{employee.isMale ? "Male" : "Female"}</div>
-              <div className="inputLabel">Disability</div>
-              <div>{employee.disability}</div>
-              <div className="inputLabel">Veteran Status</div>
-              <div>{employee.veteranStatus}</div>
-            </div>
+        <div className="card mb-3">
+          <div className="card-header">
+            <div className="small inputLabel">Your Saved Information</div>
           </div>
-        </div> }
+          <div className="card-body">
+            <div className="inputLabel">Race/Ethnicity</div>
+            <div>{employee.race}</div>
+            <div className="inputLabel">Gender</div>
+            <div>{employee.isMale ? 'Male' : 'Female'}</div>
+            <div className="inputLabel">Disability</div>
+            <div>{employee.disability}</div>
+            <div className="inputLabel">Veteran Status</div>
+            <div>{employee.veteranStatus}</div>
+          </div>
+        </div>
+      </div>
+      ) }
     </div>
   );
 };

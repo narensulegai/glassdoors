@@ -1,8 +1,7 @@
-import React from "react";
-import { Button } from "@material-ui/core";
-import ApprovedReviews from "./ApprovedReviews";
-import RejectedReviews from "./RejectedReviews";
-
+import React from 'react';
+import { Button } from '@material-ui/core';
+import ApprovedReviews from './ApprovedReviews';
+import RejectedReviews from './RejectedReviews';
 
 export default class AdminCompanyReviews extends React.Component {
   constructor(props) {
@@ -30,7 +29,7 @@ export default class AdminCompanyReviews extends React.Component {
             Rejected
           </Button>
         </div>
-        {this.state.approved ? <ApprovedReviews companyId={this.props.match.params.id}/> : <RejectedReviews companyId={this.props.match.params.id}/> }
+        {this.state.approved ? <ApprovedReviews companyId={this.props.match.params.id} /> : <RejectedReviews companyId={this.props.match.params.id} /> }
       </div>
     );
   }
