@@ -67,11 +67,17 @@ const apiVersion = '/apiV1';
   ['post', '/employee/salary/:id', handler.employee.addSalary, 'employee'],
   ['get', '/jobPosting/company/:id', handler.employee.getCompanyJobPosting, 'employee'],
   ['post', '/review/:id', handler.employee.addReview, 'employee'],
+  ['put', '/review/helpfulVote/:id', handler.employee.addHelpfulVote, 'employee'],
   ['get', '/review/:id', handler.employee.getReviews, 'employee'],
   ['post', '/companyPhoto/:id', handler.employee.addCompanyPhoto, 'employee'],
   ['get', '/companyPhoto/:id', handler.employee.getCompanyPhotos, 'employee'],
   ['post', '/interviewExperience/:id', handler.employee.addInterviewExperience, 'employee'],
   ['get', '/interviewExperience/:id', handler.employee.getInterviewExperience, 'employee'],
+  ['get', '/admin/reviews/:status', handler.admin.getReviews, 'admin'],
+  ['get', '/admin/reviews/:id/:status', handler.admin.getReviewsByCompanyIdAndStatus, 'admin'],
+  ['get', '/admin/companyPhotos/:status', handler.admin.getPrivatePhotos, 'admin'],
+  ['put', '/admin/reviews/:id', handler.admin.approveReview, 'admin'],
+  ['put', '/admin/companyPhotos/:id', handler.admin.approvePhoto, 'admin'],
   ['get', '/company/report', handler.company.getCompanyReport, 'company'],
 
 ].forEach((r) => {
@@ -90,7 +96,7 @@ const apiVersion = '/apiV1';
 
     if (r[3] === 'company' || r[3] === 'employee') {
       const { scope } = req.session;
-      if (scope !== r[3]) {
+      if (scope !== r[3] && scope !== 'admin') {
         resp.status(401).json(err('You are not authorized for this action.'));
       }
     }

@@ -12,7 +12,7 @@ export class Landing extends PureComponent {
   landingPage = (scope) => {
     let landingPage = '/employee/companySearch';
     if (scope === 'admin') {
-      landingPage = '/admin/reviewsAndPictures';
+      landingPage = '/admin/reviews';
     }
     if (scope === 'company') {
       landingPage = '/company/overview';
