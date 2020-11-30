@@ -6,7 +6,7 @@ module.exports = (mongoose) => {
     description: { type: String },
     overallRating: { type: Number },
     recommendToFriend: { type: Boolean },
-    ceoApproval: { type: Number },
+    ceoApprovalRating: { type: Number },
     pros: { type: String },
     cons: { type: String },
     helpfulVotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee', required: true }],
