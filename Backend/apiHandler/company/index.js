@@ -1,4 +1,4 @@
-const { Company, JobPosting, JobApplication } = require('../../mongodb');
+const { Company, JobPosting, JobApplication, Employee } = require('../../mongodb');
 const { err } = require('../util');
 
 module.exports = {
@@ -9,9 +9,9 @@ module.exports = {
   },
   addJobPosting: async (req, res) => {
     const companyId = req.session.user._id;
-    res.json(req.requestKafka('addJobPosting', companyId, req.body));
-    // Dont wait for Kafka
-    // res.json({ ...req.body, company: companyId });
+    // Using Kafka
+    // res.json(req.requestKafka('addJobPosting', companyId, req.body));
+    res.json({ ...req.body, company: companyId });
   },
   getJobPosting: async (req, res) => {
     const companyId = req.session.user._id;
@@ -22,7 +22,12 @@ module.exports = {
   jobApplications: async (req, res) => {
     const companyId = req.session.user._id;
     res.json(await JobApplication.find({ company: companyId })
-      .populate('job'));
+      .populate('job')
+      .populate('employee'));
+  },
+  getEmployee: async (req, res) => {
+    const { id: employeeId } = req.params;
+    res.json(await Employee.findById(employeeId));
   },
   setJobApplicationStatus: async (req, res) => {
     const companyId = req.session.user._id;
@@ -35,5 +40,16 @@ module.exports = {
     } else {
       res.json(await jobApp.save());
     }
+  },
+  getCompanyReport: async (req, res) => {
+    const companyId = req.session.user._id;
+    const d = new Date();
+    d.setFullYear(d.getFullYear() - 1);
+    // Job posting in the last year
+    const jobPosting = await JobPosting.find({ company: companyId, createdAt: { $gt: d } });
+    const jobIds = jobPosting.map((j) => j._id);
+    res.json(await JobApplication.find({ job: jobIds })
+      .populate('employee')
+      .populate('job'));
   },
 };

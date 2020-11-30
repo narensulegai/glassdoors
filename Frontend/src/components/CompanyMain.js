@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Overview from './company/Overview';
 import JobPosting from './company/JobPosting';
 import CompanyJobApplications from './company/CompanyJobApplications';
+import CompanyReport from './company/CompanyReport';
 
 class CompanyMain extends Component {
   render() {
@@ -31,7 +32,7 @@ class CompanyMain extends Component {
             <CompanyJobApplications />
           </Route>
           <Route path="/company/report" exact>
-            Report
+            <CompanyReport />
           </Route>
         </div>
       </>

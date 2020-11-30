@@ -20,6 +20,7 @@ export const addResume = (id, d) => post(`resume/${id}`, d);
 export const setPrimaryResume = (id) => put(`resume/primary/${id}`);
 export const getCompanyJobApplications = () => get('company/jobApplications');
 export const getEmployeeJobApplications = () => get('employee/jobApplications');
+export const getEmployee = (id) => get(`employee/profile/${id}`);
 export const setJobApplicationStatus = (id, d) => put(`company/jobApplication/status/${id}`, d);
 export const addSalary = (id, d) => post(`employee/salary/${id}`, d);
 export const addInterviewExperience = (id, d) => post(`interviewExperience/${id}`, d);
@@ -29,6 +30,7 @@ export const getReviews = (id) => get(`review/${id}`);
 export const getCompanyJobPosting = (id) => get(`jobPosting/company/${id}`);
 export const addCompanyPhotos = (id, d) => post(`companyPhoto/${id}`, d);
 export const getCompanyPhotos = (id) => get(`companyPhoto/${id}`);
+export const getCompanyReport = () => get('company/report');
 export const logout = () => put('logout');
 export const fileUrl = (fileId) => {
   return `${apiUrl}/file/${fileId}`;
