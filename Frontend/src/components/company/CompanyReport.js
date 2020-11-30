@@ -40,7 +40,7 @@ const CompanyReport = () => {
                     ? (
                       <div>
                         <div>
-                          {byJob[jp._id].filter((jobApplication) => jobApplication.status === 'selected').length} selected
+                          {byJob[jp._id].filter((jobApplication) => jobApplication.status === 'hired').length} selected
                           &nbsp;|&nbsp;
                           {byJob[jp._id].filter((jobApplication) => jobApplication.status === 'rejected').length} rejected
                         </div>

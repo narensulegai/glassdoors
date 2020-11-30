@@ -17,8 +17,6 @@ const CompanyReviews = () => {
 
   const reloadReviews = async () => {
     const reviews = await getReviews(companyId);
-
-    console.log(reviews.employeeId);
     setEmployeeId(reviews.employeeId);
     setReviews(reviews.reviews);
     setAverageRating(reviews.averageRating);
@@ -128,7 +126,7 @@ const CompanyReviews = () => {
               <div>
                 {(mostPositiveReview.overallRating
                   + mostPositiveReview.ceoApprovalRating)
-                  / 2}
+                / 2}
               </div>
               <div className="inputLabel">Pros</div>
               <div>{mostPositiveReview.pros}</div>
@@ -180,7 +178,7 @@ const CompanyReviews = () => {
               <div>
                 {(mostNegativeReview.overallRating
                   + mostNegativeReview.ceoApprovalRating)
-                  / 2}
+                / 2}
               </div>
               <div className="inputLabel">Pros</div>
               <div>{mostNegativeReview.pros}</div>
@@ -224,7 +222,6 @@ const CompanyReviews = () => {
             (mostPositiveReview && mostPositiveReview._id === review._id)
             || (mostNegativeReview && mostNegativeReview._id === review._id)
           ) {
-            console.log(review._id);
             return null;
           }
           return (

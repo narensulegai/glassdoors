@@ -50,10 +50,9 @@ const JobPreferences = () => {
           <div className="inputLabel">Target salary</div>
           <input type="text" ref={targetSalaryRef} defaultValue={employee.targetSalary} />
           <div className="inputLabel">Open to relocation</div>
-          Yes/No&nbsp;<input type="checkbox" ref={openToRelocationRef} defaultChecked={employee.openToRelocation} />
+          Yes&nbsp;<input type="checkbox" ref={openToRelocationRef} defaultChecked={employee.openToRelocation} />
           <div className="inputLabel">Type of industry</div>
           <input type="text" ref={typeOfIndustryRef} defaultValue={employee.typeOfIndustry} />
-
           <div className="mt-2">
             <button className="btn-primary" onClick={handleOnSave}>Save</button>
           </div>
@@ -62,8 +61,6 @@ const JobPreferences = () => {
       </div>
       { employee && (
       <div className="col-6">
-        <h6 />
-
         <div className="card mb-3">
           <div className="card-header">
             <div className="small inputLabel">Your Saved Information</div>
@@ -76,7 +73,7 @@ const JobPreferences = () => {
             <div className="inputLabel">Target salary</div>
             <div>{employee.targetSalary}</div>
             <div className="inputLabel">Open to relocation</div>
-            <div>{employee.openToRelocation}</div>
+            <div>{employee.openToRelocation ? 'Yes' : 'No'}</div>
             <div className="inputLabel">Type of industry</div>
             <div>{employee.typeOfIndustry}</div>
           </div>

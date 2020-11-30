@@ -1,8 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Grid } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
+import PropTypes from 'prop-types';
 import { getCompany, fileUrl } from '../../util/fetch/api';
+
+const Review = ({ title, review }) => {
+  return (
+    <div className="card mt-3">
+      <div className="card-body">
+        <h6>{title}</h6>
+        <div>
+          <div>
+            <span className="inputLabel mr-2">Reviewed by</span>
+            {review.employee.name}
+          </div>
+          <div>
+            <span className="inputLabel mr-2">Headline</span>
+            {review.headline}
+          </div>
+          <div>
+            <span className="inputLabel mr-2">Description</span>
+            {review.description}
+          </div>
+          <div>
+            <span className="inputLabel mr-2">Overall Rating</span>
+            <Rating
+              name="hover-feedback"
+              value={review.overallRating}
+              precision={0.1}
+              size="small"
+              color="red"
+              readOnly
+          />
+          </div>
+          <div>
+            <span className="inputLabel mr-2">Pros</span>
+            {review.pros}
+          </div>
+          <div>
+            <span className="inputLabel mr-2">Cons</span>
+            {review.cons}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+Review.propTypes = { title: PropTypes.string, review: PropTypes.object };
 
 const CompanyOverview = () => {
   const { id: companyId } = useParams();
@@ -24,41 +69,40 @@ const CompanyOverview = () => {
             </div>
             <h6>{company.name}</h6>
             <div>
-              <span className="inputLabel">Website - </span>
+              <span className="inputLabel mr-2">Website</span>
               <span>{company.website || '-'}</span>
             </div>
             <div>
-              <span className="inputLabel">Size - </span>
+              <span className="inputLabel mr-2">Size</span>
               <span>{company.size || '-'}</span>
             </div>
             <div>
-              <span className="inputLabel">Type - </span>
+              <span className="inputLabel mr-2">Type</span>
               <span>{company.type || '-'}</span>
             </div>
             <div>
-              <span className="inputLabel">Revenue - </span>
+              <span className="inputLabel mr-2">Revenue</span>
               <span>{company.revenue || '-'}</span>
             </div>
             <div>
-              <span className="inputLabel">Headquarters - </span>
+              <span className="inputLabel mr-2">Headquarters</span>
               <span>{company.headquarters || '-'}</span>
             </div>
             <div>
-              <span className="inputLabel">Founded - </span>
+              <span className="inputLabel mr-2">Founded</span>
               <span>{company.founded || '-'}</span>
             </div>
             <div>
-              <span className="inputLabel">Description - </span>
+              <span className="inputLabel mr-2">Description</span>
               <span>{company.description || '-'}</span>
             </div>
             <div>
-              <span className="inputLabel">Mission - </span>
+              <span className="inputLabel mr-2">Mission</span>
               <span>{company.mission || '-'}</span>
             </div>
             <div>
-              <span className="inputLabel">Average rating - </span>
+              <span className="inputLabel mr-2">Average rating</span>
               <span>
-                {' '}
                 <Rating
                   name="hover-feedback"
                   value={company.reviewData.averageRating || 0}
@@ -69,116 +113,8 @@ const CompanyOverview = () => {
                 />
               </span>
             </div>
-            {company.reviewData.positiveReview ? (
-              <div>
-                <span className="inputLabel">Positive review</span>
-                <div>
-                  <Grid
-                    container
-                    style={{
-                      backgroundColor: '#fff',
-                      margin: '20px',
-                      border: '1px solid black',
-                      padding: '10px',
-                    }}
-                  >
-                    <Grid item xs={12} style={{ marginBottom: '20px' }}>
-                      <span className="inputLabel">Reviewed By - </span>
-                      {company.reviewData.positiveReview.employee.name}
-                    </Grid>
-                    <Grid item xs={12} style={{ marginBottom: '20px' }}>
-                      <span className="inputLabel">Headline - </span>
-
-                      {company.reviewData.positiveReview.headline}
-                    </Grid>
-                    <Grid item xs={12} style={{ marginBottom: '20px' }}>
-                      <span className="inputLabel">Description -</span>
-                      {company.reviewData.positiveReview.description}
-                    </Grid>
-                    <span className="inputLabel"> Overall Rating -</span>
-                    <Rating
-                      name="hover-feedback"
-                      value={company.reviewData.positiveReview.overallRating}
-                      precision={0.1}
-                      size="small"
-                      color="red"
-                      readOnly
-                    />
-                    {company.reviewData.positiveReview.pros ? (
-                      <Grid
-                        item
-                        xs={12}
-                        style={{ marginBottom: '20px', marginTop: '20px' }}
-                      >
-                        <span className="inputLabel">Pros -</span>{' '}
-                        {company.reviewData.positiveReview.pros}
-                      </Grid>
-                    ) : null}
-                    {company.reviewData.positiveReview.cons ? (
-                      <Grid item xs={12} style={{ marginBottom: '20px' }}>
-                        <span className="inputLabel">Cons -</span>
-                        {company.reviewData.positiveReview.cons}
-                      </Grid>
-                    ) : null}
-                  </Grid>
-                </div>
-              </div>
-            ) : null}
-            {company.reviewData.negativeReview ? (
-              <div>
-                <span className="inputLabel">Negative review</span>
-                <div>
-                  <Grid
-                    container
-                    style={{
-                      backgroundColor: '#fff',
-                      margin: '20px',
-                      border: '1px solid black',
-                      padding: '10px',
-                    }}
-                  >
-                    <Grid item xs={12} style={{ marginBottom: '20px' }}>
-                      <span className="inputLabel">Reviewed By -</span>
-                      {company.reviewData.negativeReview.employee.name}
-                    </Grid>
-                    <Grid item xs={12} style={{ marginBottom: '20px' }}>
-                      <span className="inputLabel">Headline -</span>{' '}
-                      {company.reviewData.negativeReview.headline}
-                    </Grid>
-                    <Grid item xs={12} style={{ marginBottom: '20px' }}>
-                      <span className="inputLabel">Description -</span>
-                      {company.reviewData.negativeReview.description}
-                    </Grid>
-                    <span className="inputLabel"> Overall Rating -</span>
-                    <Rating
-                      name="hover-feedback"
-                      value={company.reviewData.negativeReview.overallRating}
-                      precision={0.1}
-                      size="small"
-                      color="red"
-                      readOnly
-                    />
-                    {company.reviewData.negativeReview.pros ? (
-                      <Grid
-                        item
-                        xs={12}
-                        style={{ marginBottom: '20px', marginTop: '20px' }}
-                      >
-                        <span className="inputLabel">Pros -</span>{' '}
-                        {company.reviewData.negativeReview.pros}
-                      </Grid>
-                    ) : null}
-                    {company.reviewData.negativeReview.cons ? (
-                      <Grid item xs={12} style={{ marginBottom: '20px' }}>
-                        <span className="inputLabel">Cons -</span>{' '}
-                        {company.reviewData.negativeReview.cons}
-                      </Grid>
-                    ) : null}
-                  </Grid>
-                </div>
-              </div>
-            ) : null}
-            <div />
+            {company.reviewData.positiveReview ? (<Review title="Positive review" review={company.reviewData.positiveReview} />) : null}
+            {company.reviewData.negativeReview ? (<Review title="Negative review" review={company.reviewData.negativeReview} />) : null}
           </>
         )}
       </div>

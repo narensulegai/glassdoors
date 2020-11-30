@@ -75,8 +75,6 @@ const Demographics = () => {
       </div>
       { employee && (
       <div className="col-6">
-        <h6 />
-
         <div className="card mb-3">
           <div className="card-header">
             <div className="small inputLabel">Your Saved Information</div>

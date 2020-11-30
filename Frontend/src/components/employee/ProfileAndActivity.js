@@ -1,19 +1,21 @@
 import React, { createRef, useEffect, useState } from 'react';
 import {
-  currentUser, fileUrl, updateEmployee,
+  currentUser, fileUrl, updateEmployee, getEmployeeActivity,
 } from '../../util/fetch/api';
 import FileUpload from '../common/FileUpload';
 
 const ProfileAndActivity = () => {
   const [employee, setEmployee] = useState(null);
+  const [activity, setActivity] = useState(null);
 
-  const reloadProfileAndActivity = async () => {
+  const reloadProfile = async () => {
     const { user: employee } = await currentUser();
     setEmployee(employee);
   };
   useEffect(() => {
     (async () => {
-      await reloadProfileAndActivity();
+      await reloadProfile();
+      setActivity(await getEmployeeActivity());
     })();
   }, []);
 
@@ -24,7 +26,7 @@ const ProfileAndActivity = () => {
       name: nameRef.current.value,
     };
     await updateEmployee(d);
-    await reloadProfileAndActivity();
+    await reloadProfile();
   };
 
   const handleOnFileUpload = async ({ files }) => {

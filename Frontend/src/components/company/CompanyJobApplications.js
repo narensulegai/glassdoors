@@ -68,6 +68,7 @@ const CompanyJobApplications = () => {
                                     <option value="screening">Screening</option>
                                     <option value="interviewing">Interviewing</option>
                                     <option value="hired">Hired</option>
+                                    <option value="rejected">Reject</option>
                                   </select>
                                 </div>
                                 <div><span

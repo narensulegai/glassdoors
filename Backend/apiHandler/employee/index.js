@@ -286,12 +286,17 @@ module.exports = {
 
   addHelpfulVote: async (req, res) => {
     const { id: reviewId } = req.params;
-    console.log(reviewId);
     res.json(
       await Review.update(
         { _id: reviewId },
         { $push: { helpfulVotes: req.session.user._id } },
       ),
     );
+  },
+  getActivity: async (req, res) => {
+    const employeeId = req.session.user._id;
+    const reviews = await Review.find({ employee: employeeId })
+      .populate('company');
+    res.json({ reviews });
   },
 };
