@@ -41,6 +41,8 @@ export const addHelpfulVotes = (reviewId) => put(`review/helpfulVote/${reviewId}
 export const getEmployeeActivity = () => get('employee/activity');
 export const getCompanyReviews = () => get(`company/reviews`);
 export const replyToReview = (reviewId, reply) => put(`company/reply/${reviewId}`, { reply });
+export const markFavorite = (reviewId, status) => put(`company/favoriteReviews/${reviewId}`, {status});
+export const markFeatured = (reviewId) => put(`company/featuredReview/${reviewId}`);
 
 export const fileUrl = (fileId) => {
   return `${apiUrl}/file/${fileId}`;

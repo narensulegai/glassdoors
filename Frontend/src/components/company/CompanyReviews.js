@@ -1,12 +1,14 @@
 import React from "react";
 import { Grid, Button, Input, TextareaAutosize } from "@material-ui/core";
-import { getCompanyReviews, replyToReview } from "../../util/fetch/api";
+import { getCompanyReviews, replyToReview, markFavorite, markFeatured } from "../../util/fetch/api";
 import Rating from "@material-ui/lab/Rating";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 export default class CompanyReviews extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { reviews: [], reply: "" };
+    this.state = { reviews: [], reply: "", favorite: false};
   }
   
   componentDidMount() {
@@ -31,6 +33,24 @@ export default class CompanyReviews extends React.Component {
       console.log(error);
     }
   }; 
+
+  markFavorite = async (reviewID, status) => {
+    try {
+      await markFavorite(reviewID, status);
+      this.getReviews();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  markFeatured = async (reviewID) => {
+    try {
+      await markFeatured(reviewID);
+      this.getReviews();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   onInputChange = (e) => {
     this.setState({
@@ -59,9 +79,9 @@ export default class CompanyReviews extends React.Component {
               }}
             >
               <div style={{ display:"block", width:"100%"}}>
-                  <Button style={{float: "right"}} variant="contained" onClick={() => this.markFavorite(review._id)}>
-                    Mark favorite
-                  </Button>
+                  <Button style={{float: "right", color: "#c41200"}} variant="contained" onClick={() => this.markFavorite(review._id, !review.favorite)}>
+                    {review.favorite ?  <FavoriteIcon></FavoriteIcon>: <FavoriteBorderIcon></FavoriteBorderIcon>}
+                  </Button> 
               </div>
               <Grid item xs={8}>
                 Reviewed By - {review.employee.email}

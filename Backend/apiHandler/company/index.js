@@ -64,10 +64,16 @@ module.exports = {
   markFavorite: async (req, res) => {
     const { reviewId } = req.params;
     const company = await Company.findById(req.session.user._id);
+    const review = await Review.findById(reviewId);
     const index = company.favoriteReviews.indexOf(reviewId);
-    if (index > -1) company.favoriteReviews.splice(index, 1);
-    else company.favoriteReviews.push(reviewId);
-    res.json(await company.save());
+    if (index > -1) {
+      review.favorite = false;
+      company.favoriteReviews.splice(index, 1);
+    } else {
+      review.favorite = true;
+      company.favoriteReviews.push(reviewId);
+    }
+    res.json(await company.save() && await review.save());
   },
   updateFeaturedReview: async (req, res) => {
     const { reviewId } = req.params;
