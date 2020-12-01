@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Reviews from './admin/Reviews';
 import CompanyPhotos from './admin/CompanyPhotos';
 import AdminCompanySearch from './admin/AdminCompanySearch';
+import Analytics from './admin/Analytics';
 
 class AdminMain extends PureComponent {
   render() {
@@ -39,7 +40,7 @@ class AdminMain extends PureComponent {
             Company profile page
           </Route>
           <Route path="/admin/analyticsDashboard" exact>
-            Analytics dashboard
+            <Analytics/>
           </Route>
         </div>
       </>

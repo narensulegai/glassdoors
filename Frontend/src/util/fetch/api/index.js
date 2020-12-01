@@ -43,3 +43,5 @@ export const getEmployeeActivity = () => get('employee/activity');
 export const fileUrl = (fileId) => {
   return `${apiUrl}/file/${fileId}`;
 };
+
+export const getAnalyticsData = () => get(`admin/analytics`);

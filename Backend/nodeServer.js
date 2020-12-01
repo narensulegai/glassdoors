@@ -78,6 +78,7 @@ const apiVersion = '/apiV1';
   ['get', '/admin/companyPhotos/:status', handler.admin.getPrivatePhotos, 'admin'],
   ['put', '/admin/reviews/:id', handler.admin.approveReview, 'admin'],
   ['put', '/admin/companyPhotos/:id', handler.admin.approvePhoto, 'admin'],
+  ['get', '/admin/analytics', handler.admin.getAnalyticsData, 'admin'],
   ['get', '/company/report', handler.company.getCompanyReport, 'company'],
   ['get', '/employee/activity', handler.employee.getActivity, 'employee'],
 
