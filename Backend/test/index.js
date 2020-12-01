@@ -1,73 +1,90 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { assert } = require('chai');
+const { assert, expect } = require('chai');
 const server = require('../nodeServer');
 
 chai.should();
 chai.use(chaiHttp);
 
-const vars = { email: null, cookies: null };
+const vars = { token: null, user: null, email: null };
+const agent = chai.request.agent(server);
 
-describe('A customer', () => {
+describe('An employee', () => {
   beforeEach((done) => {
     vars.email = `${Math.random().toString(36).substring(7)}@test.com`;
-    chai.request(server)
-      .post('/api/signup/customer')
+    agent
+      .post('/apiV1/signup/employee')
       .send({ name: 'test', email: vars.email, password: 'pwd' })
       .end((err, res) => {
-        assert.equal(res.body.email, vars.email);
-        vars.cookies = res.headers['set-cookie'].pop().split(';')[0];
+        assert.equal(res.body.user.email, vars.email);
+        vars.token = res.body.token;
         done();
       });
   });
 
-  it('should be able to show current user when logged in using GET /api/currentUser', (done) => {
+  it('should be able to login using PUT /apiV1/login/employee', (done) => {
     chai.request(server)
-      .get('/api/currentUser')
-      .set('Cookie', vars.cookies)
+      .put('/apiV1/login/employee')
+      .send({ email: vars.email, password: 'pwd' })
       .end((err, res) => {
         assert.equal(res.body.user.email, vars.email);
         done();
       });
   });
 
-  it('should be able to update profile using PUT /api/profile/customer', (done) => {
-    chai.request(server)
-      .put('/api/profile/customer')
-      .send({ name: 'new name' })
-      .set('Cookie', vars.cookies)
+  it('should show current user when logged in using GET /apiV1/currentUser', (done) => {
+    agent
+      .get('/apiV1/currentUser')
+      .set('authorization', vars.token)
       .end((err, res) => {
-        assert.equal(res.body[0], 1);
+        assert.equal(res.body.user.email, vars.email);
+        done();
+      });
+  });
+});
+
+describe('A company', () => {
+  beforeEach((done) => {
+    chai.request(server)
+      .put('/apiV1/login/company')
+      .send({ email: 'google@gmail.com', password: 'pwd' })
+      .end((err, res) => {
+        assert.equal(res.body.user.email, 'google@gmail.com');
+        vars.token = res.body.token;
+        vars.user = res.body.user;
         done();
       });
   });
 
-  it('should be able to get profile using GET /api/profile/customer', (done) => {
+  it('should be able to add company job posting with POST /apiV1/jobPosting', (done) => {
     chai.request(server)
-      .get('/api/profile/customer')
-      .set('Cookie', vars.cookies)
+      .post('/apiV1/jobPosting')
+      .set('authorization', vars.token)
+      .send({
+        title: 'Product Manager',
+        industry: 'Software',
+        country: 'India',
+        inPerson: false,
+        streetAddress: '209-12, Hi-tech city',
+        city: 'Hyderabad',
+        state: 'Telangana',
+        zip: '500082',
+      })
       .end((err, res) => {
-        assert.equal(res.body.email, vars.email);
+        expect(res.statusCode).to.equal(200);
+        assert.equal(res.body.title, 'Product Manager');
         done();
       });
   });
 
-  it('should be able to logout using PUT /api/logout', (done) => {
+  it('should be able to update company profile with PUT /apiV1/company', (done) => {
     chai.request(server)
-      .put('/api/logout')
-      .set('Cookie', vars.cookies)
+      .put('/apiV1/company')
+      .set('authorization', vars.token)
+      .send({ description: 'Rated no.1 of glassdoor' })
       .end((err, res) => {
-        assert.equal(res.body, true);
-        done();
-      });
-  });
-
-  it('should be able to list all my orders using GET /api/myOrders', (done) => {
-    chai.request(server)
-      .get('/api/myOrders')
-      .set('Cookie', vars.cookies)
-      .end((err, res) => {
-        assert.equal(res.body.length, 0);
+        expect(res.statusCode).to.equal(200);
+        assert.equal(res.body.email, 'google@gmail.com');
         done();
       });
   });
