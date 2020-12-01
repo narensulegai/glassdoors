@@ -26,7 +26,7 @@ const Login = ({ onLogin, type }) => {
         <input type="password" className="form-control" placeholder="Password" ref={password} />
       </div>
       <div className="form-group text-center">
-        <button type="submit" className="btn btn-primary" onClick={handleOnSignIn}>Sign in</button>
+        <button type="submit" className="btn btn-success" onClick={handleOnSignIn}>Sign in</button>
       </div>
     </>
   );

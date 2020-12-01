@@ -69,7 +69,7 @@ const JobHomeMain = () => {
                 : <a href="#/employee/resume">Please upload a resume first</a>}
 
               <div className="mt-3">
-                <button className="btn-primary" onClick={handleOnApply}>Apply</button>
+                <button className="btn-success" onClick={handleOnApply}>Apply</button>
               </div>
             </>
             )}

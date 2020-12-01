@@ -25,7 +25,7 @@ const CompanySearch = () => {
 
         <div className="d-flex">
           <input type="text" className="w-100" placeholder="Search for company by name" ref={searchTextRef} />
-          <button className="btn-primary" onClick={handleOnSearch}>Search</button>
+          <button className="btn-success" onClick={handleOnSearch}>Search</button>
         </div>
 
         <div className="mt-3">

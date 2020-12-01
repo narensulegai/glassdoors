@@ -88,13 +88,13 @@ const CompanyInterviews = () => {
                   <div><input type="test" ref={answersRef} /></div>
 
                   <div className="mt-2 d-flex justify-content-between">
-                    <button className="btn-primary" onClick={handleOnAdd}>Add</button>
+                    <button className="btn-success" onClick={handleOnAdd}>Add</button>
                     <button className="btn-link" onClick={toggleModal}>Cancel</button>
                   </div>
                 </div>
               </Modal>
 
-              <button className="btn-primary" onClick={toggleModal}>Add interview experience</button>
+              <button className="btn-success" onClick={toggleModal}>Add interview experience</button>
 
             </>
           )}

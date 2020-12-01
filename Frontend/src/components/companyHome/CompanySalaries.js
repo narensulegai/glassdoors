@@ -61,13 +61,13 @@ const CompanySalaries = () => {
                   <div className="inputLabel">Location</div>
                   <div><input type="test" ref={locationRef} /></div>
                   <div className="mt-2 d-flex justify-content-between">
-                    <button className="btn-primary" onClick={handleOnAdd}>Add</button>
+                    <button className="btn-success" onClick={handleOnAdd}>Add</button>
                     <button className="btn-link" onClick={toggleModal}>Cancel</button>
                   </div>
                 </div>
               </Modal>
 
-              <button className="btn-primary" onClick={toggleModal}>Add salary</button>
+              <button className="btn-success" onClick={toggleModal}>Add salary</button>
 
               {jobPostings.map((job) => {
                 return (

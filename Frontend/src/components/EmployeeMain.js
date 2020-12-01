@@ -12,7 +12,8 @@ class EmployeeMain extends Component {
   render() {
     return (
       <>
-        <nav className="navbar navbar-expand-lg navbar-light bg-dark">
+      
+        <nav className="navbar navbar-dark bg-success -expand-lg">
           <a className="navbar-brand text-light" href="#/">Glassdoor</a>
           <a className="nav-link text-light" href="#/employee/companySearch">Company search</a>
           <a className="nav-link text-light" href="#/employee/jobSearch">Job search</a>

@@ -9,7 +9,7 @@ class CompanyMain extends Component {
   render() {
     return (
       <>
-        <nav className="navbar navbar-expand-lg bg-dark">
+        <nav className="navbar navbar-dark bg-success -expand-lg">
           <a className="navbar-brand text-light" href="#/">Glassdoor</a>
           <a className="nav-link text-light" href="#/company/overview">Overview</a>
           <a className="nav-link text-light" href="#/company/review">Reviews</a>

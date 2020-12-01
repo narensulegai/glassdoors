@@ -59,7 +59,7 @@ const JobPreferences = () => {
           <input type="text" ref={typeOfIndustryRef} defaultValue={employee.typeOfIndustry} />
 
           <div className="mt-2">
-            <button className="btn-primary" onClick={handleOnSave}>Save</button>
+            <button className="btn-success" onClick={handleOnSave}>Save</button>
           </div>
         </>
         )}

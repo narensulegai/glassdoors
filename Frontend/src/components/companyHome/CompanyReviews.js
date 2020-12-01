@@ -80,7 +80,7 @@ const CompanyReviews = () => {
         Yes/No&nbsp;<input type="checkbox" ref={recommendToFriendRef} />
 
         <div className="mt-2">
-          <button className="btn-primary" onClick={handleOnAdd}>Add</button>
+          <button className="btn-success" onClick={handleOnAdd}>Add</button>
         </div>
       </div>
 

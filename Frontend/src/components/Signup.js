@@ -46,7 +46,7 @@ const Signup = ({ type, history }) => {
             <input type="password" ref={password} placeholder="Password" className="form-control" />
           </div>
           <div className="form-group text-center">
-            <button className="btn-primary" onClick={handleSignUp}>Sign Up</button>
+            <button className="btn-success" onClick={handleSignUp}>Sign Up</button>
           </div>
         </div>
         <div className="col-4" />

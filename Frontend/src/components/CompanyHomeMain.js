@@ -20,14 +20,15 @@ class CompanyHomeMain extends PureComponent {
   render() {
     return (
       <>
-        <nav className="navbar navbar-expand-lg bg-dark">
-          <a className="navbar-brand text-light" href="#/">Glassdoor</a>
+        <nav className="navbar navbar-dark bg-success -expand-lg">
+          <a className="navbar-brand text-light" href="#/" style="color: green">Glassdoor</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/companyOverview`}>Overview</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/addReview`}>Reviews</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/companyJobs`}>Jobs</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/companySalaries`}>Salaries</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/companyInterviews`}>Interviews</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/companyPhotos`}>Photos</a>
+          <a className="nav-link" href="#/logout">Logout</a>
         </nav>
         <div className="container mt-3">
           <Route path="/companyHome/:id/companyOverview" exact>

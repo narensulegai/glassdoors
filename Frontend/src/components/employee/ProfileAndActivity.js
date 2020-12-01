@@ -53,7 +53,7 @@ const ProfileAndActivity = () => {
           <div><input type="text" ref={nameRef} defaultValue={employee.name} /></div>
 
           <div className="mt-2">
-            <button className="btn-primary" onClick={handleOnSave}>Save</button>
+            <button className="btn-success" onClick={handleOnSave}>Save</button>
           </div>
         </>
         )}

@@ -33,6 +33,12 @@ const schema = {
   }),
   addJobPosting: Joi.object({
     title: reqStr('Job title'),
+    industry:optStr('industry'),
+    country:optStr('country'),
+    streetAddress:optStr('streetAddress'),
+    city:optStr('city'),
+    state:optStr('state'),
+    zip:optNum('Zip')
   }),
   applyJob: Joi.object({
     coverLetter: reqStr('Cover letter'),

@@ -79,7 +79,7 @@ const Overview = () => {
         <div className="inputLabel">Mission</div>
         <div><input type="text" ref={missionRef} defaultValue={company.mission} /></div>
         <div className="mt-2">
-          <button className="btn-primary" onClick={handleOnSave}>Save</button>
+          <button className="btn-success" onClick={handleOnSave}>Save</button>
         </div>
       </div>
     </div>

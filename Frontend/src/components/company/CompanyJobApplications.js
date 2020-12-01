@@ -52,8 +52,7 @@ const CompanyJobApplications = () => {
                                 &nbsp;|&nbsp;
                                 <a href={fileUrl(jobApplication.resume)}>Resume</a>
                                 &nbsp;|&nbsp;
-                                <a href={fileUrl(jobApplication.resume)}>Resume</a>
-                                &nbsp;|&nbsp;
+
                                 <span><span className="inputLabel">Applicant</span>
                                   <a target="_blank" href={`#/employeeHome/${jobApplication.employee._id}`}>
                                     {jobApplication.employee.name}
@@ -74,7 +73,7 @@ const CompanyJobApplications = () => {
                                   className="inputLabel small">Applied on {formatDate(jobApplication.createdAt)}</span>
                                 </div>
                                 <div className="mt-2">
-                                  <button className="btn-primary"
+                                  <button className="btn-success"
                                     onClick={() => handleOnChangeStatus(jobApplication._id)}>
                                     Change status
                                   </button>

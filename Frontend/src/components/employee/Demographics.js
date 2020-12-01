@@ -50,7 +50,7 @@ const Demographics = () => {
           <input type="text" ref={veteranStatusRef} defaultValue={employee.veteranStatus} />
 
           <div className="mt-2">
-            <button className="btn-primary" onClick={handleOnSave}>Save</button>
+            <button className="btn-success" onClick={handleOnSave}>Save</button>
           </div>
         </>
         )}

@@ -16,7 +16,7 @@ class EmployeeHomeMain extends PureComponent {
   render() {
     return (
       <>
-        <nav className="navbar navbar-expand-lg bg-dark">
+        <nav className="navbar navbar-dark bg-success">
           <a className="navbar-brand text-light" href="#/">Glassdoor</a>
         </nav>
         <div className="container mt-3" />

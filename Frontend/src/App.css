@@ -1,5 +1,5 @@
 @import "~bootstrap/dist/css/bootstrap.css";
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 body {
     position: relative;
     background: url("../src/fba7da61.png") repeat;
