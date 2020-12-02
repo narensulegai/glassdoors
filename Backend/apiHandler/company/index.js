@@ -78,8 +78,15 @@ module.exports = {
   updateFeaturedReview: async (req, res) => {
     const { reviewId } = req.params;
     const company = await Company.findById(req.session.user._id);
+    if (company.featuredReview) {
+      const oldReview = await Review.findById(company.featuredReview);
+      oldReview.featured = false;
+      await oldReview.save();
+    }
+    const review = await Review.findById(reviewId);
     company.featuredReview = reviewId;
-    res.json(await company.save());
+    review.featured = true;
+    res.json(await company.save() && await review.save());
   },
   addReply: async (req, res) => {
     const { reviewId } = req.params;

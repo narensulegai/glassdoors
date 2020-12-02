@@ -4,11 +4,13 @@ import { getCompanyReviews, replyToReview, markFavorite, markFeatured } from "..
 import Rating from "@material-ui/lab/Rating";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarIcon from '@material-ui/icons/Star';
 
 export default class CompanyReviews extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { reviews: [], reply: "", favorite: false};
+    this.state = { reviews: [], reply: ""};
   }
   
   componentDidMount() {
@@ -81,6 +83,9 @@ export default class CompanyReviews extends React.Component {
               <div style={{ display:"block", width:"100%"}}>
                   <Button style={{float: "right", color: "#c41200"}} variant="contained" onClick={() => this.markFavorite(review._id, !review.favorite)}>
                     {review.favorite ?  <FavoriteIcon></FavoriteIcon>: <FavoriteBorderIcon></FavoriteBorderIcon>}
+                  </Button> 
+                  <Button style={{float: "right", color: "#ff9529"}} variant="contained" onClick={() => this.markFeatured(review._id)}>
+                    {review.featured ?  <StarIcon></StarIcon>: <StarBorderIcon></StarBorderIcon>}
                   </Button> 
               </div>
               <Grid item xs={8}>
