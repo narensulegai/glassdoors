@@ -10,8 +10,7 @@ module.exports = {
   addJobPosting: async (req, res) => {
     const companyId = req.session.user._id;
     // Using Kafka
-    // res.json(req.requestKafka('addJobPosting', companyId, req.body));
-    res.json({ ...req.body, company: companyId });
+    res.json(req.requestKafka('addJobPosting', companyId, req.body));
   },
   getJobPosting: async (req, res) => {
     const companyId = req.session.user._id;

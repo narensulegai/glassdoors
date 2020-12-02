@@ -1,6 +1,4 @@
-const {
-  Company, JobPosting, CompanySalary, Review,
-} = require('../mongodb');
+const { Company, JobPosting, CompanySalary, Review } = require('../mongodb');
 const { redisGet, redisSet } = require('../redisCli');
 
 module.exports = {
@@ -14,16 +12,25 @@ module.exports = {
   getCompanyJobPosting: async (companyId) => {
     const jobPostings = await JobPosting.find({ company: companyId });
     const companySalaries = await CompanySalary.aggregate([
-      { $group: { _id: '$jobPosting', minBaseSalary: { $min: '$baseSalary' }, maxBaseSalary: { $max: '$baseSalary' } } },
+      {
+        $group: {
+          _id: {
+            jobPostings: '$jobPosting',
+            yearsOfExperience: '$yearsOfExperience',
+            location: '$location',
+          },
+          minBaseSalary: { $min: '$baseSalary' },
+          maxBaseSalary: { $max: '$baseSalary' },
+        },
+      },
+      { $sort: { '_id.yearsOfExperience': 1 } },
     ]);
 
-    const keyByJobPostingId = companySalaries
-      .reduce((m, s) => ({ ...m, [s._id]: s }), {});
-
     return jobPostings.map((j) => {
-      const { minBaseSalary, maxBaseSalary } = keyByJobPostingId[j._id]
-      || { minBaseSalary: null, maxBaseSalary: null };
-      return { ...j.toJSON(), minBaseSalary, maxBaseSalary };
+      const salaries = companySalaries.filter(
+        (companySalary) => companySalary._id.jobPostings.toString() == j._id.toString(),
+      );
+      return { ...j.toJSON(), salaries };
     });
   },
   addReview: async (newReview) => {
@@ -37,6 +44,5 @@ module.exports = {
     //   await redisSet(key, await Review.find({ company: companyId }).limit(limit));
     // }
     // return redisGet(key);
-    Review.find({ company: companyId }).limit(limit)
-  ,
+    Review.find({ company: companyId }).limit(limit),
 };
