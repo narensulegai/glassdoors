@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import Modal from "react-bootstrap/Modal";
-import { addSalary, getCompanyJobPosting } from "../../util/fetch/api";
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Modal from 'react-bootstrap/Modal';
+import { addSalary, getCompanyJobPosting } from '../../util/fetch/api';
 
 const CompanySalaries = () => {
   const { id: companyId } = useParams();
@@ -99,7 +99,7 @@ const CompanySalaries = () => {
                     </div>
                     {job.salaries.map((salary) => {
                       return (
-                        <div class="card mt-3 card-header">
+                        <div className="card mt-3 card-header">
                           <div className="inputLabel">
                             Location - {salary._id.location}
                           </div>
@@ -107,7 +107,7 @@ const CompanySalaries = () => {
                             Years of Experience - {salary._id.yearsOfExperience}
                           </div>
                           <div>
-                            Salary range {salary.minBaseSalary} -{" "}
+                            Salary range {salary.minBaseSalary} -{' '}
                             {salary.maxBaseSalary}
                           </div>
                         </div>
