@@ -23,6 +23,7 @@ module.exports = {
           maxBaseSalary: { $max: "$baseSalary" },
         },
       },
+      { $sort: { "_id.yearsOfExperience": 1 } },
     ]);
 
     console.log(companySalaries);
