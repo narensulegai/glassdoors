@@ -42,8 +42,8 @@ const Resume = () => {
                 <div className="card-body d-flex justify-content-between align-items-center">
                   <a href={fileUrl(f.fileId)}>{f.fileName}</a>
                   {employee.primaryResume === f.fileId
-                    ? <button className="btn-success">Primary resume</button>
-                    : <button className="btn-success" onClick={() => handleOnMakePrimary(f.fileId)}>Make primary</button>}
+                    ? <button className="btn-primary">Primary resume</button>
+                    : <button className="btn-primary" onClick={() => handleOnMakePrimary(f.fileId)}>Make primary</button>}
                 </div>
               </div>
             );

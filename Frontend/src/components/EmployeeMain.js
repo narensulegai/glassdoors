@@ -13,7 +13,7 @@ class EmployeeMain extends Component {
     return (
       <>
       
-        <nav className="navbar navbar-dark bg-success -expand-lg">
+      <nav className="navbar navbar-expand-lg bg-dark">
           <a className="navbar-brand text-light" href="#/">Glassdoor</a>
           <a className="nav-link text-light" href="#/employee/companySearch">Company search</a>
           <a className="nav-link text-light" href="#/employee/jobSearch">Job search</a>

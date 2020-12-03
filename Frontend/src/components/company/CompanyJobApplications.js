@@ -74,7 +74,7 @@ const CompanyJobApplications = () => {
                                   className="inputLabel small">Applied on {formatDate(jobApplication.createdAt)}</span>
                                 </div>
                                 <div className="mt-2">
-                                  <button className="btn-success"
+                                  <button className="btn-primary"
                                     onClick={() => handleOnChangeStatus(jobApplication._id)}>
                                     Change status
                                   </button>

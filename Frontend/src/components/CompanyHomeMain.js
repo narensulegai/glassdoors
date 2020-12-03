@@ -20,7 +20,7 @@ class CompanyHomeMain extends PureComponent {
   render() {
     return (
       <>
-        <nav className="navbar navbar-dark bg-success -expand-lg">
+        <nav className="navbar navbar-expand-lg bg-dark">
           <a className="navbar-brand text-light" href="#/" style="color: green">Glassdoor</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/companyOverview`}>Overview</a>
           <a className="nav-link text-light" href={`#/companyHome/${this.state.companyId}/addReview`}>Reviews</a>

@@ -63,7 +63,7 @@ const JobPosting = () => {
         <input type="text" ref={zipRef} />
 
         <div className="mt-3">
-          <button className="btn-success" onClick={handleOnAdd}>Add</button>
+          <button className="btn-primary" onClick={handleOnAdd}>Add</button>
         </div>
 
       </div>

@@ -39,7 +39,7 @@ const CompanyPhotos = () => {
             </div>
           </div>
         </Modal>
-        <button className="btn-success mt-2" onClick={toggleModal}>Add photos</button>
+        <button className="btn-primary mt-2" onClick={toggleModal}>Add photos</button>
       </div>
 
       <div className="col-6">
