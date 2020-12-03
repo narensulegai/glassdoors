@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating';
 import PropTypes from 'prop-types';
-import { getCompany, fileUrl } from '../../util/fetch/api';
+import { getCompany } from '../../util/fetch/api';
 
 const Review = ({ title, review }) => {
   return (
@@ -64,9 +64,6 @@ const CompanyOverview = () => {
       <div className="col-12">
         {company && (
           <>
-            <div className="imageTile mr-3">
-              <img src={fileUrl(company.profilePic)} alt="" />
-            </div>
             <h6>{company.name}</h6>
             <div>
               <span className="inputLabel mr-2">Website</span>
