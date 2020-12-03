@@ -42,21 +42,23 @@ const CompanySearch = () => {
                   </h5>
 
                   <div>
-                    <span className="inputLabel">Average rating</span><span>-</span>
+                    <span className="inputLabel">Average rating</span><span>{c.reviewAvg.length ? c.reviewAvg[0].average : "N/A"}</span>
                   </div>
 
                   <div>
-                    <span className="inputLabel">Location</span><span>{[c.city, c.state].join(', ')}</span>
+                    {/* <span className="inputLabel">Location</span><span>{Array.prototype.map.call(c.location, function(item) { return item.location; }).join(",")
+}</span> */}
+<span className="inputLabel">Location</span><span>{c.headquarters}</span>
                     <span className="divider" />
                     <span className="inputLabel">Website</span><span>{c.website}</span>
                   </div>
 
                   <div>
-                    <span className="inputLabel"># Reviews</span><span>-</span>
+                    <span className="inputLabel"># Reviews</span><span>{c.reviewCount}</span>
                     <span className="divider" />
-                    <span className="inputLabel"># Salary reviews</span><span>-</span>
+                    <span className="inputLabel"># Salary reviews</span><span>{c.salaryCount}</span>
                     <span className="divider" />
-                    <span className="inputLabel"># Interview reviews</span><span>-</span>
+                    <span className="inputLabel"># Interview reviews</span><span>{c.interviewCount}</span>
                   </div>
 
                 </div>

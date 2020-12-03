@@ -50,12 +50,12 @@ const AdminCompanySearch = () => {
 
                   <div>
                     <span className="inputLabel">Average rating</span>
-                    <span>-</span>
+                    <span>{c.reviewAvg.length ? c.reviewAvg[0].average : "N/A"}</span>
                   </div>
 
                   <div>
                     <span className="inputLabel">Location</span>
-                    <span>{[c.city, c.state].join(', ')}</span>
+                    <span>{c.headquarters}</span>
                     <span className="divider" />
                     <span className="inputLabel">Website</span>
                     <span>{c.website}</span>
@@ -63,13 +63,13 @@ const AdminCompanySearch = () => {
 
                   <div>
                     <span className="inputLabel"># Reviews</span>
-                    <span>-</span>
+                    <span>{c.reviewCount}</span>
                     <span className="divider" />
                     <span className="inputLabel"># Salary reviews</span>
-                    <span>-</span>
+                    <span>{c.salaryCount}</span>
                     <span className="divider" />
                     <span className="inputLabel"># Interview reviews</span>
-                    <span>-</span>
+                    <span>{c.interviewCount}</span>
                   </div>
                 </div>
               </div>

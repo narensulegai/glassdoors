@@ -105,7 +105,7 @@ const CompanyOverview = () => {
               <span>
                 <Rating
                   name="hover-feedback"
-                  value={company.reviewData.averageRating || 0}
+                  value={company.reviewData ? company.reviewData.averageRating:0}
                   precision={0.1}
                   size="small"
                   color="red"
