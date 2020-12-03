@@ -1,6 +1,6 @@
 import React from "react";
-import { Grid, Button, Input, TextareaAutosize } from "@material-ui/core";
-import { getCompanyReviews, replyToReview, markFavorite, markFeatured } from "../../util/fetch/api";
+import {Grid, Button, TextareaAutosize} from "@material-ui/core";
+import {getCompanyReviews, replyToReview, markFavorite, markFeatured} from "../../util/fetch/api";
 import Rating from "@material-ui/lab/Rating";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -10,9 +10,9 @@ import StarIcon from '@material-ui/icons/Star';
 export default class CompanyReviews extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { reviews: [], reply: ""};
+    this.state = {reviews: [], reply: ""};
   }
-  
+
   componentDidMount() {
     this.getReviews();
   }
@@ -20,13 +20,13 @@ export default class CompanyReviews extends React.Component {
   getReviews = async () => {
     try {
       const reviews = await getCompanyReviews();
-      this.setState({ reviews });
+      this.setState({reviews});
     } catch (error) {
       console.log(error);
     }
   };
 
-   reply = async (reviewID) => {
+  reply = async (reviewID) => {
     try {
       const reply = this.state.reply;
       await replyToReview(reviewID, reply);
@@ -34,7 +34,7 @@ export default class CompanyReviews extends React.Component {
     } catch (error) {
       console.log(error);
     }
-  }; 
+  };
 
   markFavorite = async (reviewID, status) => {
     try {
@@ -63,15 +63,16 @@ export default class CompanyReviews extends React.Component {
 
   render() {
     const reviews = this.state.reviews;
-    if(reviews.length === 0 ) {
+    if (reviews.length === 0) {
       return <h5>No reviews for the company yet</h5>;
     }
     return (
       <div>
-                <span>Your company has {reviews.length} reviews</span>
+        <span>Your company has {reviews.length} review(s)</span>
         {reviews.map((review) => {
           return (
             <Grid
+              key={review._id}
               container
               style={{
                 backgroundColor: "#fff",
@@ -80,13 +81,15 @@ export default class CompanyReviews extends React.Component {
                 padding: "10px",
               }}
             >
-              <div style={{ display:"block", width:"100%"}}>
-                  <Button style={{float: "right", color: "#c41200"}} variant="contained" onClick={() => this.markFavorite(review._id, !review.favorite)}>
-                    {review.favorite ?  <FavoriteIcon></FavoriteIcon>: <FavoriteBorderIcon></FavoriteBorderIcon>}
-                  </Button> 
-                  <Button style={{float: "right", color: "#ff9529"}} variant="contained" onClick={() => this.markFeatured(review._id)}>
-                    {review.featured ?  <StarIcon></StarIcon>: <StarBorderIcon></StarBorderIcon>}
-                  </Button> 
+              <div style={{display: "block", width: "100%"}}>
+                <Button style={{float: "right", color: "#c41200"}} variant="contained"
+                        onClick={() => this.markFavorite(review._id, !review.favorite)}>
+                  {review.favorite ? <FavoriteIcon/> : <FavoriteBorderIcon/>}
+                </Button>
+                <Button style={{float: "right", color: "#ff9529"}} variant="contained"
+                        onClick={() => this.markFeatured(review._id)}>
+                  {review.featured ? <StarIcon/> : <StarBorderIcon/>}
+                </Button>
               </div>
               <Grid item xs={8}>
                 Reviewed By - {review.employee.email}
@@ -94,11 +97,11 @@ export default class CompanyReviews extends React.Component {
               <Grid
                 item
                 xs={12}
-                style={{ marginBottom: "20px", marginTop: "20px" }}
+                style={{marginBottom: "20px", marginTop: "20px"}}
               >
                 Headline - {review.headline}
               </Grid>
-              <Grid item xs={12}  style={{ marginBottom: "20px"}}>
+              <Grid item xs={12} style={{marginBottom: "20px"}}>
                 Description - {review.description}
               </Grid>
 
@@ -115,26 +118,25 @@ export default class CompanyReviews extends React.Component {
                 <Grid
                   item
                   xs={12}
-                  style={{ marginBottom: "20px", marginTop: "20px" }}
+                  style={{marginBottom: "20px", marginTop: "20px"}}
                 >
                   Pros - {review.pros}
                 </Grid>
               ) : null}
               {review.cons ? (
-                <Grid item xs={12} style={{ marginBottom: "20px" }}>
+                <Grid item xs={12} style={{marginBottom: "20px"}}>
                   Cons - {review.cons}
                 </Grid>
               ) : null}
-              <div style={{ width: "100%" }}>
+              <div>
                 <div className="inputLabel">Reply</div>
                 <div>
-                  <TextareaAutosize type="text" placeholder="Add reply" style={{ width: "80%"}} defaultValue={review.reply} onChange={this.onInputChange}></TextareaAutosize>
-                  <Button variant="contained" style={{ float: "right"}} onClick={() => this.reply(review._id)}>
-                      Reply
-                  </Button>
+                  <TextareaAutosize type="text" placeholder="Add reply"
+                                    defaultValue={review.reply} onChange={this.onInputChange}/>
                 </div>
-              </div>
-              <div style={{ width: "100%" }}>
+                <div>
+                  <Button variant="outlined" onClick={() => this.reply(review._id)}>Reply</Button>
+                </div>
               </div>
             </Grid>
           );
