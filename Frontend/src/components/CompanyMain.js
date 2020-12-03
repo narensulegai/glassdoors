@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Overview from './company/Overview';
 import JobPosting from './company/JobPosting';
+import Reviews from './company/CompanyReviews';
 import CompanyJobApplications from './company/CompanyJobApplications';
 import CompanyReport from './company/CompanyReport';
 
@@ -23,7 +24,7 @@ class CompanyMain extends Component {
             <Overview />
           </Route>
           <Route path="/company/review" exact>
-            Review
+            <Reviews />
           </Route>
           <Route path="/company/jobPosting" exact>
             <JobPosting />

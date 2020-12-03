@@ -22,7 +22,30 @@ module.exports = {
   searchCompany: async (req, res) => {
     const { text } = req.query;
     // TODO Use text index search
-    res.json(await Company.find({ name: { $regex: text, $options: 'i' } }));
+    const companies = await Company.find({ name: { $regex: text, $options: 'i' } });
+    const getData = async () => Promise.all(companies.map(async (company, i) => {
+      const reviews = await Review.find({ company: company._id, status: 'approved' });
+      const reviewAvg = await Review.aggregate([
+        { $match: { company: company._id, status: 'approved' } },
+        { $group: { _id: '$company', average: { $avg: '$overallRating' } } },
+      ]);
+      const reviewCount = reviews.length;
+      const salaryCount = await CompanySalary.find({ company: company._id }).count();
+      const interviewCount = await InterviewExperience.find({ company: company._id }).count();
+
+      return {
+        ...company.toObject(),
+        reviewCount,
+        salaryCount,
+        reviewAvg,
+        interviewCount,
+
+      };
+    }));
+
+    getData().then((data) => {
+      res.json(data);
+    });
   },
   searchJobPosting: async (req, res) => {
     const { text } = req.query;
@@ -154,7 +177,6 @@ module.exports = {
   addReview: async (req, res) => {
     const { id: companyId } = req.params;
     const employeeId = req.session.user._id;
-    console.log(req.body);
     const newReview = { ...req.body, company: companyId, employee: employeeId };
     await kModules.addReview(newReview);
     res.json(newReview);
