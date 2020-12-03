@@ -23,7 +23,27 @@ module.exports = {
   searchCompany: async (req, res) => {
     const { text } = req.query;
     // TODO Use text index search
-    res.json(await Company.find({ name: { $regex: text, $options: 'i' } }));
+    const companies = await Company.find({ name: { $regex: text, $options: 'i' } });
+    const getData = async () => Promise.all(companies.map(async (company) => {
+      const reviews = await Review.find({ company: company._id, status: 'approved' });
+      const reviewAvg = await Review.aggregate([
+        { $match: { company: company._id, status: 'approved' } },
+        { $group: { _id: '$company', average: { $avg: '$overallRating' } } },
+      ]);
+      const reviewCount = reviews.length;
+      const salaryCount = await CompanySalary.find({ company: company._id }).count();
+      const interviewCount = await InterviewExperience.find({ company: company._id }).count();
+
+      return {
+        ...company.toJSON(),
+        reviewCount,
+        salaryCount,
+        reviewAvg,
+        interviewCount,
+      };
+    }));
+
+    res.json(await getData());
   },
   searchJobPosting: async (req, res) => {
     const { text } = req.query;
@@ -37,7 +57,9 @@ module.exports = {
 
   getCompany: async (req, res) => {
     const companyId = req.params.id;
-    const company = await Company.findById(companyId).populate('jobPostings');
+    const company = await Company.findById(companyId)
+      .populate('jobPostings')
+      .populate('featuredReview');
     const reviews = await Review.find({
       $and: [
         { company: companyId },
@@ -156,7 +178,6 @@ module.exports = {
   addReview: async (req, res) => {
     const { id: companyId } = req.params;
     const employeeId = req.session.user._id;
-    console.log(req.body);
     const newReview = { ...req.body, company: companyId, employee: employeeId };
     await kModules.addReview(newReview);
     res.json(newReview);
@@ -299,6 +320,18 @@ module.exports = {
     const employeeId = req.session.user._id;
     const reviews = await Review.find({ employee: employeeId })
       .populate('company');
-    res.json({ reviews });
+
+    const interviewExperiences = await InterviewExperience.find({ employee: employeeId })
+      .populate('company')
+      .populate('jobPosting');
+
+    const companySalaries = await CompanySalary.find({ employee: employeeId })
+      .populate('company')
+      .populate('jobPosting');
+
+    const companyPhotos = await CompanyPhoto.find({ employee: employeeId })
+      .populate('company');
+
+    res.json({ reviews, interviewExperiences, companySalaries, companyPhotos });
   },
 };

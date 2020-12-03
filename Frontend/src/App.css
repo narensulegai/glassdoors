@@ -2,8 +2,9 @@
 
 body {
     position: relative;
-    background: url("../src/fba7da61.png") repeat;
+    /*background: url("../src/fba7da61.png") repeat;*/
     padding-bottom: 40px;
+    background: #f5f5f5;
 }
 
 #msg, #err {
@@ -118,9 +119,16 @@ body {
     background: rgba(0, 136, 0, 0.2);
 }
 
+.nav-link, .inputLabel, .mono {
+    font-family: "Andale Mono", serif;
+    /*font-weight: bold;*/
+}
+
 .inputLabel {
-    color: #6a6a6a;
     margin: 5px 5px 2px 0;
+    font-size: 12px;
+    color: #343434;
+    letter-spacing: 0.1px;
 }
 
 .divider {
@@ -137,10 +145,43 @@ body {
     height: 40px;
     width: 40px;
     line-height: 40px;
-    border: 1px solid black;
+    border: 1px solid var(--green);
     text-align: center;
+    color: var(--green);
 }
 
 .pageNum.active {
+    font-weight: bolder;
+}
+
+:root {
+    --green: #0CAA41;
+}
+
+.btn-primary:hover, .btn-primary {
+    background-color: var(--green);
+    border-color: var(--green);
+}
+
+.bg-dark {
+    background-color: var(--green) !important;
+}
+
+select, input[type=text], input[type=password] {
+    border: 2px solid var(--green);
+    border-radius: 10px;
+    padding-left: 5px;
+}
+
+input[type=text]:focus, select:focus {
+    outline: none
+}
+
+a {
+    color: #0051bb;
+}
+
+.nav-link {
+    font-size: smaller;
     font-weight: bolder;
 }

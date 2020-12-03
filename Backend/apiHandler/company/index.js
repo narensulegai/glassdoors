@@ -1,5 +1,6 @@
-const { Company, JobPosting, JobApplication, Employee } = require('../../mongodb');
+const { Company, JobPosting, JobApplication, Employee, Review } = require('../../mongodb');
 const { err } = require('../util');
+const kModules = require('../../modules');
 
 module.exports = {
   update: async (req, resp) => {
@@ -9,9 +10,9 @@ module.exports = {
   },
   addJobPosting: async (req, res) => {
     const companyId = req.session.user._id;
+    res.json(await kModules.addJobPosting(companyId, req.body));
     // Using Kafka
     // res.json(req.requestKafka('addJobPosting', companyId, req.body));
-    res.json({ ...req.body, company: companyId });
   },
   getJobPosting: async (req, res) => {
     const companyId = req.session.user._id;
@@ -51,5 +52,48 @@ module.exports = {
     res.json(await JobApplication.find({ job: jobIds })
       .populate('employee')
       .populate('job'));
+  },
+  getCompanyReviews: async (req, res) => {
+    const companyId = req.session.user._id;
+    const reviews = await Review.find({
+      company: companyId,
+    })
+      .populate('company', 'name')
+      .populate('employee', 'email');
+    res.json(reviews);
+  },
+  markFavorite: async (req, res) => {
+    const { reviewId } = req.params;
+    const company = await Company.findById(req.session.user._id);
+    const review = await Review.findById(reviewId);
+    const index = company.favoriteReviews.indexOf(reviewId);
+    if (index > -1) {
+      review.favorite = false;
+      company.favoriteReviews.splice(index, 1);
+    } else {
+      review.favorite = true;
+      company.favoriteReviews.push(reviewId);
+    }
+    res.json(await company.save() && await review.save());
+  },
+  updateFeaturedReview: async (req, res) => {
+    const { reviewId } = req.params;
+    const company = await Company.findById(req.session.user._id);
+    if (company.featuredReview) {
+      const oldReview = await Review.findById(company.featuredReview);
+      oldReview.featured = false;
+      await oldReview.save();
+    }
+    const review = await Review.findById(reviewId);
+    company.featuredReview = reviewId;
+    review.featured = true;
+    res.json(await company.save() && await review.save());
+  },
+  addReply: async (req, res) => {
+    const { reviewId } = req.params;
+    const { reply } = req.body;
+    const review = await Review.findById(reviewId);
+    review.reply = reply;
+    res.json(await review.save());
   },
 };

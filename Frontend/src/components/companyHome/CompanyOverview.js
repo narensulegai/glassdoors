@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating';
 import PropTypes from 'prop-types';
-import { getCompany, fileUrl } from '../../util/fetch/api';
+import { fileUrl, getCompany } from '../../util/fetch/api';
 
 const Review = ({ title, review }) => {
   return (
@@ -31,7 +31,7 @@ const Review = ({ title, review }) => {
               size="small"
               color="red"
               readOnly
-          />
+            />
           </div>
           <div>
             <span className="inputLabel mr-2">Pros</span>
@@ -105,16 +105,22 @@ const CompanyOverview = () => {
               <span>
                 <Rating
                   name="hover-feedback"
-                  value={company.reviewData.averageRating || 0}
-                  precision={0.1}
-                  size="small"
-                  color="red"
-                  readOnly
+                  value={company.reviewData ? company.reviewData.averageRating : 0} precision={0.1} size="small"
+                  color="red" readOnly
                 />
               </span>
             </div>
-            {company.reviewData.positiveReview ? (<Review title="Positive review" review={company.reviewData.positiveReview} />) : null}
-            {company.reviewData.negativeReview ? (<Review title="Negative review" review={company.reviewData.negativeReview} />) : null}
+
+            {company.reviewData.positiveReview
+              ? <Review title="Positive review" review={company.reviewData.positiveReview} />
+              : <div>No positive reviews yet</div>}
+            {company.reviewData.negativeReview
+              ? <Review title="Negative review" review={company.reviewData.negativeReview} />
+              : <div>No negative reviews yet</div>}
+
+            {company.featuredReview
+              ? <Review title="Featured review" review={company.featuredReview} />
+              : <div>No featured reviews yet</div>}
           </>
         )}
       </div>

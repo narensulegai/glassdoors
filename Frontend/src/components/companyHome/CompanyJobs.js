@@ -15,14 +15,16 @@ const CompanyJobs = () => {
 
   return (
     <div className="row">
-      <div className="col-12">
+      <div className="col-6">
         {jobPostings.length === 0 && <div>No jobs posted for this company.</div>}
         {jobPostings.map((job) => {
           return (
             <div key={job._id} className="card mb-3">
               <div className="card-body">
                 <h4><a href={`#/jobHome/${job._id}`} target="_blank" rel="noopener noreferrer">{job.title}</a></h4>
+                <div><span className="inputLabel">Industry</span><span>{job.industry}</span></div>
                 <div><span className="inputLabel">Work style</span><span>{job.inPerson ? 'In person' : 'Remote'}</span></div>
+                <div><span className="inputLabel">City</span><span>{job.city}</span></div>
               </div>
             </div>
           );
