@@ -40,85 +40,47 @@ const CompanySalaries = () => {
   return (
     <div className="row">
       <div className="col-12">
-        {jobPostings.length === 0 ? (
-          <div>There are no job posting by this company</div>
-        ) : (
-          <>
-            <Modal show={showModal} onHide={toggleModal} animation={false}>
-              <div className="modal-body">
-                <div className="inputLabel">Job title</div>
-                <select defaultValue={jobPostings[0]._id} ref={jobPostingRef}>
-                  {jobPostings.map((job) => {
-                    return (
-                      <option key={job._id} value={job._id}>
-                        {job.title}
-                      </option>
-                    );
-                  })}
-                </select>
-                <div className="inputLabel">Base salary</div>
-                <div>
-                  <input type="number" ref={baseSalaryRef} />
-                </div>
-                <div className="inputLabel">Bonus</div>
-                <div>
-                  <input type="number" ref={bonusRef} />
-                </div>
-                <div className="inputLabel">Years of experience</div>
-                <div>
-                  <input type="number" ref={yearsOfExperienceRef} />
-                </div>
-                <div className="inputLabel">Location</div>
-                <div>
-                  <input type="test" ref={locationRef} />
-                </div>
-                <div className="mt-2 d-flex justify-content-between">
-                  <button className="btn-primary" onClick={handleOnAdd}>
-                    Add
-                  </button>
-                  <button className="btn-link" onClick={toggleModal}>
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </Modal>
-
-            <button className="btn-primary" onClick={toggleModal}>
-              Add salary
-            </button>
-
-            {jobPostings.map((job) => {
-              if (job.salaries.length === 0) {
-                return null;
-              }
-              return (
-                <div key={job._id} className="card mt-3">
-                  <div className="card-body">
-                    <div className="inputLabel card-header">
-                      Role - {job.title}
-                    </div>
-                    {job.salaries.map((salary) => {
-                      return (
-                        <div className="card mt-3 card-header">
-                          <div className="inputLabel">
-                            Location - {salary._id.location}
-                          </div>
-                          <div className="inputLabel">
-                            Years of Experience - {salary._id.yearsOfExperience}
-                          </div>
-                          <div>
-                            Salary range {salary.minBaseSalary} -{' '}
-                            {salary.maxBaseSalary}
-                          </div>
-                        </div>
-                      );
+        {jobPostings.length === 0
+          ? <div>There are no job posting by this company</div>
+          : (
+            <>
+              <Modal show={showModal} onHide={toggleModal} animation={false}>
+                <div className="modal-body">
+                  <div className="inputLabel">Job title</div>
+                  <select defaultValue={jobPostings[0]._id} ref={jobPostingRef}>
+                    {jobPostings.map((job) => {
+                      return <option key={job._id} value={job._id}>{job.title}</option>;
                     })}
+                  </select>
+                  <div className="inputLabel">Base salary</div>
+                  <div><input type="number" ref={baseSalaryRef} /></div>
+                  <div className="inputLabel">Bonus</div>
+                  <div><input type="number" ref={bonusRef} /></div>
+                  <div className="inputLabel">Years of experience</div>
+                  <div><input type="number" ref={yearsOfExperienceRef} /></div>
+                  <div className="inputLabel">Location</div>
+                  <div><input type="test" ref={locationRef} /></div>
+                  <div className="mt-2 d-flex justify-content-between">
+                    <button className="btn-primary" onClick={handleOnAdd}>Add</button>
+                    <button className="btn-link" onClick={toggleModal}>Cancel</button>
                   </div>
                 </div>
-              );
-            })}
-          </>
-        )}
+              </Modal>
+
+              <button className="btn-primary" onClick={toggleModal}>Add salary</button>
+
+              {jobPostings.map((job) => {
+                return (
+                  <div key={job._id} className="card mt-3">
+                    <div className="card-body">
+                      <div className="inputLabel">{job.title} at {job.city}</div>
+                      <div>Salary range ${job.minBaseSalary} - ${job.maxBaseSalary}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          )}
       </div>
     </div>
   );

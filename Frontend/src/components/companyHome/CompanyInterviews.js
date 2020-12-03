@@ -156,7 +156,7 @@ const CompanyInterviews = () => {
           )}
         {interviewExperiences.map((interviewExperience) => {
           return (
-            <div key={interviewExperience._id} className="card mb-3">
+            <div key={interviewExperience._id} className="card mt-3">
               <div className="card-body">
                 <div>
                   <span className="inputLabel">Difficulty</span>
