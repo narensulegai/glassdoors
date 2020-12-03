@@ -30,15 +30,15 @@ module.exports = {
     const getData = async () => {
       return Promise.all(companies.map(async (company, i)=>{
         let c = {}
-      const reviews=await Review.find({company: company._id});
+      const reviews=await Review.find({company: company._id,status:'approved'});
       const reviewAvg = await Review.aggregate([
-        {$match: {company: company._id}},
+        {$match: {company: company._id,status:'approved'}},
         {$group: {_id: "$company", average: {$avg: '$overallRating'}}}
     ])
       const reviewCount= reviews.length;
       const salaryCount= await CompanySalary.find({company: company._id}).count();
       const interviewCount= await InterviewExperience.find({company: company._id}).count();
-      //const location=await CompanySalary.find({company: company._id},'location')
+     
       console.log(company)
         return {
           ...company.toObject(),
@@ -46,7 +46,7 @@ module.exports = {
           salaryCount,
           reviewAvg,
           interviewCount,
-         // location
+         
         }
    
     }))
