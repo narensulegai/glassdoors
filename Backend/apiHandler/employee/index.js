@@ -59,7 +59,9 @@ module.exports = {
 
   getCompany: async (req, res) => {
     const companyId = req.params.id;
-    const company = await Company.findById(companyId).populate('jobPostings');
+    const company = await Company.findById(companyId)
+      .populate('jobPostings')
+      .populate('featuredReview');
     const reviews = await Review.find({
       $and: [
         { company: companyId },
