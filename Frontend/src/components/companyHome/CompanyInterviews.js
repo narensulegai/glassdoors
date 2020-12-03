@@ -127,35 +127,33 @@ const CompanyInterviews = () => {
         )}
       </div>
 
-      <div className="col-12 mt-2 text-center">
-        <Chart
-          width="300px"
-          chartType="PieChart"
-          loader={<div>Loading Chart</div>}
-          data={[
-            ['experiences', 'percentage'],
-            ['Positive', positiveExperiences],
-            ['Negative', negativeExperiences],
-            ['Neutral', neutralExperiences],
-          ]}
-
-          options={{
-            title: 'Interview Experience',
-            is3D: true,
-            slices: {
-              0: { color: '#33ff33' },
-              1: { color: '#009900' },
-              2: { color: '#3333ff' },
-            },
-          }}
-        />
-      </div>
-
       <div className="col-12 mt-2">
-        <span><h3>Interview Experiences</h3></span>
-        {interviewExperiences.length === 0 && (
-          <div>No interview experiences shared yet.</div>
-        )}
+        <h6>Interview Experiences</h6>
+        {interviewExperiences.length === 0
+          ? <div>No interview experiences shared yet.</div>
+          : (
+            <Chart
+              width="300px"
+              chartType="PieChart"
+              loader={<div>Loading Chart</div>}
+              data={[
+                ['experiences', 'percentage'],
+                ['Positive', positiveExperiences],
+                ['Negative', negativeExperiences],
+                ['Neutral', neutralExperiences],
+              ]}
+
+              options={{
+                title: 'Interview Experience',
+                is3D: true,
+                slices: {
+                  0: { color: '#33ff33' },
+                  1: { color: '#009900' },
+                  2: { color: '#3333ff' },
+                },
+              }}
+          />
+          )}
         {interviewExperiences.map((interviewExperience) => {
           return (
             <div key={interviewExperience._id} className="card mb-3">
