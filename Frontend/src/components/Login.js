@@ -18,17 +18,17 @@ const Login = ({ onLogin, type }) => {
   };
 
   return (
-    <>
-      <div className="form-group mt-5">
-        <input type="email" className="form-control" placeholder="Email" ref={email} />
+    <div className="text-center">
+      <div className="mt-5">
+        <input type="text" placeholder="Email" ref={email} />
       </div>
-      <div className="form-group">
-        <input type="password" className="form-control" placeholder="Password" ref={password} />
+      <div className="mt-2">
+        <input type="password" placeholder="Password" ref={password} />
       </div>
-      <div className="form-group text-center">
-        <button type="submit" className="btn btn-success" onClick={handleOnSignIn}>Sign in</button>
+      <div className="mt-3 mb-3">
+        <button type="submit" className="btn-primary" onClick={handleOnSignIn}>Sign in</button>
       </div>
-    </>
+    </div>
   );
 };
 

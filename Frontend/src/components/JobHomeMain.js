@@ -4,6 +4,7 @@ import {
   applyJob, currentUser, fileUrl, getJob,
 } from '../util/fetch/api';
 import FileUpload from './common/FileUpload';
+import { formatDate } from '../util';
 
 const JobHomeMain = () => {
   const { id: jobId } = useParams();
@@ -42,7 +43,21 @@ const JobHomeMain = () => {
             {job && employee && (
             <>
               <h4>{job.title}</h4>
+              <div className="imageTile">
+                {job.company.profilePic
+                  ? <img src={fileUrl(job.company.profilePic)} alt="" />
+                  : <div>No pic available</div>}
+              </div>
               <div><span className="inputLabel">Posted by</span>{job.company.name}</div>
+              <div><span className="inputLabel">In person</span><span>{job.inPerson ? 'Yes' : 'No'}</span></div>
+              <div><span className="inputLabel">Industry</span><span>{job.industry}</span></div>
+              <div><span className="inputLabel">City</span><span>{job.City}</span></div>
+              <div><span className="inputLabel">State</span><span>{job.state}</span></div>
+              <div><span className="inputLabel">Zip</span><span>{job.zip}</span></div>
+              <div><span className="inputLabel">Country</span><span>{job.country}</span></div>
+              <div><span className="inputLabel">Posted on</span><span>{formatDate(job.createdAt)}</span></div>
+
+              <h6 className="mt-3">Apply for this job</h6>
 
               <div className="inputLabel">
                 {coverLetterFileId

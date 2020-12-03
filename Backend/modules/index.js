@@ -1,7 +1,6 @@
 const {
   Company, JobPosting, CompanySalary, Review,
 } = require('../mongodb');
-const { redisGet, redisSet } = require('../redisCli');
 
 module.exports = {
   addJobPosting: async (companyId, posting) => {
@@ -30,13 +29,13 @@ module.exports = {
     const review = new Review(newReview);
     await review.save();
   },
-  getDummyReviews: async (companyId, limit) => {
+  getDummyReviews: async (companyId, limit) =>
     // With redis
     // const key = `getDummyReviews${companyId}${limit}`;
     // if (await redisGet(key) === null) {
     //   await redisSet(key, await Review.find({ company: companyId }).limit(limit));
     // }
     // return redisGet(key);
-    return Review.find({company: companyId}).limit(limit);
-  },
+    Review.find({ company: companyId }).limit(limit)
+  ,
 };

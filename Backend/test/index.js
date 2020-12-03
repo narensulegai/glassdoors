@@ -18,8 +18,6 @@ describe('An employee', () => {
       .end((err, res) => {
         assert.equal(res.body.user.email, vars.email);
         vars.token = res.body.token;
-        console.log(token)
-    
         done();
       });
   });
@@ -43,55 +41,32 @@ describe('An employee', () => {
         done();
       });
   });
-});
- 
 
-
-
-
-
-it('should be able to get list of comany', (done) => {
+  it('should be able to get list of companies', (done) => {
     chai.request(server)
       .get('/apiV1/search/company')
       .set('authorization', vars.token)
-       .end((err, res) => {
-        console.log(res)
-        
-         res.body.should.be.a('object');
-           done();
-
-      });
-  });
-
-  it('should be able to get review of comany', (done) => {
-    chai.request(server)
-      .get('/apiV1/review/5fbc8634e97b99e33f437055')
-      .set('authorization', vars.token)
+      .query({ text: 'Google' })
       .end((err, res) => {
-      res.body.should.be.a('object'); 
+        res.body.should.be.an('array');
         done();
       });
   });
 
   it('should be able to get  company profile', (done) => {
     chai.request(server)
-      .get('/apiV1/review/company/profile/5fbc8634e97b99e33f437055')
+      .get('/apiV1/company/profile/5fbc3c90c978a28455424bb2')
       .set('authorization', vars.token)
       .end((err, res) => {
-        
-      res.body.should.be.a('object'); 
+        res.body.should.be.a('object');
         done();
       });
   });
 
-  it('should be able to apply for job ', (done) => {
+  it('should be able to get reviews of the comany', (done) => {
     chai.request(server)
-      .put('/apiV1/jobApplication/5fc093c19e80d1ed4e3e8e2a')
+      .get('/apiV1/review/5fbc3c90c978a28455424bb2')
       .set('authorization', vars.token)
-      .send(  {
-        "employee": "5fc0941a9e80d1ed4e3e8e2c",
-        "company": "5fc08ec29e80d1ed4e3e8e29",
-        "status": 'submitted'})
       .end((err, res) => {
         res.body.should.be.a('object');
         done();
@@ -103,21 +78,19 @@ it('should be able to get list of comany', (done) => {
       .delete('/apiV1/jobApplication/5fbc8634e97b99e33f437055')
       .set('authorization', vars.token)
       .end((err, res) => {
-        res.body.should.be.a('object');
+        expect(res.statusCode).to.equal(200);
         done();
       });
   });
-
-
-
+});
 
 describe('A company', () => {
   beforeEach((done) => {
     chai.request(server)
       .put('/apiV1/login/company')
-      .send({ email: 'apple@gmail.com', password: '1234' })
+      .send({ email: 'google@gmail.com', password: 'pwd' })
       .end((err, res) => {
-        assert.equal(res.body.user.email, 'apple@gmail.com');
+        assert.equal(res.body.user.email, 'google@gmail.com');
         vars.token = res.body.token;
         vars.user = res.body.user;
         done();
@@ -152,7 +125,7 @@ describe('A company', () => {
       .send({ description: 'Rated no.1 of glassdoor' })
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
-        assert.equal(res.body.email, 'apple@gmail.com');
+        assert.equal(res.body.email, 'google@gmail.com');
         done();
       });
   });

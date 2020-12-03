@@ -9,6 +9,7 @@ import AdminMain from './components/AdminMain';
 import Logout from './components/Logout';
 import JobHomeMain from './components/JobHomeMain';
 import CompanyHomeMain from './components/CompanyHomeMain';
+import AdminCompanyHome from './components/AdminCompanyHome';
 import EmployeeHomeMain from './components/EmployeeHomeMain';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/companyHome/:id">
           <CompanyHomeMain />
         </Route>
+        <Route path="/companyHomePage/:id" component={AdminCompanyHome} />
         <Route path="/jobHome/:id">
           <JobHomeMain />
         </Route>

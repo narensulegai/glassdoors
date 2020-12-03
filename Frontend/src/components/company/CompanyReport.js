@@ -23,10 +23,10 @@ const CompanyReport = () => {
 
         {jobPostings.length === 0 && <div>No job posting to show</div>}
 
-        <h6>{total} applications</h6>
+        <h6>You have a total of {total} application(s) in the last 1 year</h6>
         {jobPostings.map((jp) => {
           return (
-            <div key={jp._id} className="card">
+            <div key={jp._id} className="card mt-3">
               <div className="card-body">
                 <div className="inputLabel">{jp.title}</div>
                 <div>
@@ -40,7 +40,7 @@ const CompanyReport = () => {
                     ? (
                       <div>
                         <div>
-                          {byJob[jp._id].filter((jobApplication) => jobApplication.status === 'selected').length} selected
+                          {byJob[jp._id].filter((jobApplication) => jobApplication.status === 'hired').length} selected
                           &nbsp;|&nbsp;
                           {byJob[jp._id].filter((jobApplication) => jobApplication.status === 'rejected').length} rejected
                         </div>

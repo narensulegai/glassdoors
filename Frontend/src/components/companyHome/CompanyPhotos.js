@@ -23,6 +23,7 @@ const CompanyPhotos = () => {
   const handleOnFileUpload = async ({ files }) => {
     await addCompanyPhotos(companyId, { photos: files });
     toggleModal();
+    setCompanyPhotos(await getCompanyPhotos(companyId));
   };
 
   return (
@@ -41,7 +42,7 @@ const CompanyPhotos = () => {
         <button className="btn-success mt-2" onClick={toggleModal}>Add photos</button>
       </div>
 
-      <div className="col-12">
+      <div className="col-6">
         {companyPhotos.length === 0
           ? <div className="mt-3 mb-3">There are no photos for this company</div>
           : companyPhotos.map((photo) => {

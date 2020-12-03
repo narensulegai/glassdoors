@@ -3,7 +3,7 @@ import { searchCompany } from '../../util/fetch/api';
 import Paginate from '../Paginate';
 import { slicePage } from '../../util';
 
-const CompanySearch = () => {
+const AdminCompanySearch = () => {
   const [companies, setCompanies] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const searchTextRef = createRef();
@@ -40,7 +40,7 @@ const CompanySearch = () => {
                 <div className="card-body">
                   <h5>
                     <a
-                      href={`/#/companyHome/${c._id}/companyOverview`}
+                      href={`/#/companyHomePage/${c._id}/companyOverview`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -50,9 +50,7 @@ const CompanySearch = () => {
 
                   <div>
                     <span className="inputLabel">Average rating</span>
-                    <span>
-                      {c.reviewAvg.length ? c.reviewAvg[0].average : 'N/A'}
-                    </span>
+                    <span>{c.reviewAvg.length ? c.reviewAvg[0].average : 'N/A'}</span>
                   </div>
 
                   <div>
@@ -90,6 +88,6 @@ const CompanySearch = () => {
   );
 };
 
-CompanySearch.propTypes = {};
+AdminCompanySearch.propTypes = {};
 
-export default CompanySearch;
+export default AdminCompanySearch;

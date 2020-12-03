@@ -5,7 +5,7 @@ module.exports = (mongoose) => {
     employee: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee', required: true },
     status: {
       type: String,
-      enum: ['submitted', 'reviewed', 'screening', 'interviewing', 'hired'],
+      enum: ['submitted', 'reviewed', 'screening', 'interviewing', 'hired', 'rejected'],
       default: 'submitted',
     },
     resume: { type: String, required: true },

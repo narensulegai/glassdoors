@@ -54,7 +54,7 @@ const apiVersion = '/apiV1';
   ['put', '/employee', handler.employee.update, 'employee',schema.update],
   ['get', '/search/company', handler.employee.searchCompany, 'employee'],
   ['get', '/search/jobPosting', handler.employee.searchJobPosting, 'employee'],
-  ['get', '/company/profile/:id', handler.employee.getCompany, 'employee'],
+  ['get', '/company/profile/:id', handler.employee.getCompany, 'any'],
   ['get', '/employee/profile/:id', handler.company.getEmployee, 'company'],
   ['get', '/job/:id', handler.employee.getJob, 'employee'],
   ['put', '/jobApplication/:id', handler.employee.applyJob, 'employee', schema.applyJob],
@@ -67,12 +67,23 @@ const apiVersion = '/apiV1';
   ['post', '/employee/salary/:id', handler.employee.addSalary, 'employee'],
   ['get', '/jobPosting/company/:id', handler.employee.getCompanyJobPosting, 'employee'],
   ['post', '/review/:id', handler.employee.addReview, 'employee'],
+  ['put', '/review/helpfulVote/:id', handler.employee.addHelpfulVote, 'employee'],
   ['get', '/review/:id', handler.employee.getReviews, 'employee'],
   ['post', '/companyPhoto/:id', handler.employee.addCompanyPhoto, 'employee'],
-  ['get', '/companyPhoto/:id', handler.employee.getCompanyPhotos, 'employee'],
+  ['get', '/companyPhoto/:id', handler.employee.getCompanyPhotos, 'any'],
   ['post', '/interviewExperience/:id', handler.employee.addInterviewExperience, 'employee'],
   ['get', '/interviewExperience/:id', handler.employee.getInterviewExperience, 'employee'],
+  ['get', '/admin/reviews/:status', handler.admin.getReviews, 'admin'],
+  ['get', '/admin/reviews/:id/:status', handler.admin.getReviewsByCompanyIdAndStatus, 'admin'],
+  ['get', '/admin/companyPhotos/:status', handler.admin.getPrivatePhotos, 'admin'],
+  ['put', '/admin/reviews/:id', handler.admin.approveReview, 'admin'],
+  ['put', '/admin/companyPhotos/:id', handler.admin.approvePhoto, 'admin'],
   ['get', '/company/report', handler.company.getCompanyReport, 'company'],
+  ['get', '/employee/activity', handler.employee.getActivity, 'employee'],
+  ['get', '/company/reviews', handler.company.getCompanyReviews, 'company'],
+  ['put', '/company/favoriteReviews/:reviewId', handler.company.markFavorite, 'company'],
+  ['put', '/company/featuredReview/:reviewId', handler.company.updateFeaturedReview, 'company'],
+  ['put', '/company/reply/:reviewId', handler.company.addReply, 'company'],
 
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {
@@ -88,7 +99,7 @@ const apiVersion = '/apiV1';
       req.session = jwt.decode(token);
     }
 
-    if (r[3] === 'company' || r[3] === 'employee') {
+    if (r[3] === 'company' || r[3] === 'employee' || r[3] === 'admin') {
       const { scope } = req.session;
       if (scope !== r[3]) {
         resp.status(401).json(err('You are not authorized for this action.'));

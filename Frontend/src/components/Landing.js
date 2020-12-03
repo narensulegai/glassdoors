@@ -12,7 +12,7 @@ export class Landing extends PureComponent {
   landingPage = (scope) => {
     let landingPage = '/employee/companySearch';
     if (scope === 'admin') {
-      landingPage = '/admin/reviewsAndPictures';
+      landingPage = '/admin/reviews';
     }
     if (scope === 'company') {
       landingPage = '/company/overview';
@@ -59,7 +59,7 @@ export class Landing extends PureComponent {
               <a href="#/employeeSignup">Sign up as a employee</a>
             </div>
             <div className="text-center mt-4">
-              <button className="btn btn-outline-primary" onClick={this.toggleLogin}>
+              <button className="btn-outline-primary" onClick={this.toggleLogin}>
                 {currTab === 'employee'
                   ? 'No, login as company'
                   : 'No, login as a employee'}

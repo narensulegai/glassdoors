@@ -32,6 +32,18 @@ export const addCompanyPhotos = (id, d) => post(`companyPhoto/${id}`, d);
 export const getCompanyPhotos = (id) => get(`companyPhoto/${id}`);
 export const getCompanyReport = () => get('company/report');
 export const logout = () => put('logout');
+export const fetchReviews = (unApproved) => get(`admin/reviews/${unApproved}`);
+export const fetchReviewsByCompanyIdAndStatus = (unApproved, companyId) => get(`admin/reviews/${companyId}/${unApproved}`);
+export const approveAReview = (reviewId, status) => put(`admin/reviews/${reviewId}`, { status });
+export const fetchCompanyPhotos = (unApproved) => get(`admin/companyPhotos/${unApproved}`);
+export const approveAnImage = (companyPhotosId, status) => put(`admin/companyPhotos/${companyPhotosId}`, { status });
+export const addHelpfulVotes = (reviewId) => put(`review/helpfulVote/${reviewId}`);
+export const getEmployeeActivity = () => get('employee/activity');
+export const getCompanyReviews = () => get(`company/reviews`);
+export const replyToReview = (reviewId, reply) => put(`company/reply/${reviewId}`, { reply });
+export const markFavorite = (reviewId, status) => put(`company/favoriteReviews/${reviewId}`, {status});
+export const markFeatured = (reviewId) => put(`company/featuredReview/${reviewId}`);
+
 export const fileUrl = (fileId) => {
   return `${apiUrl}/file/${fileId}`;
 };

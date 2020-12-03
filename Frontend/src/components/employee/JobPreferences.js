@@ -38,7 +38,7 @@ const JobPreferences = () => {
 
   return (
     <div className="row">
-      <div className="col-12">
+      <div className="col-6">
         {employee && (
         <>
           <div className="inputLabel">Job search status</div>
@@ -52,18 +52,36 @@ const JobPreferences = () => {
           <div className="inputLabel">Target salary</div>
           <input type="text" ref={targetSalaryRef} defaultValue={employee.targetSalary} />
           <div className="inputLabel">Open to relocation</div>
-          Yes&nbsp;<input type="checkbox" ref={openToRelocationRef} defaultChecked={employee.openToRelocation} /> &nbsp;
-          
-
+          Yes&nbsp;<input type="checkbox" ref={openToRelocationRef} defaultChecked={employee.openToRelocation} />
           <div className="inputLabel">Type of industry</div>
           <input type="text" ref={typeOfIndustryRef} defaultValue={employee.typeOfIndustry} />
-
           <div className="mt-2">
             <button className="btn-success" onClick={handleOnSave}>Save</button>
           </div>
         </>
         )}
       </div>
+      { employee && (
+      <div className="col-6">
+        <div className="card mb-3">
+          <div className="card-header">
+            <div className="small inputLabel">Your Saved Information</div>
+          </div>
+          <div className="card-body">
+            <div className="inputLabel">Job Search Status</div>
+            <div>{employee.jobSearchStatus}</div>
+            <div className="inputLabel">Job title looking for</div>
+            <div>{employee.jobTitleLookingFor}</div>
+            <div className="inputLabel">Target salary</div>
+            <div>{employee.targetSalary}</div>
+            <div className="inputLabel">Open to relocation</div>
+            <div>{employee.openToRelocation ? 'Yes' : 'No'}</div>
+            <div className="inputLabel">Type of industry</div>
+            <div>{employee.typeOfIndustry}</div>
+          </div>
+        </div>
+      </div>
+      ) }
     </div>
   );
 };
