@@ -41,51 +41,32 @@ describe('An employee', () => {
         done();
       });
   });
-});
 
-
-
-
-it('should be able to get list of comany', (done) => {
+  it('should be able to get list of companies', (done) => {
     chai.request(server)
       .get('/apiV1/search/company')
       .set('authorization', vars.token)
-       .end((err, res) => {
-         res.body.should.be.a('object');
-           done();
-
-      });
-  });
-
-  it('should be able to get review of comany', (done) => {
-    chai.request(server)
-      .get('/apiV1/review/5fbc8634e97b99e33f437055')
-      .set('authorization', vars.token)
+      .query({ text: 'Google' })
       .end((err, res) => {
-      res.body.should.be.a('object'); 
+        res.body.should.be.an('array');
         done();
       });
   });
 
   it('should be able to get  company profile', (done) => {
     chai.request(server)
-      .get('/apiV1/review/company/profile/5fbc8634e97b99e33f437055')
+      .get('/apiV1/company/profile/5fbc3c90c978a28455424bb2')
       .set('authorization', vars.token)
       .end((err, res) => {
-        
-      res.body.should.be.a('object'); 
+        res.body.should.be.a('object');
         done();
       });
   });
 
-  it('should be able to apply for job ', (done) => {
+  it('should be able to get reviews of the comany', (done) => {
     chai.request(server)
-      .put('/apiV1/jobApplication/5fc093c19e80d1ed4e3e8e2a')
+      .get('/apiV1/review/5fbc3c90c978a28455424bb2')
       .set('authorization', vars.token)
-      .send(  {
-        "employee": "5fc0941a9e80d1ed4e3e8e2c",
-        "company": "5fc08ec29e80d1ed4e3e8e29",
-        "status": 'submitted'})
       .end((err, res) => {
         res.body.should.be.a('object');
         done();
@@ -97,15 +78,11 @@ it('should be able to get list of comany', (done) => {
       .delete('/apiV1/jobApplication/5fbc8634e97b99e33f437055')
       .set('authorization', vars.token)
       .end((err, res) => {
-        res.body.should.be.a('object');
+        expect(res.statusCode).to.equal(200);
         done();
       });
   });
-
-
-
-
-
+});
 
 describe('A company', () => {
   beforeEach((done) => {
