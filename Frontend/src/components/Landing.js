@@ -59,7 +59,7 @@ export class Landing extends PureComponent {
               <a href="#/employeeSignup">Sign up as a employee</a>
             </div>
             <div className="text-center mt-4">
-              <button className="btn btn-outline-primary" onClick={this.toggleLogin}>
+              <button className="btn-outline-primary" onClick={this.toggleLogin}>
                 {currTab === 'employee'
                   ? 'No, login as company'
                   : 'No, login as a employee'}
