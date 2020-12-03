@@ -23,7 +23,7 @@ module.exports = {
     const { text } = req.query;
     // TODO Use text index search
     const companies = await Company.find({ name: { $regex: text, $options: 'i' } });
-    const getData = async () => Promise.all(companies.map(async (company, i) => {
+    const getData = async () => Promise.all(companies.map(async (company) => {
       const reviews = await Review.find({ company: company._id, status: 'approved' });
       const reviewAvg = await Review.aggregate([
         { $match: { company: company._id, status: 'approved' } },
@@ -34,18 +34,15 @@ module.exports = {
       const interviewCount = await InterviewExperience.find({ company: company._id }).count();
 
       return {
-        ...company.toObject(),
+        ...company.toJSON(),
         reviewCount,
         salaryCount,
         reviewAvg,
         interviewCount,
-
       };
     }));
 
-    getData().then((data) => {
-      res.json(data);
-    });
+    res.json(await getData());
   },
   searchJobPosting: async (req, res) => {
     const { text } = req.query;
