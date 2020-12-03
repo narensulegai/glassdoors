@@ -80,6 +80,10 @@ const apiVersion = '/apiV1';
   ['put', '/admin/companyPhotos/:id', handler.admin.approvePhoto, 'admin'],
   ['get', '/company/report', handler.company.getCompanyReport, 'company'],
   ['get', '/employee/activity', handler.employee.getActivity, 'employee'],
+  ['get', '/company/reviews', handler.company.getCompanyReviews, 'company'],
+  ['put', '/company/favoriteReviews/:reviewId', handler.company.markFavorite, 'company'],
+  ['put', '/company/featuredReview/:reviewId', handler.company.updateFeaturedReview, 'company'],
+  ['put', '/company/reply/:reviewId', handler.company.addReply, 'company'],
 
 ].forEach((r) => {
   app[r[0]](apiVersion + r[1], (req, resp, next) => {

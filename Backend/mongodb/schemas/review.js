@@ -11,6 +11,9 @@ module.exports = (mongoose) => {
     cons: { type: String },
     helpfulVotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee', required: true }],
     status: { type: String, enum: ['private', 'approved', 'rejected'], default: 'private' },
+    reply: { type: String },
+    favorite: { type: Boolean, default: false },
+    featured: { type: Boolean, default: false },
   },
   {
     timestamps: true,
