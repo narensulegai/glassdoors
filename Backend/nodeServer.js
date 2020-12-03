@@ -99,9 +99,9 @@ const apiVersion = '/apiV1';
       req.session = jwt.decode(token);
     }
 
-    if (r[3] === 'company' || r[3] === 'employee') {
+    if (r[3] === 'company' || r[3] === 'employee' || r[3] === 'admin') {
       const { scope } = req.session;
-      if (scope !== r[3] && scope !== 'admin') {
+      if (scope !== r[3]) {
         resp.status(401).json(err('You are not authorized for this action.'));
       }
     }
