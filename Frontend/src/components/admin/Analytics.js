@@ -11,6 +11,9 @@ export default class Analytics extends React.Component {
       topFiveCompanyWithBestAverageRating: {},
       topFiveStudentsWithMostAcceptedReviewsMade: {},
       topTenCeoBasedOnRating: {},
+      topTenCompaniesWithMostViews: {},
+      reviewsPerDay: {}
+
     };
   }
 
@@ -90,6 +93,41 @@ export default class Analytics extends React.Component {
     };
   };
 
+  processTopTenCompaniesWithMostViews = (data) => {
+    const labelsForTopTenCompaniesWithMostViews = [];
+    const dataForTopTenCompaniesWithMostViews = [];
+    for (let i = 0; i < data.topTenMostViewedCompanies.length; i++) {
+      labelsForTopTenCompaniesWithMostViews.push(
+        data.topTenMostViewedCompanies[i].companyName
+      );
+      dataForTopTenCompaniesWithMostViews.push(
+        data.topTenMostViewedCompanies[i].count
+      );
+    }
+    return {
+      labelsForTopTenCompaniesWithMostViews,
+      dataForTopTenCompaniesWithMostViews,
+    };
+  };
+
+  processReviewsPerDay = (data) => {
+    const labelsForReviewsPerDayInLastOneWeek = [];
+    const dataForReviewsPerDayInLastOneWeek = [];
+    for (let i = 0; i < data.reviewsPerDayInLastOneWeek.length; i++) {
+      labelsForReviewsPerDayInLastOneWeek.push(
+        data.reviewsPerDayInLastOneWeek[i].date
+      );
+      dataForReviewsPerDayInLastOneWeek.push(
+        data.reviewsPerDayInLastOneWeek[i].count
+      );
+    }
+    return {
+      labelsForReviewsPerDayInLastOneWeek,
+      dataForReviewsPerDayInLastOneWeek,
+    };
+  };
+
+
   getAnalyticsData = async () => {
     const data = await getAnalyticsData();
 
@@ -104,11 +142,18 @@ export default class Analytics extends React.Component {
     );
     const topTenCeoBasedOnRating = this.processTopTenCeoBasedOnRating(data);
 
+    const topTenCompaniesWithMostViews = this.processTopTenCompaniesWithMostViews(data);
+
+    const reviewsPerDay = this.processReviewsPerDay(data);
+
+
     this.setState({
       topFiveMostReviewedCompany,
       topFiveCompanyWithBestAverageRating,
       topFiveStudentsWithMostAcceptedReviewsMade,
       topTenCeoBasedOnRating,
+      topTenCompaniesWithMostViews,
+      reviewsPerDay
     });
   };
 
@@ -224,6 +269,64 @@ export default class Analytics extends React.Component {
                 title: {
                   display: true,
                   text: "Top 5 ceos",
+                  fontSize: 20,
+                },
+                legend: {
+                  display: true,
+                  position: "right",
+                },
+              }}
+            />
+          </div>
+        ) : null}
+         {this.state.topTenCompaniesWithMostViews ? (
+          <div style={{ margin: "50px", border: "1px solid #000" }}>
+            <Bar
+              data={{
+                labels: this.state.topTenCompaniesWithMostViews
+                  .labelsForTopTenCompaniesWithMostViews,
+                datasets: [
+                  {
+                    label: "Count",
+                    backgroundColor: "rgba(75,192,192,1)",
+                    data: this.state.topTenCompaniesWithMostViews
+                      .dataForTopTenCompaniesWithMostViews,
+                  },
+                ],
+              }}
+              options={{
+                title: {
+                  display: true,
+                  text: "Top 10 companies with most views",
+                  fontSize: 20,
+                },
+                legend: {
+                  display: true,
+                  position: "right",
+                },
+              }}
+            />
+          </div>
+        ) : null}
+           {this.state.reviewsPerDay ? (
+          <div style={{ margin: "50px", border: "1px solid #000" }}>
+            <Bar
+              data={{
+                labels: this.state.reviewsPerDay.labelsForReviewsPerDayInLastOneWeek,
+                  
+                datasets: [
+                  {
+                    label: "Count",
+                    backgroundColor: "rgba(75,192,192,1)",
+                    data: this.state.reviewsPerDay
+                      .dataForReviewsPerDayInLastOneWeek,
+                  },
+                ],
+              }}
+              options={{
+                title: {
+                  display: true,
+                  text: "Reviews Per Day (From Last 7 days)",
                   fontSize: 20,
                 },
                 legend: {

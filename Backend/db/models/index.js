@@ -1,15 +1,12 @@
 const { DataTypes } = require('sequelize');
 const { merge } = require('lodash');
+const moment = require('moment');
 
 const stringType = () => ({
   type: DataTypes.STRING,
   allowNull: true,
 });
 
-const intType = () => ({
-  type: DataTypes.INTEGER,
-  allowNull: true,
-});
 
 const reviewsPerDay = {
   modelName: 'CompanyReviews',
@@ -22,6 +19,11 @@ const reviewsPerDay = {
     },
     employeeId: { ...stringType() },
     reviewId: { ...stringType() },
+    date: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: moment().format('MM/DD/YYYY')  
+    }
   },
 };
 
@@ -36,6 +38,8 @@ const viewsPerDay = {
     },
     employeeId: { ...stringType() },
     companyId: { ...stringType() },
+    companyName: { ...stringType() },
+
   },
 };
 

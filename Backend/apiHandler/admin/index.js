@@ -1,7 +1,8 @@
 const { Review, CompanyPhoto } = require("../../mongodb");
 const { err } = require("../util");
+const models = require("../../db");
 const moment = require("moment");
-var mongoose = require("mongoose");
+const sequelize = require("sequelize");
 
 module.exports = {
   getReviews: async (req, res) => {
@@ -129,13 +130,36 @@ module.exports = {
       { $limit: 10 },
     ]);
 
+    const topTenMostViewedCompanies = await models.CompanyViews.findAll({
+      where: {
+        createdAt: {
+          [sequelize.Op.gte]: moment().subtract(7, "days").toDate(),
+        },
+      },
+      group: ["companyId", "companyName"],
+      attributes: ["companyId", "companyName", [sequelize.fn("COUNT", "employeeId"), "count"]],
+      order: [[sequelize.col("count"), "DESC"]],
+      limit: 10,
+    });
+
+    const reviewsPerDayInLastOneWeek = await models.CompanyReviews.findAll({
+      where: {
+        createdAt: {
+          [sequelize.Op.gte]: moment().subtract(7, "days").toDate(),
+        },
+      },
+      group: ["date"],
+      attributes: ["date", [sequelize.fn("count", "reviewId"), "count"]],
+    });
+
     const dataToBeReturned = {
       topFiveCompaniesWithMostreviews,
       topFiveCompanyWithBestAverageRating,
       topFiveStudentsWithMostAcceptedReviewsMade,
       topTenCeoBasedOnRating,
+      topTenMostViewedCompanies,
+      reviewsPerDayInLastOneWeek
     };
-
     res.json(dataToBeReturned);
   },
 };
