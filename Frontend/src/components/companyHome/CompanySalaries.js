@@ -74,7 +74,9 @@ const CompanySalaries = () => {
                   <div key={job._id} className="card mt-3">
                     <div className="card-body">
                       <div className="inputLabel">{job.title} at {job.city}</div>
-                      <div>Salary range ${job.minBaseSalary} - ${job.maxBaseSalary}</div>
+                      {(job.minBaseSalary !== null && job.maxBaseSalary !== null)
+                        ? <div>Salary range ${job.minBaseSalary} - ${job.maxBaseSalary}</div>
+                        : <div>Salary range not available</div>}
                     </div>
                   </div>
                 );
