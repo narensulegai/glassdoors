@@ -2,6 +2,7 @@ const {
   Company, JobPosting, CompanySalary, Review,
 } = require('../mongodb');
 const { redisGet, redisSet } = require('../redisCli');
+const sqlModel = require('../db');
 
 module.exports = {
   addJobPosting: async (companyId, posting) => {
@@ -28,7 +29,9 @@ module.exports = {
   },
   addReview: async (newReview) => {
     const review = new Review(newReview);
-    await review.save();
+    const savedReview = await review.save();
+    // eslint-disable-next-line max-len
+    sqlModel.CompanyReviews.create({ reviewId: savedReview._id.toString(), employeeId: savedReview.employee.toString() });
   },
   getDummyReviews: async (companyId, limit) =>
     // With redis

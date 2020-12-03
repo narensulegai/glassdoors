@@ -11,16 +11,37 @@ const intType = () => ({
   allowNull: true,
 });
 
-const analyticDashboard = {
-  modelName: 'analyticDashboard',
+const reviewsPerDay = {
+  modelName: 'CompanyReviews',
   attributes: {
-    reviewsPerDay: intType(),
-    topCompanies: { ...stringType(), unique: true },
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
+    employeeId: { ...stringType() },
+    reviewId: { ...stringType() },
   },
 };
-// Example
+
+const viewsPerDay = {
+  modelName: 'CompanyViews',
+  attributes: {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
+    employeeId: { ...stringType() },
+    companyId: { ...stringType() },
+  },
+};
+
 const models = [
-  // analyticDashboard,
+  reviewsPerDay,
+  viewsPerDay,
 ];
 
 module.exports = models.map((m) => merge({
