@@ -1,13 +1,14 @@
 import React from "react";
-import { Grid, Button } from "@material-ui/core";
-import { fetchReviews, approveAReview } from "../../util/fetch/api";
+import {Grid, Button} from "@material-ui/core";
+import {fetchReviews, approveAReview} from "../../util/fetch/api";
 import Rating from "@material-ui/lab/Rating";
 
 export default class Reviews extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { reviews: [] };
+    this.state = {reviews: []};
   }
+
   componentDidMount() {
     this.getUnApprovedReviews();
   }
@@ -15,7 +16,7 @@ export default class Reviews extends React.Component {
   getUnApprovedReviews = async () => {
     try {
       const reviews = await fetchReviews('private');
-      this.setState({ reviews });
+      this.setState({reviews});
     } catch (error) {
       console.log(error);
     }
@@ -41,12 +42,12 @@ export default class Reviews extends React.Component {
 
   render() {
     const reviews = this.state.reviews;
-    if(reviews.length === 0 ) {
-      return <h5>No pending reviews for you to approve at this point of time</h5>;
+    if (reviews.length === 0) {
+      return <h6>No pending reviews for you to approve at this point of time</h6>;
     }
     return (
       <div>
-                <span>You have {reviews.length} reviews to approve</span>
+        <span>You have {reviews.length} reviews to approve</span>
         {reviews.map((review) => {
           return (
             <Grid
@@ -67,11 +68,11 @@ export default class Reviews extends React.Component {
               <Grid
                 item
                 xs={12}
-                style={{ marginBottom: "20px", marginTop: "20px" }}
+                style={{marginBottom: "20px", marginTop: "20px"}}
               >
                 Headline - {review.headline}
               </Grid>
-              <Grid item xs={12}  style={{ marginBottom: "20px"}}>
+              <Grid item xs={12} style={{marginBottom: "20px"}}>
                 Description - {review.description}
               </Grid>
 
@@ -88,18 +89,18 @@ export default class Reviews extends React.Component {
                 <Grid
                   item
                   xs={12}
-                  style={{ marginBottom: "20px", marginTop: "20px" }}
+                  style={{marginBottom: "20px", marginTop: "20px"}}
                 >
                   Pros - {review.pros}
                 </Grid>
               ) : null}
               {review.cons ? (
-                <Grid item xs={12} style={{ marginBottom: "20px" }}>
+                <Grid item xs={12} style={{marginBottom: "20px"}}>
                   Cons - {review.cons}
                 </Grid>
               ) : null}
-              <div style={{ width: "100%" }}>
-                <div style={{ float: "right" }}>
+              <div style={{width: "100%"}}>
+                <div style={{float: "right"}}>
                   <Button variant="contained" onClick={() => this.approve(review._id)}>
                     Approve
                   </Button>
