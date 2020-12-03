@@ -319,6 +319,18 @@ module.exports = {
     const employeeId = req.session.user._id;
     const reviews = await Review.find({ employee: employeeId })
       .populate('company');
-    res.json({ reviews });
+
+    const interviewExperiences = await InterviewExperience.find({ employee: employeeId })
+      .populate('company')
+      .populate('jobPosting');
+
+    const companySalaries = await CompanySalary.find({ employee: employeeId })
+      .populate('company')
+      .populate('jobPosting');
+
+    const companyPhotos = await CompanyPhoto.find({ employee: employeeId })
+      .populate('company');
+
+    res.json({ reviews, interviewExperiences, companySalaries, companyPhotos });
   },
 };

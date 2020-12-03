@@ -26,7 +26,7 @@ const CompanyReport = () => {
         <h6>{total} applications</h6>
         {jobPostings.map((jp) => {
           return (
-            <div key={jp._id} className="card">
+            <div key={jp._id} className="card mt-3">
               <div className="card-body">
                 <div className="inputLabel">{jp.title}</div>
                 <div>
