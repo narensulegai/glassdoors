@@ -101,7 +101,7 @@ module.exports = {
       }
     }
     const dataToBeReturned = { ...company.toJSON(), reviewData };
-    sqlModel.CompanyViews.create({ employeeId: req.session.user._id, companyId, companyName: company.name});
+    sqlModel.CompanyViews.create({ employeeId: req.session.user._id, companyId, companyName: company.name });
     res.json(dataToBeReturned);
   },
   getJob: async (req, res) => {

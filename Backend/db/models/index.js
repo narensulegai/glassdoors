@@ -7,7 +7,6 @@ const stringType = () => ({
   allowNull: true,
 });
 
-
 const reviewsPerDay = {
   modelName: 'CompanyReviews',
   attributes: {
@@ -22,8 +21,8 @@ const reviewsPerDay = {
     date: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: moment().format('MM/DD/YYYY')  
-    }
+      defaultValue: moment().format('MM/DD/YYYY'),
+    },
   },
 };
 

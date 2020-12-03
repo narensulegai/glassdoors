@@ -40,7 +40,7 @@ class AdminMain extends PureComponent {
             Company profile page
           </Route>
           <Route path="/admin/analyticsDashboard" exact>
-            <Analytics/>
+            <Analytics />
           </Route>
         </div>
       </>
