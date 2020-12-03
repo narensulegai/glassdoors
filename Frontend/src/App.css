@@ -119,11 +119,16 @@ body {
     background: rgba(0, 136, 0, 0.2);
 }
 
+.nav-link, .inputLabel, .mono {
+    font-family: "Andale Mono", serif;
+    /*font-weight: bold;*/
+}
+
 .inputLabel {
     margin: 5px 5px 2px 0;
     font-size: 12px;
-    font-family: Lato, sans-serif;
-    color: #6a6a6a;
+    color: #343434;
+    letter-spacing: 0.1px;
 }
 
 .divider {
@@ -174,4 +179,9 @@ input[type=text]:focus, select:focus {
 
 a {
     color: #0051bb;
+}
+
+.nav-link {
+    font-size: smaller;
+    font-weight: bolder;
 }
