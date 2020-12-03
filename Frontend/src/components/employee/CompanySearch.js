@@ -1,7 +1,7 @@
-import React, { createRef, useEffect, useState } from "react";
-import { searchCompany } from "../../util/fetch/api";
-import Paginate from "../Paginate";
-import { slicePage } from "../../util";
+import React, { createRef, useEffect, useState } from 'react';
+import { searchCompany } from '../../util/fetch/api';
+import Paginate from '../Paginate';
+import { slicePage } from '../../util';
 
 const CompanySearch = () => {
   const [companies, setCompanies] = useState([]);
@@ -51,7 +51,7 @@ const CompanySearch = () => {
                   <div>
                     <span className="inputLabel">Average rating</span>
                     <span>
-                      {c.reviewAvg.length ? c.reviewAvg[0].average : "N/A"}
+                      {c.reviewAvg.length ? c.reviewAvg[0].average : 'N/A'}
                     </span>
                   </div>
 

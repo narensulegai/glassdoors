@@ -50,7 +50,7 @@ const AdminCompanySearch = () => {
 
                   <div>
                     <span className="inputLabel">Average rating</span>
-                    <span>{c.reviewAvg.length ? c.reviewAvg[0].average : "N/A"}</span>
+                    <span>{c.reviewAvg.length ? c.reviewAvg[0].average : 'N/A'}</span>
                   </div>
 
                   <div>

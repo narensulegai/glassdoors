@@ -22,41 +22,36 @@ module.exports = {
   searchCompany: async (req, res) => {
     const { text } = req.query;
     // TODO Use text index search
-  //  res.json(await Company.find({ name: { $regex: text, $options: 'i' } }));
- 
-    const companies=await Company.find({ name: { $regex: text, $options: 'i' } });
+    //  res.json(await Company.find({ name: { $regex: text, $options: 'i' } }));
+
+    const companies = await Company.find({ name: { $regex: text, $options: 'i' } });
     // { id: ""sdafsad"", jobPost: "dfas"}
-    var tmp = []
-    const getData = async () => {
-      return Promise.all(companies.map(async (company, i)=>{
-        let c = {}
-      const reviews=await Review.find({company: company._id,status:'approved'});
+    const tmp = [];
+    const getData = async () => Promise.all(companies.map(async (company, i) => {
+      const c = {};
+      const reviews = await Review.find({ company: company._id, status: 'approved' });
       const reviewAvg = await Review.aggregate([
-        {$match: {company: company._id,status:'approved'}},
-        {$group: {_id: "$company", average: {$avg: '$overallRating'}}}
-    ])
-      const reviewCount= reviews.length;
-      const salaryCount= await CompanySalary.find({company: company._id}).count();
-      const interviewCount= await InterviewExperience.find({company: company._id}).count();
-     
-      console.log(company)
-        return {
-          ...company.toObject(),
-          reviewCount,
-          salaryCount,
-          reviewAvg,
-          interviewCount,
-         
-        }
-   
-    }))
-    }  
-    
+        { $match: { company: company._id, status: 'approved' } },
+        { $group: { _id: '$company', average: { $avg: '$overallRating' } } },
+      ]);
+      const reviewCount = reviews.length;
+      const salaryCount = await CompanySalary.find({ company: company._id }).count();
+      const interviewCount = await InterviewExperience.find({ company: company._id }).count();
+
+      console.log(company);
+      return {
+        ...company.toObject(),
+        reviewCount,
+        salaryCount,
+        reviewAvg,
+        interviewCount,
+
+      };
+    }));
+
     getData().then((data) => {
-      res.json(data)
-    })
-    
-    
+      res.json(data);
+    });
   },
   searchJobPosting: async (req, res) => {
     const { text } = req.query;
