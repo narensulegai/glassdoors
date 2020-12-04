@@ -20,10 +20,10 @@ const Login = ({ onLogin, type }) => {
   return (
     <div className="text-center">
       <div className="mt-5">
-        <input type="text" placeholder="Email" ref={email} />
+        <input type="text" placeholder="Email" ref={email} className="form-control" />
       </div>
       <div className="mt-2">
-        <input type="password" placeholder="Password" ref={password} />
+        <input type="password" placeholder="Password" ref={password} className="form-control" />
       </div>
       <div className="mt-3 mb-3">
         <button type="submit" className="btn-primary" onClick={handleOnSignIn}>Sign in</button>

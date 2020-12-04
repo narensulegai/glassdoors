@@ -167,13 +167,13 @@ body {
     background-color: var(--green) !important;
 }
 
-select, input[type=text], input[type=password] {
+select, input[type=text], input[type=password], input[type=number] {
     border: 2px solid var(--green);
     border-radius: 10px;
     padding-left: 5px;
 }
 
-input[type=text]:focus, select:focus {
+input[type=password]:focus, input[type=number]:focus, input[type=text]:focus, select:focus {
     outline: none
 }
 
