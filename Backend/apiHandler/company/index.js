@@ -20,6 +20,12 @@ module.exports = {
       .find({ company: companyId })
       .sort({ createdAt: -1 }));
   },
+  getJobPostingByCompanyId: async (req, res) => {
+    const companyId = req.params.id;
+    res.json(await JobPosting
+      .find({ company: companyId })
+      .sort({ createdAt: -1 }));
+  },
   jobApplications: async (req, res) => {
     const companyId = req.session.user._id;
     res.json(await JobApplication.find({ company: companyId })
@@ -44,6 +50,17 @@ module.exports = {
   },
   getCompanyReport: async (req, res) => {
     const companyId = req.session.user._id;
+    const d = new Date();
+    d.setFullYear(d.getFullYear() - 1);
+    // Job posting in the last year
+    const jobPosting = await JobPosting.find({ company: companyId, createdAt: { $gt: d } });
+    const jobIds = jobPosting.map((j) => j._id);
+    res.json(await JobApplication.find({ job: jobIds })
+      .populate('employee')
+      .populate('job'));
+  },
+  getCompanyReportByCompanyId: async (req, res) => {
+    const companyId = req.params.id;
     const d = new Date();
     d.setFullYear(d.getFullYear() - 1);
     // Job posting in the last year

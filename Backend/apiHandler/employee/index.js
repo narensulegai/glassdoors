@@ -11,6 +11,7 @@ const {
 const { err } = require('../util');
 const kModules = require('../../modules');
 const { redisGet, redisSet } = require('../../redisCli');
+const sqlModel = require('../../db');
 
 module.exports = {
   update: async (req, resp) => {
@@ -100,6 +101,7 @@ module.exports = {
       }
     }
     const dataToBeReturned = { ...company.toJSON(), reviewData };
+    sqlModel.CompanyViews.create({ employeeId: req.session.user._id, companyId, companyName: company.name });
     res.json(dataToBeReturned);
   },
   getJob: async (req, res) => {

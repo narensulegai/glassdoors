@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { Sequelize } = require('sequelize');
 const models = require('./models');
 
@@ -10,7 +12,8 @@ const dbModel = models.reduce((acc, m) => {
 }, {});
 
 (async () => {
-  // await db.sync({ force: true });
+  await db.sync();
+  console.log('MySQL Connection established successfully');
   // await db.sync({ alter: true });
 })();
 
