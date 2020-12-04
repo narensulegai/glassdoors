@@ -29,7 +29,9 @@ export default class AdminCompanyReviews extends React.Component {
             Rejected
           </Button>
         </div>
-        {this.state.approved ? <ApprovedReviews companyId={this.props.match.params.id} /> : <RejectedReviews companyId={this.props.match.params.id} /> }
+        {this.state.approved
+          ? <ApprovedReviews companyId={this.props.match.params.id} />
+          : <RejectedReviews companyId={this.props.match.params.id} /> }
       </div>
     );
   }
