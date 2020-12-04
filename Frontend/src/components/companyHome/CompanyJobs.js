@@ -20,8 +20,8 @@ const CompanyJobs = () => {
     <div className="row">
       <div className="col-6">
         {jobPostings.length === 0 && <div>No jobs posted for this company.</div>}
-       
-          {slicePage(jobPostings, currentPage).map((job) => {
+
+        {slicePage(jobPostings, currentPage).map((job) => {
           return (
             <div key={job._id} className="card mb-3">
               <div className="card-body">
@@ -33,15 +33,15 @@ const CompanyJobs = () => {
             </div>
           );
         })}
-      
-      <div className="mt-3">
+
+        <div className="mt-3">
           <Paginate
             numItems={jobPostings.length}
             onPageChange={setCurrentPage}
             currentPage={currentPage}
           />
         </div>
-        </div>
+      </div>
     </div>
   );
 };

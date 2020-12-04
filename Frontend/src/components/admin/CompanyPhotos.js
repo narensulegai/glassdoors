@@ -1,5 +1,4 @@
 import React from "react";
-import { Grid, Button } from "@material-ui/core";
 import {
   fetchCompanyPhotos,
   approveAnImage,
@@ -9,7 +8,7 @@ import {
 export default class CompanyPhotos extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { companyPhotos: [] };
+    this.state = {companyPhotos: []};
   }
 
   componentDidMount() {
@@ -19,7 +18,7 @@ export default class CompanyPhotos extends React.Component {
   getUnApprovedCompanyPhotos = async () => {
     try {
       const companyPhotos = await fetchCompanyPhotos('private');
-      this.setState({ companyPhotos });
+      this.setState({companyPhotos});
     } catch (error) {
       console.log(error);
     }
@@ -46,57 +45,37 @@ export default class CompanyPhotos extends React.Component {
   render() {
     const companyPhotos = this.state.companyPhotos;
 
-    if(companyPhotos.length === 0 ) {
-      return <h5>No pending photos for you to approve at this point of time</h5>;
+    if (companyPhotos.length === 0) {
+      return <h6>No pending photos for you to approve at this point of time</h6>;
     }
     return (
-      <div>
-        <span>You have {companyPhotos.length} photos to approve</span>
-        {companyPhotos.map((company) => {
-          return (
-            <Grid
-              container
-              style={{
-                backgroundColor: "#fff",
-                margin: "20px",
-                border: "1px solid black",
-                padding: "10px",
-              }}
-            >
-              <Grid item xs={8}>
-                Company Name - {company.company.name}
-              </Grid>
-              <Grid item xs={4}>
-                Uploaded By - {company.employee.email}
-              </Grid>
-              <div className="d-flex">
-                {company.photos.map((p) => {
-                  return (
-                    <div key={p} className="imageTile mr-3">
-                      <img src={fileUrl(p)} alt="" />
-                    </div>
-                  );
-                })}
-              </div>
-              <div style={{ width: "100%" }}>
-                <div style={{ float: "right" }}>
-                  <Button
-                    variant="contained"
-                    onClick={() => this.approve(company._id)}
-                  >
-                    Approve
-                  </Button>
-                  <Button
-                    variant="contained"
-                    onClick={() => this.reject(company._id)}
-                  >
-                    Reject
-                  </Button>
+      <div className="row">
+        <div className="col-6">
+          <div>You have {companyPhotos.length} photos to approve</div>
+          {companyPhotos.map((company) => {
+            return <div className="card mt-3">
+              <div className="card-body">
+                <div className="d-flex">
+                  {company.photos.map((p) => {
+                    return (
+                      <div key={p} className="imageTile mr-3">
+                        <img src={fileUrl(p)} alt=""/>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="inputLabel">Company name</div>
+                <div>{company.company.name}</div>
+                <div className="inputLabel">Uploaded by</div>
+                <div>{company.employee.name} ({company.employee.email})</div>
+                <div className="mt-3 d-flex justify-content-between">
+                  <button className="btn-danger" onClick={() => this.reject(company._id)}>Reject</button>
+                  <button className="btn-primary" onClick={() => this.approve(company._id)}>Approve</button>
                 </div>
               </div>
-            </Grid>
-          );
-        })}
+            </div>
+          })}
+        </div>
       </div>
     );
   }
