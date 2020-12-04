@@ -1,9 +1,8 @@
 import React from "react";
-import {Grid, Button} from "@material-ui/core";
 import {fetchReviews, approveAReview} from "../../util/fetch/api";
 import Rating from "@material-ui/lab/Rating";
 import Paginate from '../Paginate';
-import { slicePage } from '../../util';
+import {slicePage} from '../../util';
 
 export default class Reviews extends React.Component {
   constructor(props) {
@@ -54,82 +53,44 @@ export default class Reviews extends React.Component {
       return <h6>No pending reviews for you to approve at this point of time</h6>;
     }
     return (
-      <div className = "mt-3">
-      <div>
-        <span>You have {reviews.length} reviews to approve</span>
-        {slicePage(reviews, this.state.currentPage).map((review) => {
-          return (
-            <Grid
-              container
-              style={{
-                backgroundColor: "#fff",
-                margin: "20px",
-                border: "1px solid black",
-                padding: "10px",
-              }}
-            >
-              <Grid item xs={8}>
-                Company Name - {review.company.name}
-              </Grid>
-              <Grid item xs={4}>
-                Reviewed By - {review.employee.email}
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                style={{marginBottom: "20px", marginTop: "20px"}}
-              >
-                Headline - {review.headline}
-              </Grid>
-              <Grid item xs={12} style={{marginBottom: "20px"}}>
-                Description - {review.description}
-              </Grid>
-
-              <Rating
-                name="hover-feedback"
-                value={review.overallRating}
-                precision={0.1}
-                size={"small"}
-                color="red"
-                readOnly
-              />
-
-              {review.pros ? (
-                <Grid
-                  item
-                  xs={12}
-                  style={{marginBottom: "20px", marginTop: "20px"}}
-                >
-                  Pros - {review.pros}
-                </Grid>
-              ) : null}
-              {review.cons ? (
-                <Grid item xs={12} style={{marginBottom: "20px"}}>
-                  Cons - {review.cons}
-                </Grid>
-              ) : null}
-              <div style={{width: "100%"}}>
-                <div style={{float: "right"}}>
-                  <Button variant="contained" onClick={() => this.approve(review._id)}>
-                    Approve
-                  </Button>
-                  <Button variant="contained" onClick={() => this.reject(review._id)}>
-                    Reject
-                  </Button>
+      <div className="row">
+        <div className="col-6">
+          <div>You have {reviews.length} reviews to approve</div>
+          {slicePage(reviews, this.state.currentPage).map((review) => {
+            return <div className="card mt-3" key={review._id}>
+              <div className="card-body">
+                <div className="inputLabel">Headline</div>
+                <div>{review.headline}</div>
+                <div className="inputLabel">Rating</div>
+                <Rating
+                  name="hover-feedback" value={review.overallRating} precision={0.1}
+                  size={"small"} color="red" readOnly/>
+                <div className="inputLabel">Description</div>
+                <div>{review.description}</div>
+                <div className="inputLabel">Pro</div>
+                <div>{review.pro}</div>
+                <div className="inputLabel">Con</div>
+                <div>{review.con}</div>
+                <div className="inputLabel">Company name</div>
+                <div>{review.company.name}</div>
+                <div className="inputLabel">Reviewed by</div>
+                <div>{review.employee.email}</div>
+                <div className="mt-3 d-flex justify-content-between">
+                  <button className="btn-danger" onClick={() => this.reject(review._id)}>Reject</button>
+                  <button className="btn-primary" onClick={() => this.approve(review._id)}>Approve</button>
                 </div>
               </div>
-            </Grid>
-          );
-        })}
+            </div>
+          })}
+          <div className="mt-3">
+            <Paginate
+              numItems={this.state.reviews.length}
+              onPageChange={this.onPageChange}
+              currentPage={this.state.currentPage}
+            />
+          </div>
+        </div>
       </div>
-      <div className="mt-3">
-      <Paginate
-        numItems={this.state.reviews.length}
-        onPageChange={this.onPageChange}
-        currentPage={this.state.currentPage}
-      />
-    </div>
-    </div>
     );
   }
 }
