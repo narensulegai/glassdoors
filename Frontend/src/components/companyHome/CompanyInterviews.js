@@ -190,13 +190,13 @@ const CompanyInterviews = () => {
             </div>
           );
         })}
-      </div>
-      <div className="mt-3">
-        <Paginate
-          numItems={interviewExperiences.length}
-          onPageChange={setCurrentPage}
-          currentPage={currentPage}
+        <div className="mt-3">
+          <Paginate
+            numItems={interviewExperiences.length}
+            onPageChange={setCurrentPage}
+            currentPage={currentPage}
           />
+        </div>
       </div>
     </div>
   );
