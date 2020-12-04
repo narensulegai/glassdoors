@@ -1,5 +1,5 @@
 import React from "react";
-import {Grid, Button, TextareaAutosize} from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import {getCompanyReviews, replyToReview, markFavorite, markFeatured} from "../../util/fetch/api";
 import Rating from "@material-ui/lab/Rating";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -7,7 +7,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import Paginate from '../Paginate';
-import { slicePage } from '../../util';
+import {slicePage} from '../../util';
 
 export default class CompanyReviews extends React.Component {
   constructor(props) {
@@ -68,95 +68,65 @@ export default class CompanyReviews extends React.Component {
     })
   }
 
-
   render() {
     const reviews = this.state.reviews;
     if (reviews.length === 0) {
-      return <h5>No reviews for the company yet</h5>;
+      return <h6>No reviews for your company yet</h6>;
     }
     return (
-      <div className="mt-3">
-        <div>
-          <span>Your company has {reviews.length} review(s)</span>
+      <div className="row">
+        <div className="col-12">
+          <div>Your company has {reviews.length} review(s)</div>
           {slicePage(reviews, this.state.currentPage).map((review) => {
             return (
-              <Grid
-                key={review._id}
-                container
-                style={{
-                  backgroundColor: "#fff",
-                  margin: "20px",
-                  border: "1px solid black",
-                  padding: "10px",
-                }}
-              >
-                <div style={{display: "block", width: "100%"}}>
-                  <Button style={{float: "right", color: "#c41200"}} variant="contained"
-                          onClick={() => this.markFavorite(review._id, !review.favorite)}>
-                    {review.favorite ? <FavoriteIcon/> : <FavoriteBorderIcon/>}
-                  </Button>
-                  <Button style={{float: "right", color: "#ff9529"}} variant="contained"
-                          onClick={() => this.markFeatured(review._id)}>
-                    {review.featured ? <StarIcon/> : <StarBorderIcon/>}
-                  </Button>
-                </div>
-                <Grid item xs={8}>
-                  Reviewed By - {review.employee.email}
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  style={{marginBottom: "20px", marginTop: "20px"}}
-                >
-                  Headline - {review.headline}
-                </Grid>
-                <Grid item xs={12} style={{marginBottom: "20px"}}>
-                  Description - {review.description}
-                </Grid>
-
-                <Rating
-                  name="hover-feedback"
-                  value={review.overallRating}
-                  precision={0.1}
-                  size={"small"}
-                  color="red"
-                  readOnly
-                />
-
-                {review.pros ? (
-                  <Grid
-                    item
-                    xs={12}
-                    style={{marginBottom: "20px", marginTop: "20px"}}
-                  >
-                    Pros - {review.pros}
-                  </Grid>
-                ) : null}
-                {review.cons ? (
-                  <Grid item xs={12} style={{marginBottom: "20px"}}>
-                    Cons - {review.cons}
-                  </Grid>
-                ) : null}
-                <div>
-                  <div className="inputLabel">Reply</div>
+              <div className="card mt-3" key={review._id}>
+                <div className="card-body d-flex justify-content-between">
                   <div>
-                    <TextareaAutosize type="text" placeholder="Add reply"
-                                      defaultValue={review.reply} onChange={this.onInputChange}/>
+                    <div className="inputLabel">Headline</div>
+                    <div>{review.headline}</div>
+                    <div className="inputLabel">Rating</div>
+                    <Rating
+                      name="hover-feedback" value={review.overallRating} precision={0.1}
+                      size={"small"} color="red" readOnly/>
+                    <div className="inputLabel">Description</div>
+                    <div>{review.description}</div>
+                    <div className="inputLabel">Pro</div>
+                    <div>{review.pro}</div>
+                    <div className="inputLabel">Con</div>
+                    <div>{review.con}</div>
+                    <div className="inputLabel">Company name</div>
+                    <div>{review.company.name}</div>
+                    <div className="inputLabel">Reviewed by</div>
+                    <div>{review.employee.email}</div>
+                    <div>
+                      <span className="inputLabel">Leave a reply</span>
+                      <input type="text" defaultValue={review.reply} onChange={this.onInputChange} className="mr-2"/>
+                      <button className="btn-primary" onClick={() => this.reply(review._id)}>Reply</button>
+                    </div>
                   </div>
+
                   <div>
-                    <Button variant="outlined" onClick={() => this.reply(review._id)}>Reply</Button>
+                    <Button onClick={() => this.markFavorite(review._id, !review.favorite)}
+                            title="Mark as favorite review">
+                      {review.favorite ? <FavoriteIcon/> : <FavoriteBorderIcon/>}
+                    </Button>
+
+                    <Button onClick={() => this.markFeatured(review._id)} title="Mark as featured review">
+                      {review.featured ? <StarIcon/> : <StarBorderIcon/>}
+                    </Button>
                   </div>
+
                 </div>
-              </Grid>
+              </div>
             );
-        })}
-        </div>
-        <div className="mt-3">
-        <Paginate
-          numItems={this.state.reviews.length}
-          onPageChange={this.onPageChange}
-          currentPage={this.state.currentPage}
-        />
+          })}
+          <div className="mt-3">
+            <Paginate
+              numItems={this.state.reviews.length}
+              onPageChange={this.onPageChange}
+              currentPage={this.state.currentPage}
+            />
+          </div>
         </div>
       </div>
     );
