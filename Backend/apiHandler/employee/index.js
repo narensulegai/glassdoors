@@ -57,6 +57,15 @@ module.exports = {
 
   getCompany: async (req, res) => {
     const companyId = req.params.id;
+
+    // With  redis
+    const key = `getCompany${companyId}`;
+    const cache = await redisGet(key);
+    if (cache !== null) {
+      res.json(cache);
+      return;
+    }
+
     const company = await Company.findById(companyId)
       .populate('jobPostings')
       .populate('featuredReview');
@@ -75,33 +84,43 @@ module.exports = {
     };
     for (const review in reviews) {
       const currentReview = reviews[review];
-      reviewData.averageRating = (reviewData.averageRating * parseInt(review)
-          + currentReview.overallRating)
+      reviewData.averageRating = (reviewData.averageRating
+        * parseInt(review)
+        + currentReview.overallRating)
         / (parseInt(review) + 1);
 
       if (
         !currentReview.recommendToFriend
         && (!reviewData.negativeReview
-          || (reviewData.negativeReview.helpfulVotes.length
-            <= currentReview.helpfulVotes.length
-            && reviewData.negativeReview.overallRating
-              > currentReview.overallRating))
+        || (reviewData.negativeReview.helpfulVotes.length
+          <= currentReview.helpfulVotes.length
+          && reviewData.negativeReview.overallRating
+          > currentReview.overallRating))
       ) {
         reviewData.negativeReview = currentReview;
       }
       if (
         currentReview.recommendToFriend
         && (!reviewData.positiveReview
-          || (reviewData.positiveReview.helpfulVotes.length
-            <= currentReview.helpfulVotes.length
-            && reviewData.positiveReview.overallRating
-              < currentReview.overallRating))
+        || (reviewData.positiveReview.helpfulVotes.length
+          <= currentReview.helpfulVotes.length
+          && reviewData.positiveReview.overallRating
+          < currentReview.overallRating))
       ) {
         reviewData.positiveReview = currentReview;
       }
     }
     const dataToBeReturned = { ...company.toJSON(), reviewData };
-    sqlModel.CompanyViews.create({ employeeId: req.session.user._id, companyId, companyName: company.name });
+    sqlModel.CompanyViews.create({
+      employeeId: req.session.user._id,
+      companyId,
+      companyName: company.name,
+    });
+    // Without  redis
+    // res.json(dataToBeReturned);
+
+    // With  redis
+    redisSet(key, dataToBeReturned);
     res.json(dataToBeReturned);
   },
   getJob: async (req, res) => {
@@ -240,18 +259,18 @@ module.exports = {
       if (
         !reviews[i].recommendToFriend
         && (!mostNegativeReview
-          || (mostNegativeReview.helpfulVotes.length
-            <= reviews[i].helpfulVotes.length
-            && mostNegativeReview.overallRating > reviews[i].overallRating))
+        || (mostNegativeReview.helpfulVotes.length
+          <= reviews[i].helpfulVotes.length
+          && mostNegativeReview.overallRating > reviews[i].overallRating))
       ) {
         mostNegativeReview = reviews[i];
       }
       if (
         reviews[i].recommendToFriend
         && (!mostPositiveReview
-          || (mostPositiveReview.helpfulVotes.length
-            <= reviews[i].helpfulVotes.length
-            && mostPositiveReview.overallRating < reviews[i].overallRating))
+        || (mostPositiveReview.helpfulVotes.length
+          <= reviews[i].helpfulVotes.length
+          && mostPositiveReview.overallRating < reviews[i].overallRating))
       ) {
         mostPositiveReview = reviews[i];
       }
