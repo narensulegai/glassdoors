@@ -1,16 +1,22 @@
 import React from "react";
 import {fetchReviewsByCompanyIdAndStatus} from "../../util/fetch/api";
 import Rating from "@material-ui/lab/Rating";
+import Paginate from '../Paginate';
+import { slicePage } from '../../util';
 
 export default class RejectedReviews extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {reviews: []};
+    this.state = { reviews: [],currentPage: 0 };
   }
 
   componentDidMount() {
     this.getRejectedReviews();
   }
+
+  onPageChange = (i) => {
+    this.setState({ currentPage: i });
+  };
 
   getRejectedReviews = async () => {
     try {
@@ -30,7 +36,7 @@ export default class RejectedReviews extends React.Component {
       <div className="row">
         <div className="col-12">
           <h6>Rejected Reviews</h6>
-          {reviews.map((review) => {
+          {slicePage(reviews, this.state.currentPage).map((review) => {
             return <div className="card mt-3" key={review._id}>
               <div className="card-body">
                 <div className="inputLabel">Headline</div>
@@ -52,6 +58,11 @@ export default class RejectedReviews extends React.Component {
               </div>
             </div>
           })}
+           <Paginate
+            numItems={reviews.length}
+            onPageChange={this.onPageChange}
+            currentPage={this.state.currentPage}
+          />
         </div>
       </div>
     );

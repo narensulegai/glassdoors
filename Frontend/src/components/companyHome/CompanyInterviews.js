@@ -7,7 +7,8 @@ import {
   getCompanyJobPosting,
   getInterviewExperiences,
 } from '../../util/fetch/api';
-import { formatDate } from '../../util';
+import { formatDate, slicePage } from '../../util';
+import Paginate from '../Paginate';
 
 const CompanyInterviews = () => {
   const { id: companyId } = useParams();
@@ -16,6 +17,7 @@ const CompanyInterviews = () => {
   const [positiveExperiences, setPositiveExperiences] = useState(0);
   const [negativeExperiences, setNegativeExperiences] = useState(0);
   const [neutralExperiences, setNeutralExperiences] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -154,7 +156,7 @@ const CompanyInterviews = () => {
               }}
           />
           )}
-        {interviewExperiences.map((interviewExperience) => {
+        {slicePage(interviewExperiences, currentPage).map((interviewExperience) => {
           return (
             <div key={interviewExperience._id} className="card mt-3">
               <div className="card-body">
@@ -188,6 +190,13 @@ const CompanyInterviews = () => {
             </div>
           );
         })}
+      </div>
+      <div className="mt-3">
+        <Paginate
+          numItems={interviewExperiences.length}
+          onPageChange={setCurrentPage}
+          currentPage={currentPage}
+          />
       </div>
     </div>
   );

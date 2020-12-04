@@ -11,7 +11,7 @@ module.exports = {
     })
       .populate('company', 'name')
       .populate('employee', 'email');
-    res.json(reviews);
+    return res.json(reviews);
   },
   getReviewsByCompanyIdAndStatus: async (req, res) => {
     const reviews = await Review.find({
@@ -20,7 +20,7 @@ module.exports = {
     })
       .populate('company', 'name')
       .populate('employee', 'email');
-    res.json(reviews);
+    return res.json(reviews);
   },
   getPrivatePhotos: async (req, res) => {
     const images = await CompanyPhoto.find({
@@ -28,19 +28,19 @@ module.exports = {
     })
       .populate('company', 'name')
       .populate('employee', 'email');
-    res.json(images);
+    return res.json(images);
   },
   approveReview: async (req, res) => {
     const review = await Review.findById(req.params.id);
     if (req.body.status === 'approved') review.status = 'approved';
     else review.status = 'rejected';
-    res.json(await review.save());
+    return res.json(await review.save());
   },
   approvePhoto: async (req, res) => {
     const photo = await CompanyPhoto.findById(req.params.id);
     if (req.body.status === 'approved') photo.status = 'approved';
     else photo.status = 'rejected';
-    res.json(await photo.save());
+    return res.json(await photo.save());
   },
   getAnalyticsData: async (req, res) => {
     const topFiveCompaniesWithMostreviews = await Review.aggregate([
@@ -160,6 +160,6 @@ module.exports = {
       topTenMostViewedCompanies,
       reviewsPerDayInLastOneWeek,
     };
-    res.json(dataToBeReturned);
+    return res.json(dataToBeReturned);
   },
 };
