@@ -30,8 +30,11 @@ module.exports = {
   addReview: async (newReview) => {
     const review = new Review(newReview);
     const savedReview = await review.save();
-    // eslint-disable-next-line max-len
-    sqlModel.CompanyReviews.create({ reviewId: savedReview._id.toString(), employeeId: savedReview.employee.toString() });
+    sqlModel.CompanyReviews.create({
+      reviewId: savedReview._id.toString(),
+      employeeId: savedReview.employee.toString(),
+    });
+    return savedReview;
   },
   getDummyReviews: async (companyId, limit) =>
     // With redis

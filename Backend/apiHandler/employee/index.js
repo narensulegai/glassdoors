@@ -179,8 +179,9 @@ module.exports = {
     const { id: companyId } = req.params;
     const employeeId = req.session.user._id;
     const newReview = { ...req.body, company: companyId, employee: employeeId };
-    await kModules.addReview(newReview);
-    res.json(newReview);
+    // await kModules.addReview(newReview);
+    // res.json(newReview);
+    res.json(await req.requestKafka('addReview', newReview));
   },
   seedDummyReviews: async (req, res) => {
     const genReview = () => {

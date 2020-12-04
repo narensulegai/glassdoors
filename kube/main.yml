@@ -75,6 +75,8 @@ spec:
             requests:
               cpu: 200m
           env:
+            - name: MYSQL_CONNECTION
+              value: mysql://root:test@mysql-service:3306/test
             - name: KAFKA_BROKERS
               value: kafka-cluster:9092
             - name: REDIS_HOST

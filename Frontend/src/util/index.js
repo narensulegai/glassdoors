@@ -24,7 +24,7 @@ export const formatTime = (timestamp) => {
   return `${hours}:${minutes} ${ampm}`;
 };
 
-export const PAGE_SIZE = 2;
+export const PAGE_SIZE = 5;
 export const slicePage = (arr, currentPage) => {
   const offset = currentPage * PAGE_SIZE;
   return arr.slice(offset, offset + PAGE_SIZE);
