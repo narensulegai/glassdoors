@@ -2,11 +2,13 @@ import React from "react";
 import {Grid, Button} from "@material-ui/core";
 import {fetchReviews, approveAReview} from "../../util/fetch/api";
 import Rating from "@material-ui/lab/Rating";
+import Paginate from '../Paginate';
+import { slicePage } from '../../util';
 
 export default class Reviews extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {reviews: []};
+    this.state = {reviews: [], currentPage: 0};
   }
 
   componentDidMount() {
@@ -40,15 +42,22 @@ export default class Reviews extends React.Component {
     }
   }
 
+  onPageChange = async (i) => {
+    this.setState({
+      currentPage: i
+    })
+  }
+
   render() {
     const reviews = this.state.reviews;
     if (reviews.length === 0) {
       return <h6>No pending reviews for you to approve at this point of time</h6>;
     }
     return (
+      <div className = "mt-3">
       <div>
         <span>You have {reviews.length} reviews to approve</span>
-        {reviews.map((review) => {
+        {slicePage(reviews, this.state.currentPage).map((review) => {
           return (
             <Grid
               container
@@ -113,6 +122,14 @@ export default class Reviews extends React.Component {
           );
         })}
       </div>
+      <div className="mt-3">
+      <Paginate
+        numItems={this.state.reviews.length}
+        onPageChange={this.onPageChange}
+        currentPage={this.state.currentPage}
+      />
+    </div>
+    </div>
     );
   }
 }

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCompany } from '../../util/fetch/api';
+import Paginate from '../Paginate';
+import { slicePage } from '../../util';
 
 const CompanyJobs = () => {
   const { id: companyId } = useParams();
+  const [currentPage, setCurrentPage] = useState(0);
   const [jobPostings, setJobPostings] = useState([]);
 
   useEffect(() => {
@@ -17,7 +20,8 @@ const CompanyJobs = () => {
     <div className="row">
       <div className="col-6">
         {jobPostings.length === 0 && <div>No jobs posted for this company.</div>}
-        {jobPostings.map((job) => {
+       
+          {slicePage(jobPostings, currentPage).map((job) => {
           return (
             <div key={job._id} className="card mb-3">
               <div className="card-body">
@@ -29,7 +33,15 @@ const CompanyJobs = () => {
             </div>
           );
         })}
-      </div>
+      
+      <div className="mt-3">
+          <Paginate
+            numItems={jobPostings.length}
+            onPageChange={setCurrentPage}
+            currentPage={currentPage}
+          />
+        </div>
+        </div>
     </div>
   );
 };

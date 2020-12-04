@@ -26,17 +26,48 @@ const schema = {
   signupEmployee: Joi.object({
     name: reqStr('Name'),
     email: Joi.string().email().required().label('Email'),
-    password: reqStr('Password'),
+    password: Joi.string().min(3).required(),
   }),
   updateCompany: Joi.object({
     website: Joi.string().domain().label('Website'),
   }),
   addJobPosting: Joi.object({
     title: reqStr('Job title'),
+    industry:optStr('industry'),
+    country:optStr('country'),
+    streetAddress:optStr('streetAddress'),
+    city:optStr('city'),
+    state:optStr('state'),
+    zip:optNum('Zip')
   }),
   applyJob: Joi.object({
     coverLetter: reqStr('Cover letter'),
     resume: reqStr('Resume'),
+  }),
+  loginEmployee: Joi.object({
+    email:Joi.string().email().required().label('Email'),
+    password: Joi.string().required()
+  }),
+  loginCompany: Joi.object({
+    email:Joi.string().email().required().label('Email'),
+    password: Joi.string().required()
+  }),
+  loginAdmin: Joi.object({
+    email:Joi.string().email().required(),
+    password: Joi.string().required()
+  }),
+
+  update: Joi.object({
+    name:Joi.string().allow('').optional(),
+    race:optStr('race'),
+    disability:optStr('disability'),
+    veteranStatus:optStr('veteranStatus'),
+    jobTitleLookingFor:optStr('jobTitleLookingFor'),
+    typeOfIndustry:optStr('typeOfIndustry'),
+    targetSalary:optNum('Salary'),
+   
+
+   
   }),
 };
 
