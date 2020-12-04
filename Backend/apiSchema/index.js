@@ -29,8 +29,6 @@ const schema = {
     password: Joi.string().min(3).required(),
   }),
   updateCompany: Joi.object({
-    description: reqStr('Description'),
-    type: reqStr('Company type'),
     website: Joi.string().domain().label('Website'),
   }),
   addJobPosting: Joi.object({
