@@ -3,14 +3,23 @@ import { useParams } from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating';
 import Button from '@material-ui/core/Button';
 import { addReview, getReviews, addHelpfulVotes } from '../../util/fetch/api';
-import { formatDate } from '../../util';
+import { formatDate, slicePage } from '../../util';
+import Paginate from '../Paginate';
 
 const CompanyReviews = () => {
   const [reviews, setReviews] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
   const [employeeId, setEmployeeId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const [mostPositiveReview, setMostPositiveReview] = useState(null);
+  const [mostPositiveReviewViewable, setMostPositiveReviewViewable] = useState(
+    true,
+  );
+  const [mostNegativeReviewViewable, setMostNegativeReviewViewable] = useState(
+    true,
+  );
+
   const [mostNegativeReview, setMostNegativeReview] = useState(null);
 
   const { id: companyId } = useParams();
@@ -110,7 +119,10 @@ const CompanyReviews = () => {
 
         {mostPositiveReview && (
           <div className="card mb-3">
-            <div className="card-header">
+            <div
+              className="card-header"
+              onClick={() => setMostPositiveReviewViewable(!mostPositiveReviewViewable)}
+            >
               <h3>Most Positive Review</h3>
 
               <div>{mostPositiveReview.headline}</div>
@@ -118,51 +130,56 @@ const CompanyReviews = () => {
                 by {mostPositiveReview.employee.name}
               </div>
             </div>
-            <div className="card-body">
-              <div>{mostPositiveReview.description}</div>
-              <div className="inputLabel">
-                Average Rating(Based on Overall Rating & CEO Rating)
-              </div>
-              <div>
-                {(mostPositiveReview.overallRating
-                  + mostPositiveReview.ceoApprovalRating)
-                / 2}
-              </div>
-              <div className="inputLabel">Pros</div>
-              <div>{mostPositiveReview.pros}</div>
-              <div className="inputLabel">Cons</div>
-              <div>{mostPositiveReview.cons}</div>
-              <div className="small inputLabel">
-                {mostPositiveReview.helpfulVotes.length} people found this
-                helpful
-              </div>
-              {mostPositiveReview.helpfulVotes.filter(
-                (voterId) => voterId === employeeId,
-              ).length === 0 ? (
-                <div>
-                  <div className="inputLabel">Did you find this helpful</div>
-                  <Button
-                    variant="contained"
-                    onClick={() => setReviewAsHelpful(mostPositiveReview._id)}
-                  >
-                    Yes
-                  </Button>{' '}
+            {mostPositiveReviewViewable ? (
+              <div className="card-body">
+                <div>{mostPositiveReview.description}</div>
+                <div className="inputLabel">
+                  Average Rating(Based on Overall Rating & CEO Rating)
                 </div>
-                ) : null}
-              <div className="small inputLabel">
-                {mostPositiveReview.recommendToFriend
-                  ? 'Will recommend to friend'
-                  : 'Will not recommend to friend'}
+                <div>
+                  {(mostPositiveReview.overallRating
+                    + mostPositiveReview.ceoApprovalRating)
+                    / 2}
+                </div>
+                <div className="inputLabel">Pros</div>
+                <div>{mostPositiveReview.pros}</div>
+                <div className="inputLabel">Cons</div>
+                <div>{mostPositiveReview.cons}</div>
+                <div className="small inputLabel">
+                  {mostPositiveReview.helpfulVotes.length} people found this
+                  helpful
+                </div>
+                {mostPositiveReview.helpfulVotes.filter(
+                  (voterId) => voterId === employeeId,
+                ).length === 0 ? (
+                  <div>
+                    <div className="inputLabel">Did you find this helpful</div>
+                    <Button
+                      variant="contained"
+                      onClick={() => setReviewAsHelpful(mostPositiveReview._id)}
+                    >
+                      Yes
+                    </Button>{' '}
+                  </div>
+                  ) : null}
+                <div className="small inputLabel">
+                  {mostPositiveReview.recommendToFriend
+                    ? 'Will recommend to friend'
+                    : 'Will not recommend to friend'}
+                </div>
+                <div className="small inputLabel">
+                  {formatDate(mostPositiveReview.createdAt)}
+                </div>
               </div>
-              <div className="small inputLabel">
-                {formatDate(mostPositiveReview.createdAt)}
-              </div>
-            </div>
+            ) : null}
           </div>
         )}
         {mostNegativeReview && (
           <div className="card mb-3">
-            <div className="card-header">
+            <div
+              className="card-header"
+              onClick={() => setMostNegativeReviewViewable(!mostNegativeReviewViewable)}
+            >
               <h4>Most Negative Review</h4>
 
               <div>{mostNegativeReview.headline}</div>
@@ -170,46 +187,48 @@ const CompanyReviews = () => {
                 by {mostNegativeReview.employee.name}
               </div>
             </div>
-            <div className="card-body">
-              <div>{mostNegativeReview.description}</div>
-              <div className="inputLabel">
-                Average Rating(Based on Overall Rating & CEO Rating)
-              </div>
-              <div>
-                {(mostNegativeReview.overallRating
-                  + mostNegativeReview.ceoApprovalRating)
-                / 2}
-              </div>
-              <div className="inputLabel">Pros</div>
-              <div>{mostNegativeReview.pros}</div>
-              <div className="inputLabel">Cons</div>
-              <div>{mostNegativeReview.cons}</div>
-              <div className="small inputLabel">
-                {mostNegativeReview.helpfulVotes.length} people found this
-                helpful
-              </div>
-              {mostNegativeReview.helpfulVotes.filter(
-                (voterId) => voterId === employeeId,
-              ).length === 0 ? (
-                <div>
-                  <div className="inputLabel">Did you find this helpful</div>
-                  <Button
-                    variant="contained"
-                    onClick={() => setReviewAsHelpful(mostNegativeReview._id)}
-                  >
-                    Yes
-                  </Button>{' '}
+            {mostNegativeReviewViewable ? (
+              <div className="card-body">
+                <div>{mostNegativeReview.description}</div>
+                <div className="inputLabel">
+                  Average Rating(Based on Overall Rating & CEO Rating)
                 </div>
-                ) : null}
-              <div className="small inputLabel">
-                {mostNegativeReview.recommendToFriend
-                  ? 'Will recommend to friend'
-                  : 'Will not recommend to friend'}
+                <div>
+                  {(mostNegativeReview.overallRating
+                    + mostNegativeReview.ceoApprovalRating)
+                    / 2}
+                </div>
+                <div className="inputLabel">Pros</div>
+                <div>{mostNegativeReview.pros}</div>
+                <div className="inputLabel">Cons</div>
+                <div>{mostNegativeReview.cons}</div>
+                <div className="small inputLabel">
+                  {mostNegativeReview.helpfulVotes.length} people found this
+                  helpful
+                </div>
+                {mostNegativeReview.helpfulVotes.filter(
+                  (voterId) => voterId === employeeId,
+                ).length === 0 ? (
+                  <div>
+                    <div className="inputLabel">Did you find this helpful</div>
+                    <Button
+                      variant="contained"
+                      onClick={() => setReviewAsHelpful(mostNegativeReview._id)}
+                    >
+                      Yes
+                    </Button>{' '}
+                  </div>
+                  ) : null}
+                <div className="small inputLabel">
+                  {mostNegativeReview.recommendToFriend
+                    ? 'Will recommend to friend'
+                    : 'Will not recommend to friend'}
+                </div>
+                <div className="small inputLabel">
+                  {formatDate(mostNegativeReview.createdAt)}
+                </div>
               </div>
-              <div className="small inputLabel">
-                {formatDate(mostNegativeReview.createdAt)}
-              </div>
-            </div>
+            ) : null}
           </div>
         )}
 
@@ -217,7 +236,7 @@ const CompanyReviews = () => {
           <h4>Other Reviews</h4>
         </div>
 
-        {reviews.map((review) => {
+        {slicePage(reviews, currentPage).map((review) => {
           if (
             (mostPositiveReview && mostPositiveReview._id === review._id)
             || (mostNegativeReview && mostNegativeReview._id === review._id)
@@ -271,6 +290,14 @@ const CompanyReviews = () => {
             </div>
           );
         })}
+
+        <div className="mt-3">
+          <Paginate
+            numItems={reviews.length}
+            onPageChange={setCurrentPage}
+            currentPage={currentPage}
+          />
+        </div>
       </div>
     </div>
   );

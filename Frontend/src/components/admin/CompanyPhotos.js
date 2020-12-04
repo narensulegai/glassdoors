@@ -4,21 +4,27 @@ import {
   approveAnImage,
   fileUrl,
 } from "../../util/fetch/api";
+import Paginate from '../Paginate';
+import { slicePage } from '../../util';
 
 export default class CompanyPhotos extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {companyPhotos: []};
+    this.state = { companyPhotos: [], currentPage: 0 };
   }
 
   componentDidMount() {
     this.getUnApprovedCompanyPhotos();
   }
 
+  onPageChange = (i) => {
+    this.setState({ currentPage: i });
+  };
+
   getUnApprovedCompanyPhotos = async () => {
     try {
-      const companyPhotos = await fetchCompanyPhotos('private');
-      this.setState({companyPhotos});
+      const companyPhotos = await fetchCompanyPhotos("private");
+      this.setState({ companyPhotos });
     } catch (error) {
       console.log(error);
     }
@@ -26,7 +32,7 @@ export default class CompanyPhotos extends React.Component {
 
   approve = async (companyPhotosId) => {
     try {
-      await approveAnImage(companyPhotosId, 'approved');
+      await approveAnImage(companyPhotosId, "approved");
       this.getUnApprovedCompanyPhotos();
     } catch (error) {
       console.log(error);
@@ -35,7 +41,7 @@ export default class CompanyPhotos extends React.Component {
 
   reject = async (companyPhotosId) => {
     try {
-      await approveAnImage(companyPhotosId, 'rejected');
+      await approveAnImage(companyPhotosId, "rejected");
       this.getUnApprovedCompanyPhotos();
     } catch (error) {
       console.log(error);
@@ -52,7 +58,7 @@ export default class CompanyPhotos extends React.Component {
       <div className="row">
         <div className="col-6">
           <div>You have {companyPhotos.length} photos to approve</div>
-          {companyPhotos.map((company) => {
+          {slicePage(companyPhotos, this.state.currentPage).map((company) => {
             return <div className="card mt-3">
               <div className="card-body">
                 <div className="d-flex">
@@ -75,6 +81,11 @@ export default class CompanyPhotos extends React.Component {
               </div>
             </div>
           })}
+           <Paginate
+            numItems={this.state.companyPhotos.length}
+            onPageChange={this.onPageChange}
+            currentPage={this.state.currentPage}
+          />
         </div>
       </div>
     );
