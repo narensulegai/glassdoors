@@ -29,45 +29,43 @@ const schema = {
     password: Joi.string().min(3).required(),
   }),
   updateCompany: Joi.object({
+    description: reqStr('Description'),
+    type: reqStr('Company type'),
     website: Joi.string().domain().label('Website'),
   }),
   addJobPosting: Joi.object({
     title: reqStr('Job title'),
-    industry:optStr('industry'),
-    country:optStr('country'),
-    streetAddress:optStr('streetAddress'),
-    city:optStr('city'),
-    state:optStr('state'),
-    zip:optNum('Zip')
+    industry: reqStr('Industry'),
+    country: reqStr('Country'),
+    streetAddress: reqStr('Street address'),
+    city: reqStr('City'),
+    state: reqStr('State'),
+    zip: reqStr('Zip'),
   }),
   applyJob: Joi.object({
     coverLetter: reqStr('Cover letter'),
     resume: reqStr('Resume'),
   }),
   loginEmployee: Joi.object({
-    email:Joi.string().email().required().label('Email'),
-    password: Joi.string().required()
+    email: Joi.string().email().required().label('Email'),
+    password: Joi.string().required(),
   }),
   loginCompany: Joi.object({
-    email:Joi.string().email().required().label('Email'),
-    password: Joi.string().required()
+    email: Joi.string().email().required().label('Email'),
+    password: Joi.string().required(),
   }),
   loginAdmin: Joi.object({
-    email:Joi.string().email().required(),
-    password: Joi.string().required()
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
   }),
-
   update: Joi.object({
-    name:Joi.string().allow('').optional(),
-    race:optStr('race'),
-    disability:optStr('disability'),
-    veteranStatus:optStr('veteranStatus'),
-    jobTitleLookingFor:optStr('jobTitleLookingFor'),
-    typeOfIndustry:optStr('typeOfIndustry'),
-    targetSalary:optNum('Salary'),
-   
-
-   
+    name: Joi.string().allow('').optional(),
+    race: optStr('Race'),
+    disability: optStr('Disability'),
+    veteranStatus: optStr('Veteran status'),
+    jobTitleLookingFor: optStr('Job title looking for'),
+    typeOfIndustry: optStr('Type of industry'),
+    targetSalary: optNum('Salary'),
   }),
 };
 
