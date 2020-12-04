@@ -61,9 +61,9 @@ const CompanyOverview = () => {
 
   return (
     <div className="row">
-      <div className="col-12">
-        {company && (
-          <>
+      {company && (
+        <>
+          <div className="col-6">
             <div className="imageTile mr-3">
               <img src={fileUrl(company.profilePic)} alt="" />
             </div>
@@ -110,20 +110,21 @@ const CompanyOverview = () => {
                 />
               </span>
             </div>
+          </div>
 
+          <div className="col-6">
+            {company.featuredReview
+              ? <Review title="Featured review" review={company.featuredReview} />
+              : <div>No featured reviews yet</div>}
             {company.reviewData.positiveReview
               ? <Review title="Positive review" review={company.reviewData.positiveReview} />
               : <div>No positive reviews yet</div>}
             {company.reviewData.negativeReview
               ? <Review title="Negative review" review={company.reviewData.negativeReview} />
               : <div>No negative reviews yet</div>}
-
-            {company.featuredReview
-              ? <Review title="Featured review" review={company.featuredReview} />
-              : <div>No featured reviews yet</div>}
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
