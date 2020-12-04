@@ -4,10 +4,13 @@ import Modal from 'react-bootstrap/Modal';
 import { addCompanyPhotos, fileUrl, getCompanyPhotos } from '../../util/fetch/api';
 import FileUpload from '../common/FileUpload';
 import { formatDate } from '../../util';
+import Paginate from '../Paginate';
+import { slicePage } from '../../util';
 
 const CompanyPhotos = () => {
   const { id: companyId } = useParams();
   const [companyPhotos, setCompanyPhotos] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -45,12 +48,14 @@ const CompanyPhotos = () => {
       <div className="col-6">
         {companyPhotos.length === 0
           ? <div className="mt-3 mb-3">There are no photos for this company</div>
-          : companyPhotos.map((photo) => {
+      
+           : slicePage(companyPhotos, currentPage).map((photo) => {
             return (
               <div key={photo._id} className="card mt-3">
                 <div className="card-body">
                   <div className="d-flex">
                     {photo.photos.map((p) => {
+                    
                       return (
                         <div key={p} className="imageTile mr-3">
                           <img src={fileUrl(p)} alt="" />
@@ -64,6 +69,14 @@ const CompanyPhotos = () => {
               </div>
             );
           })}
+
+          <div className="mt-3">
+          <Paginate
+            numItems={companyPhotos.length}
+            onPageChange={setCurrentPage}
+            currentPage={currentPage}
+          />
+        </div>
       </div>
 
     </div>
