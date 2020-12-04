@@ -69,7 +69,6 @@ module.exports = {
     res.json(await JobApplication.find({ job: jobIds })
       .populate('employee')
       .populate('job'));
-
   },
   getCompanyReviews: async (req, res) => {
     const companyId = req.session.user._id;
