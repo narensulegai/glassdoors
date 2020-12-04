@@ -9,6 +9,7 @@ export const signupEmployee = (d) => post('signup/employee', d);
 export const updateCompany = (d) => put('company', d);
 export const addJobPosting = (d) => post('jobPosting', d);
 export const getJobPosting = () => get('jobPosting');
+export const getJobPostingByCompanyId = (companyId) => get(`company/${companyId}/jobPosting`);
 export const updateEmployee = (d) => put('employee', d);
 export const searchCompany = (text) => get(`search/company?text=${text}`);
 export const searchJobPosting = (text) => get(`search/jobPosting?text=${text}`);
@@ -31,6 +32,8 @@ export const getCompanyJobPosting = (id) => get(`jobPosting/company/${id}`);
 export const addCompanyPhotos = (id, d) => post(`companyPhoto/${id}`, d);
 export const getCompanyPhotos = (id) => get(`companyPhoto/${id}`);
 export const getCompanyReport = () => get('company/report');
+export const getCompanyReportByCompanyId = (companyId) => get(`company/${companyId}/report`);
+
 export const logout = () => put('logout');
 export const fetchReviews = (unApproved) => get(`admin/reviews/${unApproved}`);
 export const fetchReviewsByCompanyIdAndStatus = (unApproved, companyId) => get(`admin/reviews/${companyId}/${unApproved}`);
